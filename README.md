@@ -1,3 +1,3 @@
 # benson-notebook
 
-this is my git pages
+This is my git pages which is a simple studying note-book.
