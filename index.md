@@ -4,13 +4,18 @@
 ### Data structure and Algorithm
 
 [Leetcode account](https://leetcode-cn.com/u/peng-194/)
+#### 二叉树
+##### 二叉树的遍历：
 
+- 前序遍历：先访问根节点，再前序遍历左子树，再前序遍历右子树 
+- 中序遍历：先中序遍历左子树，再访问根节点，再中序遍历右子树 
+- 后序遍历：先后序遍历左子树，再后序遍历右子树，再访问根节点
 
 ----------
 
 
 ### Go programing language
-###### 变量声明：
+##### 变量声明：
 
 ``` golang
 s := ""
@@ -23,7 +28,7 @@ var s string = ""
 第二种形式依赖于字符串的默认初始化零值机制，被初始化为""。
 第三种形式用得很少，除非同时声明多个变量。
 第四种形式显式地标明变量的类型，当变量类型与初值类型相同时，类型冗余，但如果两者类型不同，变量类型就必须了。实践中一般使用前两种形式中的某个，初始值重要的话就显式地指定变量的类型，否则使用隐式初始化。
-###### Pointer
+##### Pointer
 ```golang
 x := 1 
 p := &x // p, of type *int, points to x (指针)
@@ -31,7 +36,7 @@ fmt.Println(*p) // "1"
 *p = 2 // equivalent to x = 2 (指向变量内存地址的值)
 fmt.Println(x) // "2"
 ```
-###### 二元运算符
+##### 二元运算符
 Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，它们按照先级递减的顺序的排列：
 ```
 * / % << >> & &^
@@ -41,7 +46,7 @@ Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，
 ||
 ```
 
-###### Slice
+##### Slice
 appendInt 函数
 ``` golang
 func appendInt(x []int, y int) []int {
@@ -71,13 +76,13 @@ func appendInt(x []int, y int) []int {
 
 - slice可以用来模拟stack
 ```golang
-使用append函数将新的值压入stack：
+//使用append函数将新的值压入stack：
 stack = append(stack, v) // push v
-stack的顶部位置对应slice的最后一个元素：
+//stack的顶部位置对应slice的最后一个元素：
 top := stack[len(stack)-1] // top of stack
-通过收缩stack可以弹出栈顶的元素
+//通过收缩stack可以弹出栈顶的元素
 stack = stack[:len(stack)-1] // pop
-要删除slice中间的某个元素并保存原有的元素顺序，可以通过内置的copy函数将后面的子slice向前依次移动一位完成：
+//要删除slice中间的某个元素并保存原有的元素顺序，可以通过内置的copy函数将后面的子slice向前依次移动一位完成：
 func remove(slice []int, i int) []int {
 	copy(slice[i:], slice[i+1:])
 	return slice[:len(slice)-1]
@@ -86,7 +91,7 @@ func main() {
 	s := []int{5, 6, 7, 8, 9}
 	fmt.Println(remove(s, 2)) // "[5 6 8 9]"
 }
-如果删除元素后不用保持原来顺序的话，我们可以简单的用最后一个元素覆盖被删除的元素：
+//如果删除元素后不用保持原来顺序的话，我们可以简单的用最后一个元素覆盖被删除的元素：
 func remove(slice []int, i int) []int {
 	slice[i] = slice[len(slice)-1]
 	return slice[:len(slice)-1]
@@ -109,7 +114,7 @@ queue=queue[1:]
 len(queue)==0
 ```
 
-###### Map, Dictionary, Hashmap 
+##### Map, Dictionary, Hashmap 
 ``` golang
 // 创建
 m:=make(map[string]int)
@@ -127,7 +132,7 @@ for k,v:=range m{
 - map 值都有默认值，可以直接操作默认值，如：m[age]++ 值由 0 变为 1
 - 比较两个 map 需要遍历，其中的 kv 是否相同，因为有默认值关系，所以需要检查 val 和 ok 两个值
 
-###### Marshaling
+##### Marshaling
 ```
 data, err := json.Marshal(movies)
 data, err := json.MarshalIndent(movies, "", " ") //带缩进
@@ -137,7 +142,7 @@ if err != nil {
 fmt.Printf("%s\n", data)
 ```
   
-###### 垃圾回收
+##### 垃圾回收
 Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -> 回收
 
 注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。
@@ -152,8 +157,11 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 ----------
 ### Reading List
-[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度 126/374
-
+- [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度: 126/374
+- 超大流量分布式系统架构解决方案（人人都是架构师2）进度: 20/220 
+- Kubernetes 即学即用 进度: 0/201
+- 机器学习应用系统设计进度: 0/241
+- Linux/UNIX 编程手册 进度: 120/1176
 
 ----------
 
