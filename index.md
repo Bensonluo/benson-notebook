@@ -1,23 +1,5 @@
 ## Benson's Personal Pages
 
-	1. [Benson's Personal Pages](#bensons-personal-pages)
-		1. [Data structure and Algorithm](#data-structure-and-algorithm)
-			1. [二叉树](#二叉树)
-				1. [二叉树的遍历：](#二叉树的遍历)
-		2. [Go programing language](#go-programing-language)
-				1. [变量声明：](#变量声明)
-				2. [Pointer](#pointer)
-				3. [二元运算符](#二元运算符)
-				4. [Slice](#slice)
-				5. [Map, Dictionary, Hashmap](#map-dictionary-hashmap)
-				6. [Struct](#struct)
-				7. [Marshaling](#marshaling)
-				8. [垃圾回收](#垃圾回收)
-				9. [异常处理](#异常处理)
-		3. [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
-		4. [Interview Questions](#interview-questions)
-		5. [Reading List](#reading-list)
-		6. [Support or Contact](#support-or-contact)
 
 ### Data structure and Algorithm
 
@@ -194,13 +176,19 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 ----------
 ### Interview Questions
 
+ 1. mysql索引为什么要用B+树？
+- 高度矮, 磁盘IO相对少
+- 非叶子节点只保存索引，不保存实际的数据，数据都保存在叶子节点中
+- 内部节点更小，一次IO可查更多关键词
+- B+树只需要去遍历叶子节点就可以实现整棵树的遍历， 提升范围查找效率
+- 每次查找都从根部到叶子，性能稳定
 
 ----------
 ### Reading List
-- [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度: 126/374
+- [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度: 156/374
 - 超大流量分布式系统架构解决方案 进度: 20/220 
-- Kubernetes 即学即用 进度: 0/201
-- 机器学习应用系统设计进度: 0/241
+- Kubernetes 即学即用 进度: 50/201
+- 机器学习应用系统设计进度: 40/241
 - Linux/UNIX 编程手册 进度: 120/1176
 
 ----------
