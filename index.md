@@ -1,5 +1,23 @@
 ## Benson's Personal Pages
 
+	1. [Benson's Personal Pages](#bensons-personal-pages)
+		1. [Data structure and Algorithm](#data-structure-and-algorithm)
+			1. [二叉树](#二叉树)
+				1. [二叉树的遍历：](#二叉树的遍历)
+		2. [Go programing language](#go-programing-language)
+				1. [变量声明：](#变量声明)
+				2. [Pointer](#pointer)
+				3. [二元运算符](#二元运算符)
+				4. [Slice](#slice)
+				5. [Map, Dictionary, Hashmap](#map-dictionary-hashmap)
+				6. [Struct](#struct)
+				7. [Marshaling](#marshaling)
+				8. [垃圾回收](#垃圾回收)
+				9. [异常处理](#异常处理)
+		3. [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
+		4. [Interview Questions](#interview-questions)
+		5. [Reading List](#reading-list)
+		6. [Support or Contact](#support-or-contact)
 
 ### Data structure and Algorithm
 
@@ -47,7 +65,10 @@ Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，
 ```
 
 ##### Slice
-appendInt 函数
+
+- slice 不可比较
+
+- appendInt 函数
 ``` golang
 func appendInt(x []int, y int) []int {
 	var z []int
@@ -69,7 +90,7 @@ func appendInt(x []int, y int) []int {
 	return z
 }
 ```
-内置的append函数可能使用比appendInt更复杂的内存扩展策略。因此，通常我们并不知道append调用是否导致了内存的重新分配，因此我们也不能确认新的slice和原始的slice是否引用的是相同的底层数组空间。同样，我们不能确认在原先的slice上的操作是否会影响到新的slice。因此，通常是将append返回的结果直接赋值给输入的slice变量：runes = append(runes, r)
+通常我们并不知道append调用是否导致了内存的重新分配，因此，通常是将append返回的结果直接赋值给输入的slice变量：runes = append(runes, r)
 
 更新slice变量不仅对调用append函数是必要的，实际上对应任何可能导致长度、容量或底层数组变化的操作都是必要的。要正确地使用slice，需要记住尽管底层数组的元素是间接访问的，但是slice对应结构体本身的指针、长度和容量部分是直接访问的。要更新这些信息需要像上面例子那样一个显式的赋值
 操作。从这个角度看，slice并不是一个纯粹的引用类型，它实际上是一个聚合类型。
@@ -132,6 +153,14 @@ for k,v:=range m{
 - map 值都有默认值，可以直接操作默认值，如：m[age]++ 值由 0 变为 1
 - 比较两个 map 需要遍历，其中的 kv 是否相同，因为有默认值关系，所以需要检查 val 和 ok 两个值
 
+##### Struct
+- 通过点操作符访问, 或者是对成员取地址，然后通过指针访问
+- 结构体成员的输入顺序也有重要的意义
+- 大写字母开头的，那么该成员就是导出
+- 一个命名为S的结构体类型将不能再包含S类型的成员（该限制同样适应于数组。）但是S类型的结构体可以包含*S指针类型的成员
+- 创建并初始化一个结构体变量，并返回结构体的地址：```pp := &Point{1, 2}```
+- 结构体的全部成员都是可以比较的，那么结构体也是可以比较的，== 会比较结构体的每一个成员
+  
 ##### Marshaling
 ```
 data, err := json.Marshal(movies)
@@ -147,6 +176,12 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
 
 注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。
 
+##### 异常处理
+ - Go使用控制流机制（如if和return）处理异常
+ - 错误处理策略: 向上传播/重试/输出并结束/输出不中断/忽略
+
+
+  
 
 
 ----------
@@ -155,10 +190,15 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
 link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=15797605702990137477)
 
 
+
+----------
+### Interview Questions
+
+
 ----------
 ### Reading List
 - [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度: 126/374
-- 超大流量分布式系统架构解决方案（人人都是架构师2）进度: 20/220 
+- 超大流量分布式系统架构解决方案 进度: 20/220 
 - Kubernetes 即学即用 进度: 0/201
 - 机器学习应用系统设计进度: 0/241
 - Linux/UNIX 编程手册 进度: 120/1176
