@@ -1,9 +1,3 @@
-## Benson's Personal Pages
-
-[toc]
-
-----------
-
 ### Data structure and Algorithm
 
 [Leetcode account](https://leetcode-cn.com/u/peng-194/)
@@ -54,6 +48,7 @@ Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，
 - slice 不可比较
 
 - appendInt 函数
+ 
 ``` golang
 func appendInt(x []int, y int) []int {
 	var z []int
@@ -62,14 +57,15 @@ func appendInt(x []int, y int) []int {
 		// There is room to grow. Extend the slice.
 		z = x[:zlen]
 	} else {
-		// There is insufficient space. Allocate a new array.
-		// Grow by doubling, for amortized linear complexity.
+		// There is insufficient space. 
+		// Allocate a new array.
+		// Grow by doubling.
 		zcap := zlen
 		if zcap < 2*len(x) {
 			zcap = 2 * len(x)
 	}
 	z = make([]int, zlen, zcap)
-	copy(z, x) // a built-in function; see text
+	copy(z, x) // a built-in function;
 	}
 	z[len(x)] = y
 	return z
@@ -81,6 +77,7 @@ func appendInt(x []int, y int) []int {
 操作。从这个角度看，slice并不是一个纯粹的引用类型，它实际上是一个聚合类型。
 
 - slice可以用来模拟stack
+  
 ```golang
 //使用append函数将新的值压入stack：
 stack = append(stack, v) // push v
@@ -88,7 +85,8 @@ stack = append(stack, v) // push v
 top := stack[len(stack)-1] // top of stack
 //通过收缩stack可以弹出栈顶的元素
 stack = stack[:len(stack)-1] // pop
-//要删除slice中间的某个元素并保存原有的元素顺序，可以通过内置的copy函数将后面的子slice向前依次移动一位完成：
+//要删除slice中间的某个元素并保存原有的元素顺序
+//通过内置的copy函数将后面的子slice向前依次移动一位完成：
 func remove(slice []int, i int) []int {
 	copy(slice[i:], slice[i+1:])
 	return slice[:len(slice)-1]
@@ -97,7 +95,7 @@ func main() {
 	s := []int{5, 6, 7, 8, 9}
 	fmt.Println(remove(s, 2)) // "[5 6 8 9]"
 }
-//如果删除元素后不用保持原来顺序的话，我们可以简单的用最后一个元素覆盖被删除的元素：
+//用最后一个元素覆盖被删除的元素：
 func remove(slice []int, i int) []int {
 	slice[i] = slice[len(slice)-1]
 	return slice[:len(slice)-1]
@@ -107,7 +105,9 @@ func main() {
 	fmt.Println(remove(s, 2)) // "[5 6 9 8]
 }
 ```
+
 - 模拟队列
+  
 ``` golang
 // 创建队列
 queue:=make([]int,0)
@@ -188,12 +188,16 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 ----------
 ### Reading List
-- [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度: 156/374
-- 超大流量分布式系统架构解决方案 进度: 220/220  Done 
-- Kubernetes 即学即用 进度: 50/201
-- 机器学习应用系统设计进度: 40/241
-- Linux/UNIX 编程手册 进度: 120/1176
 
+书名  | 阅读进度
+------------- | -------------
+[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  156/374
+超大流量分布式系统架构解决方案 | 220/220 done
+Kubernetes 即学即用  | 50/218
+机器学习应用系统设计 | 40/241
+Linux/UNIX 编程手册 | 120/1176
+ 
+ 
 ----------
 
 
