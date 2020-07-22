@@ -108,7 +108,7 @@ func main() {
 }
 ```
 - 模拟队列
-```
+``` golang
 // 创建队列
 queue:=make([]int,0)
 // enqueue入队
@@ -147,7 +147,7 @@ for k,v:=range m{
 - 结构体的全部成员都是可以比较的，那么结构体也是可以比较的，== 会比较结构体的每一个成员
   
 ##### Marshaling
-```
+``` golang
 data, err := json.Marshal(movies)
 data, err := json.MarshalIndent(movies, "", " ") //带缩进
 if err != nil {
