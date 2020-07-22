@@ -1,8 +1,8 @@
 ### Table of Contents
 
- - [Data structure and Algorithm](#data-structure-and-algorithm)
-  * [Binary Tree](#binary-tree)
-    + [Binary Tree Traversal：](#binary-tree-traversal-)
+- [Data structure and Algorithm](#data-structure-and-algorithm)
+    + [Binary Tree](#binary-tree)
+      - [Binary Tree Traversal：](#binary-tree-traversal-)
 - [Go programing language](#go-programing-language)
     + [Variable declarations：](#variable-declarations-)
     + [Pointer](#pointer)
@@ -23,8 +23,8 @@
 ### Data structure and Algorithm
 
 [Leetcode account](https://leetcode-cn.com/u/peng-194/)
-#### Binary Tree
-##### Binary Tree Traversal：
+##### Binary Tree
+###### Binary Tree Traversal：
 
 - 前序遍历：先访问根节点，再前序遍历左子树，再前序遍历右子树 
 - 中序遍历：先中序遍历左子树，再访问根节点，再中序遍历右子树 
