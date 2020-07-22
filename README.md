@@ -1,3 +1,5 @@
-# benson-notebook
+# Benson-notebook
 
-This is my git pages which is a simple studying note-book.
+This git page is a simple studying note-book.
+
+please visit: [https://bensonluo.github.io/benson-notebook/](https://bensonluo.github.io/benson-notebook/)

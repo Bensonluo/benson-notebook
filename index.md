@@ -196,8 +196,14 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
 
 link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=15797605702990137477)
 
-
-
+- [X] 课程简介
+- [X] RPC与多线程
+- [ ] GFS
+- [ ] Primary-Backup Replication
+- [ ] Go Threads and Raft
+- [ ] Fault Tolerance - Raft
+- 未完待续
+  
 ----------
 ### Interview Questions
 
