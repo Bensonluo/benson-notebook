@@ -1,5 +1,8 @@
 ## Benson's Personal Pages
 
+[toc]
+
+----------
 
 ### Data structure and Algorithm
 
@@ -186,7 +189,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 ----------
 ### Reading List
 - [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)        进度: 156/374
-- 超大流量分布式系统架构解决方案 进度: 116/220 
+- 超大流量分布式系统架构解决方案 进度: 220/220  Done 
 - Kubernetes 即学即用 进度: 50/201
 - 机器学习应用系统设计进度: 40/241
 - Linux/UNIX 编程手册 进度: 120/1176
