@@ -1,8 +1,30 @@
+### Table of Contents
+
+ - [Data structure and Algorithm](#data-structure-and-algorithm)
+  * [Binary Tree](#binary-tree)
+    + [Binary Tree Traversal：](#binary-tree-traversal-)
+- [Go programing language](#go-programing-language)
+    + [Variable declarations：](#variable-declarations-)
+    + [Pointer](#pointer)
+    + [Binary operator](#binary-operator)
+    + [Slice](#slice)
+    + [Map, Dictionary, Hashmap](#map--dictionary--hashmap)
+    + [Struct](#struct)
+    + [Marshaling](#marshaling)
+    + [garbage collection](#garbage-collection)
+    + [exception handing](#exception-handing)
+- [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
+- [Interview Questions](#interview-questions)
+- [Reading List](#reading-list)
+- [Support or Contact](#support-or-contact)
+
+----------
+
 ### Data structure and Algorithm
 
 [Leetcode account](https://leetcode-cn.com/u/peng-194/)
-#### 二叉树
-##### 二叉树的遍历：
+#### Binary Tree
+##### Binary Tree Traversal：
 
 - 前序遍历：先访问根节点，再前序遍历左子树，再前序遍历右子树 
 - 中序遍历：先中序遍历左子树，再访问根节点，再中序遍历右子树 
@@ -12,7 +34,7 @@
 
 
 ### Go programing language
-##### 变量声明：
+##### Variable declarations：
 
 ``` golang
 s := ""
@@ -33,7 +55,7 @@ fmt.Println(*p) // "1"
 *p = 2 // equivalent to x = 2 (指向变量内存地址的值)
 fmt.Println(x) // "2"
 ```
-##### 二元运算符
+##### Binary operator
 Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，它们按照先级递减的顺序的排列：
 ```
 * / % << >> & &^
@@ -156,12 +178,12 @@ if err != nil {
 fmt.Printf("%s\n", data)
 ```
   
-##### 垃圾回收
+##### garbage collection
 Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -> 回收
 
 注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。
 
-##### 异常处理
+##### exception handing
  - Go使用控制流机制（如if和return）处理异常
  - 错误处理策略: 向上传播/重试/输出并结束/输出不中断/忽略
 
