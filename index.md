@@ -26,9 +26,54 @@
 ##### Binary Tree
 ###### Binary Tree Traversal：
 
-- 前序遍历：先访问根节点，再前序遍历左子树，再前序遍历右子树 
-- 中序遍历：先中序遍历左子树，再访问根节点，再中序遍历右子树 
-- 后序遍历：先后序遍历左子树，再后序遍历右子树，再访问根节点
+- 前序遍历：先访问根节点->前序遍历左子树->前序遍历右子树 
+- 中序遍历：先中序遍历左子树->根节点->中序遍历右子树 
+- 后序遍历：先后序遍历左子树->后序遍历右子->访问根节点
+
+前序递归遍历：
+```golang
+var res []int
+func preorderTraversal(root *TreeNode) []int {
+    res = []int{}
+    dfs(root)
+    return res
+} 
+
+func dfs(root *TreeNode) {
+	if root != nil {
+		res = append(res, root.Val)
+		dfs(root.Left)
+		dfs(root.Right)
+	}
+}
+```
+前序迭代遍历：
+```golang
+func preorderTraversal(root *TreeNode) []int {
+    if root == nil {
+        return []int{}
+    }
+	
+    var result []int
+    stack := make([]*TreeNode,0)
+	
+    for len(stack) != 0 || root != nil {
+        for root != nil {
+            //preorder the root and iterate the "Left"s
+            result = append(result,root.Val)
+            stack = append(stack,root)
+            root = root.Left
+        }
+		
+        n := stack[len(stack) - 1]
+		//the root of a basic binary tree
+        stack = stack[:len(stack)-1]
+        root = n.Right
+    }
+    return result
+}
+```
+
 
 ----------
 
@@ -178,12 +223,12 @@ if err != nil {
 fmt.Printf("%s\n", data)
 ```
   
-##### garbage collection
+##### Garbage collection
 Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -> 回收
 
 注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。
 
-##### exception handing
+##### Exception handing
  - Go使用控制流机制（如if和return）处理异常
  - 错误处理策略: 向上传播/重试/输出并结束/输出不中断/忽略
 
@@ -212,7 +257,9 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
   Lab4:
   
  - 未完待续
+ - 
 ----------
+
 ### Interview Questions
 
  1. mysql索引为什么要用B+树？
@@ -246,6 +293,7 @@ Mutexes（有效）
 go run -race  可以检测race
  
 ----------
+
 ### Reading List
 
 书名  | 阅读进度
