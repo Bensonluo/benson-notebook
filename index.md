@@ -202,29 +202,61 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - [ ] Primary-Backup Replication
 - [ ] Go Threads and Raft
 - [ ] Fault Tolerance - Raft
-- 未完待续
+
+- 相关必读资料： 
+  [Course website](https://pdos.csail.mit.edu/6.824/)
+  [Guide to Raft](https://thesquareplanet.com/blog/students-guide-to-raft/)
+  Lab1: MapReduce [paper](https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf)
+  Lab2:
+  Lab3:
+  Lab4:
   
+ - 未完待续
 ----------
 ### Interview Questions
 
  1. mysql索引为什么要用B+树？
-- 高度矮, 磁盘IO相对少
-- 非叶子节点只保存索引，不保存实际的数据，数据都保存在叶子节点中
-- 内部节点更小，一次IO可查更多关键词
-- B+树只需要去遍历叶子节点就可以实现整棵树的遍历， 提升范围查找效率
-- 每次查找都从根部到叶子，性能稳定
+ - 高度矮, 磁盘IO相对少
+ - 非叶子节点只保存索引，不保存实际的数据，数据都保存在叶子节点中
+ - 内部节点更小，一次IO可查更多关键词
+ - B+树只需要去遍历叶子节点就可以实现整棵树的遍历， 提升范围查找效率
+ - 每次查找都从根部到叶子，性能稳定
+2. 死锁4必要条件及预防处理?
+   [参考资料](https://blog.csdn.net/wenlijunliujuan/article/details/79614019)
+ 
+ 3. Race Condition ?
+  两个进程同时试图修改一个共享内存的内容，在没有并发控制的情况下，最后的结果依赖于两个进程的执行顺序与时机。
+	
+- 解决原则：
+- 不会有两个及以上进程同时出现在他们的critical section。 
+- 不要做任何关于CPU速度和数量的假设。 
+- 任何进程在运行到critical section之外时都不能阻塞其他进程。 
+- 不会有进程永远等在critical section之前。
 
+方案：
+Disabling interrupts(几乎没用)
+Lock variables（错误）
+Strict alternation（有问题）
+Perterson’s solution（有效）
+Test and set lock（有效）
+Sleep/ Wakeup（有缺陷）
+Semaphores(有效)
+Mutexes（有效） 
+
+go run -race  可以检测race
+ 
 ----------
 ### Reading List
 
 书名  | 阅读进度
 ------------- | -------------
 [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  156/374
+[Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  |  0/114
 超大流量分布式系统架构解决方案 | 220/220 done
 Kubernetes 即学即用  | 50/218
 机器学习应用系统设计 | 40/241
 Linux/UNIX 编程手册 | 120/1176
- 
+深入理解计算机系统  |  0/733
  
 ----------
 
