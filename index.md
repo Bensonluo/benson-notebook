@@ -1,8 +1,16 @@
 ### Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Data structure and Algorithm](#data-structure-and-algorithm)
     + [Binary Tree](#binary-tree)
-      - [Binary Tree Traversal：](#binary-tree-traversal-)
+    + [Linked List](#linked-list)
+    + [Stack and Queue](#stack-and-queue)
+    + [Binary representation](#binary-representation)
+    + [Binary Search](#binary-search)
+    + [Sorting algorithm](#sorting-algorithm)
+    + [Dynamic Programming](#dynamic-programming)
+    + [Sliding window](#sliding-window)
+    + [Backtracking](#backtracking)
 - [Go programing language](#go-programing-language)
     + [Variable declarations：](#variable-declarations-)
     + [Pointer](#pointer)
@@ -11,8 +19,8 @@
     + [Map, Dictionary, Hashmap](#map--dictionary--hashmap)
     + [Struct](#struct)
     + [Marshaling](#marshaling)
-    + [garbage collection](#garbage-collection)
-    + [exception handing](#exception-handing)
+    + [Garbage collection](#garbage-collection)
+    + [Exception handing](#exception-handing)
 - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
 - [Interview Questions](#interview-questions)
 - [Reading List](#reading-list)
@@ -22,18 +30,18 @@
 
 ### Data structure and Algorithm
 
-[Leetcode account](https://leetcode-cn.com/u/peng-194/)
+[My Leetcode account](https://leetcode-cn.com/u/peng-194/)
+
 ##### Binary Tree
-###### Binary Tree Traversal：
 
 - 前序遍历：先访问根节点->前序遍历左子树->前序遍历右子树 
 - 中序遍历：先中序遍历左子树->根节点->中序遍历右子树 
 - 后序遍历：先后序遍历左子树->后序遍历右子->访问根节点
 
-前序递归遍历：
+递归遍历：
 ```golang
 var res []int
-func preorderTraversal(root *TreeNode) []int {
+func treeTraversal(root *TreeNode) []int {
     res = []int{}
     dfs(root)
     return res
@@ -41,40 +49,110 @@ func preorderTraversal(root *TreeNode) []int {
 
 func dfs(root *TreeNode) {
 	if root != nil {
-		res = append(res, root.Val)
+		//res = append(res, root.Val) 前序遍历
 		dfs(root.Left)
+		//res = append(res, root.Val) 中序遍历
 		dfs(root.Right)
+		//res = append(res, root.Val) 后序遍历
 	}
 }
 ```
-前序迭代遍历：
+迭代遍历：
 ```golang
+//前序遍历
 func preorderTraversal(root *TreeNode) []int {
     if root == nil {
         return []int{}
     }
-	
-    var result []int
+    result := make([]int, 0)
     stack := make([]*TreeNode,0)
-	
     for len(stack) != 0 || root != nil {
         for root != nil {
-            //preorder the root and iterate the "Left"s
-            result = append(result,root.Val)
-            stack = append(stack,root)
+            //preorder the root 先保存结果
+            result = append(result, root.Val)
+            stack = append(stack, root)
             root = root.Left
         }
-		
-        n := stack[len(stack) - 1]
-		//the root of a basic binary tree
-        stack = stack[:len(stack)-1]
-        root = n.Right
+		//pop
+        node := stack[len(stack) - 1]
+        stack = stack[:len(stack) - 1]
+        root = node.Right
     }
     return result
 }
+
+//中序遍历
+func inorderTraversal(root *TreeNode) []int {
+   if root == nil {
+        return []int{}
+    }
+    result := make([]int, 0)
+    stack := make([]*TreeNode, 0)
+    for len(stack) > 0 || root != nil {
+        for root != nil {
+            stack = append(stack, root)
+            root = root.Left
+        }
+        node := stack[len(stack) - 1] 
+        stack = stack[:len(stack) - 1]
+        result = append(result, node.Val)
+        root = node.Right
+    }
+    return result
+}
+
+//后序遍历
+func postorderTraversal(root *TreeNode) []int {
+    // lastVisited标识右子节点是否已弹出
+    if root == nil {
+        return nil
+    }
+    result := make([]int, 0)
+    stack := make([]*TreeNode, 0)
+    var lastVisited *TreeNode
+    for root != nil || len(stack) != 0 {
+        for root != nil {
+            stack = append(stack, root)
+            root = root.Left
+        }
+        //先不弹出
+        node:= stack[len(stack)-1]
+        // 根节点必须在右节点弹出之后，再弹出
+        if node.Right == nil || node.Right == lastVisited {
+            stack = stack[:len(stack)-1] // pop
+            result = append(result, node.Val)
+            // 标记节点已经弹出过
+            lastVisited = node
+        } else {
+            root = node.Right
+        }
+    }
+    return result
+}
+
 ```
 
+##### Linked List
 
+删除有序链表中的重复元素 83
+```golang
+
+
+```
+
+##### Stack and Queue
+
+##### Binary representation
+
+##### Binary Search
+
+##### Sorting algorithm
+
+##### Dynamic Programming
+
+#####  Sliding window
+
+#####  Backtracking
 ----------
 
 
@@ -251,13 +329,19 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - 相关必读资料： 
   [Course website](https://pdos.csail.mit.edu/6.824/)
   [Guide to Raft](https://thesquareplanet.com/blog/students-guide-to-raft/)
-  Lab1: MapReduce [paper](https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf)
+  
+  Lab1: MapReduce ----- [paper](https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf)
+  
   Lab2:
+  
   Lab3:
+  
   Lab4:
   
  - 未完待续
- - 
+   
+   
+   
 ----------
 
 ### Interview Questions
@@ -300,6 +384,7 @@ go run -race  可以检测race
 ------------- | -------------
 [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  156/374
 [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  |  0/114
+Go 语言高并发和微服务实战  |  0/？
 超大流量分布式系统架构解决方案 | 220/220 done
 Kubernetes 即学即用  | 50/218
 机器学习应用系统设计 | 40/241
