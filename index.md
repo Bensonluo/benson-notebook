@@ -136,9 +136,63 @@ func postorderTraversal(root *TreeNode) []int {
 
 删除有序链表中的重复元素 83
 ```golang
+func deleteDuplicates(head *ListNode) *ListNode {
+    current := head
+    for current != nil {
+        for current.Next != nil && current.Val == current.Next.Val {
+            current.Next = current.Next.Next
+        }
+        current = current.Next
+    }
+    return head
+}
+```
 
+删除有序链表中的重复元素 二 82
+```golang
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	//判断是否head重复
+	if head.Val == head.Next.Val {
+		for head.Next != nil && head.Val == head.Next.Val {
+			head = head.Next
+		}
+		return deleteDuplicates(head.Next)
+	}
+
+	head.Next = deleteDuplicates(head.Next)
+	return head
+}
+```
+
+反转链表 206
+```golang
+func reverseList(head *ListNode) *ListNode {
+	// prev 是已逆转节点的head
+	var prev *ListNode
+	// head 是下一个被逆转的节点
+	for head != nil {
+		// temp保存当前head.Next, 免得head.Next被覆盖.
+		temp := head.Next
+		// head称为已经逆转的节点的新head
+		head.Next = prev
+		// prev重新变为已逆转节点的head
+		prev = head
+		// head指向下一个被逆转的节点
+		head = temp
+	}
+	return prev
+}
+```
+
+合并有序链表 21
+```golang
 
 ```
+
 
 ##### Stack and Queue
 
@@ -268,13 +322,13 @@ len(queue)==0
 ##### Map, Dictionary, Hashmap 
 ``` golang
 // 创建
-m:=make(map[string]int)
+map:=make(map[string]int)
 // 设置kv
-m["hello"]=1
+map["key"]=1
 // 删除k 失败返0
-delete(m,"hello")
+delete(map,"key")
 // 遍历
-for k,v:=range m{
+for k,v:=range map{
     println(k,v)
 }
 ```
@@ -327,7 +381,9 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - [ ] Fault Tolerance - Raft
 
 - 相关必读资料： 
+  
   [Course website](https://pdos.csail.mit.edu/6.824/)
+  
   [Guide to Raft](https://thesquareplanet.com/blog/students-guide-to-raft/)
   
   Lab1: MapReduce ----- [paper](https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf)
@@ -384,13 +440,14 @@ go run -race  可以检测race
 ------------- | -------------
 [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  156/374
 [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  |  0/114
-Go 语言高并发和微服务实战  |  0/？
+Go 语言高并发和微服务实战  |  40/390
 超大流量分布式系统架构解决方案 | 220/220 done
 Kubernetes 即学即用  | 50/218
-机器学习应用系统设计 | 40/241
+机器学习应用系统设计 | 241/241 done
 Linux/UNIX 编程手册 | 120/1176
-深入理解计算机系统  |  0/733
- 
+深入理解计算机系统  |  90/733
+剑指offer  |  196/333
+
 ----------
 
 
