@@ -1,5 +1,4 @@
 ### Table of Contents
-
 - [Table of Contents](#table-of-contents)
 - [Data structure and Algorithm](#data-structure-and-algorithm)
     + [Binary Tree](#binary-tree)
@@ -12,9 +11,8 @@
     + [Sliding window](#sliding-window)
     + [Backtracking](#backtracking)
 - [Go programing language](#go-programing-language)
-    + [Variable declarations：](#variable-declarations-)
+    + [Basic](#basic)
     + [Pointer](#pointer)
-    + [Binary operator](#binary-operator)
     + [Slice](#slice)
     + [Map, Dictionary, Hashmap](#map--dictionary--hashmap)
     + [Struct](#struct)
@@ -25,7 +23,7 @@
 - [Interview Questions](#interview-questions)
 - [Reading List](#reading-list)
 - [Support or Contact](#support-or-contact)
-
+  
 ----------
 
 ### Data structure and Algorithm
@@ -34,9 +32,9 @@
 
 ##### Binary Tree
 
-- 前序遍历：先访问根节点->前序遍历左子树->前序遍历右子树 
-- 中序遍历：先中序遍历左子树->根节点->中序遍历右子树 
-- 后序遍历：先后序遍历左子树->后序遍历右子->访问根节点
+- 前序遍历：先访问根节点-> 前序遍历左子树-> 前序遍历右子树 
+- 中序遍历：先中序遍历左子树-> 根节点-> 中序遍历右子树 
+- 后序遍历：先后序遍历左子树-> 后序遍历右子-> 访问根节点
 
 递归遍历：
 ```golang
@@ -207,12 +205,18 @@ func reverseList(head *ListNode) *ListNode {
 #####  Sliding window
 
 #####  Backtracking
+ 全排列 46/47 
+```golang
+```
+
+
 ----------
 
 
 ### Go programing language
-##### Variable declarations：
+##### Basic
 
+- Variable declaration
 ``` golang
 s := ""
 var s string
@@ -224,6 +228,24 @@ var s string = ""
 第二种形式依赖于字符串的默认初始化零值机制，被初始化为""。
 第三种形式用得很少，除非同时声明多个变量。
 第四种形式显式地标明变量的类型，当变量类型与初值类型相同时，类型冗余，但如果两者类型不同，变量类型就必须了。实践中一般使用前两种形式中的某个，初始值重要的话就显式地指定变量的类型，否则使用隐式初始化。
+
+- For loop
+```golang
+for key, value := range oldMap {
+    newMap[key] = value
+}
+```
+
+- Binary operator
+Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，它们按照先级递减的顺序的排列：
+```golang
+* / % << >> & &^
++ - | ^
+== != < <= > >=
+&&
+||
+```
+
 ##### Pointer
 ```golang
 x := 1 
@@ -231,15 +253,6 @@ p := &x // p, of type *int, points to x (指针)
 fmt.Println(*p) // "1"
 *p = 2 // equivalent to x = 2 (指向变量内存地址的值)
 fmt.Println(x) // "2"
-```
-##### Binary operator
-Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，它们按照先级递减的顺序的排列：
-```
-* / % << >> & &^
-+ - | ^
-== != < <= > >=
-&&
-||
 ```
 
 ##### Slice
