@@ -188,8 +188,81 @@ func reverseList(head *ListNode) *ListNode {
 
 合并有序链表 21
 ```golang
+//递归实现
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1 == null) {
+            return l2;
+        }
+        if(l2 == null) {
+            return l1;
+        }
+
+        if(l1.val < l2.val) {
+            l1.next = mergeTwoLists(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = mergeTwoLists(l1, l2.next);
+            return l2;
+        }
+    }
+}
 
 ```
+
+判断是否是回文链表 234
+```golang
+//快慢指针 翻转链表
+func isPalindrome(head *ListNode) bool {
+    if head == nil || head.Next == nil {
+        return true
+    }
+    slow, fast := head, head
+    pre := head
+    var prevpre *ListNode
+
+    for fast != nil && fast.Next != nil {
+        pre = slow
+        slow = slow.Next
+        fast = fast.Next.Next
+        
+        pre.Next = prevpre
+        prevpre = pre
+    }   
+    if fast != nil {
+        slow = slow.Next
+    }
+    for pre != nil && slow != nil {
+        if pre.Val != slow.Val {
+            return false
+        }
+        pre = pre.Next
+        slow = slow.Next
+    }
+    return true
+}
+```
+
+判断链表中是否有环 141
+```golang
+//快慢指针
+func hasCycle(head *ListNode) bool {
+    if head == nil || head.Next == nil || head.Next.Next == nil{
+        return false
+    }
+    slow, fast := head, head.Next
+
+    for fast != nil && fast.Next != nil {
+        slow = slow.Next
+        fast = fast.Next.Next
+        if fast == slow {
+            return true
+        }
+    }
+    return false
+}
+```
+
 
 
 ##### Stack and Queue
