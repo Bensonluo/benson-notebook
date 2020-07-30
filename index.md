@@ -14,7 +14,7 @@
     + [Basic](#basic)
     + [Pointer](#pointer)
     + [Slice](#slice)
-    + [Map, Dictionary, Hashmap](#map--dictionary--hashmap)
+    + [Hashmap](#hashmap)
     + [Struct](#struct)
     + [Marshaling](#marshaling)
     + [Garbage collection](#garbage-collection)
@@ -266,14 +266,36 @@ func hasCycle(head *ListNode) bool {
 
 
 ##### Stack and Queue
+字符串匹配（有效的括号） 20
+```golang
+//左半边入栈, 右边匹配出栈否则false
+func isValid(s string) bool {
+    dict := map[byte]byte{')':'(', ']':'[', '}':'{'} 
+    stack := make([]byte, 0)
+    if s == "" {
+        return true
+    }
 
-##### Binary representation
+    for i := 0; i < len(s); i++ {
+        if s[i] == '(' || s[i] == '[' || s[i] == '{' {
+            stack = append(stack, s[i])
+        } else if len(stack)>0 && stack[len(stack)-1] == dict[s[i]] {
+            stack = stack[:len(stack)-1]
+        } else {
+            return false
+        }
+    }
+    return len(stack) == 0
+}
+```
 
-##### Binary Search
+#####  Binary representation
 
-##### Sorting algorithm
+#####  Binary Search
 
-##### Dynamic Programming
+#####  Sorting algorithm
+
+#####  Dynamic Programming
 
 #####  Sliding window
 
@@ -409,7 +431,7 @@ queue=queue[1:]
 len(queue)==0
 ```
 
-##### Map, Dictionary, Hashmap 
+##### Hashmap 
 ``` golang
 // 创建
 map:=make(map[string]int)
@@ -498,10 +520,17 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
  - 内部节点更小，一次IO可查更多关键词
  - B+树只需要去遍历叶子节点就可以实现整棵树的遍历， 提升范围查找效率
  - 每次查找都从根部到叶子，性能稳定
+
 2. 死锁4必要条件及预防处理?
    [参考资料](https://blog.csdn.net/wenlijunliujuan/article/details/79614019)
+ - 互斥条件  进程对资源进行排他性控制
+ - 不可剥夺条件  进程所获得的资源只能是主动释放
+ - 请求与保持条件  
+   进程已经保持了至少一个资源，提出了新的资源请求，而该资源已被其他进程占有，此时请求进程被阻塞，但对自己已获得的资源保持不放。
+ - 循环等待条件
+  存在一种进程资源的循环等待链，链中每一个进程已获得的资源同时被 链中下一个进程所请求。
  
- 3. Race Condition ?
+3. Race Condition ?
   两个进程同时试图修改一个共享内存的内容，在没有并发控制的情况下，最后的结果依赖于两个进程的执行顺序与时机。
 	
 - 解决原则：
@@ -512,15 +541,25 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 方案：
 Disabling interrupts(几乎没用)
+
 Lock variables（错误）
+
 Strict alternation（有问题）
+
 Perterson’s solution（有效）
+
 Test and set lock（有效）
+
 Sleep/ Wakeup（有缺陷）
+
 Semaphores(有效)
+
 Mutexes（有效） 
 
 go run -race  可以检测race
+ 
+4. TCP/IP UDP 
+ 
  
 ----------
 
