@@ -1,5 +1,4 @@
 ### Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Data structure and Algorithm](#data-structure-and-algorithm)
     + [Binary Tree](#binary-tree)
     + [Linked List](#linked-list)
@@ -19,6 +18,7 @@
     + [Marshaling](#marshaling)
     + [Garbage collection](#garbage-collection)
     + [Exception handing](#exception-handing)
+    + [Go routine](#go-routine)
 - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
 - [Interview Questions](#interview-questions)
 - [Reading List](#reading-list)
@@ -476,11 +476,30 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
  - Go使用控制流机制（如if和return）处理异常
  - 错误处理策略: 向上传播/重试/输出并结束/输出不中断/忽略
 
+##### Go routine
+
+Go语言通过goroutine提供了对于并发编程的最清晰最直接的支持，Go routine 特性小结：
+
+(1) goroutine是Go语言运行库的功能，不是操作系统提供的功能，go routine不是用线程实现的。具体可参见Go语言源码里的pkg/runtime/proc.c
+
+(2) go routine就是一段代码，一个函数入口，以及在堆上为其分配的一个堆栈。所以它非常廉价，我们可以很轻松的创建上万个goroutine，但它们并不是被操作系统所调度执行
+
+(3) 除了被系统调用阻塞的线程外，Go运行库最多会启动$GOMAXPROCS个线程来运行goroutine
+
+(4) go routine是协作式调度的，如果go routine会执行很长时间，而且不是通过等待读取或写入channel的数据来同步的话，就需要主动调用Go sched()来让出CPU
+
+(5) 和所有其他并发框架里的协程一样，go routine里所谓“无锁”的优点只在单线程下有效，如果$GOMAXPROCS > 1并且协程间需要通信，Go运行库会负责加锁保护数据，这也是为什么sieve.go这样的例子在多CPU多线程时反而更慢的原因
+
+(6) Web等服务端程序要处理的请求从本质上来讲是并行处理的问题，每个请求基本独立，互不依赖，几乎没有数据交互，这不是一个并发编程的模型，而并发编程框架只是解决了其语义表述的复杂性，并不是从根本上提高处理的效率，也许是并发连接和并发编程的英文都是concurrent吧，很容易产生“并发编程框架和coroutine可以高效处理大量并发连接”的误解。
+
+(7) Go语言运行库封装了异步IO，所以可以写出貌似并发数很多的服务端，可即使我们通过调整$GOMAXPROCS来充分利用多核CPU并行处理，其效率也不如我们利用IO事件驱动设计的、按照事务类型划分好合适比例的线程池。在响应时间上，协作式调度是硬伤。
+
+(8) Go routine最大的价值是其实现了并发协程和实际并行执行的线程的映射以及动态扩展，随着其运行库的不断发展和完善，其性能一定会越来越好，尤其是在CPU核数越来越多的未来，终有一天我们会为了代码的简洁和可维护性而放弃那一点点性能的差别。
 
   
-
-
 ----------
+
+
 ### MIT 6.824 Distributed Systems Spring 2020
 
 link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=15797605702990137477)
@@ -514,14 +533,14 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 ### Interview Questions
 
- 1. mysql索引为什么要用B+树？
+ **1. mysql索引为什么要用B+树？**
  - 高度矮, 磁盘IO相对少
  - 非叶子节点只保存索引，不保存实际的数据，数据都保存在叶子节点中
  - 内部节点更小，一次IO可查更多关键词
  - B+树只需要去遍历叶子节点就可以实现整棵树的遍历， 提升范围查找效率
  - 每次查找都从根部到叶子，性能稳定
 
-2. 死锁4必要条件及预防处理?
+**2. 死锁4必要条件及预防处理?**
    [参考资料](https://blog.csdn.net/wenlijunliujuan/article/details/79614019)
  - 互斥条件  进程对资源进行排他性控制
  - 不可剥夺条件  进程所获得的资源只能是主动释放
@@ -530,7 +549,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
  - 循环等待条件
   存在一种进程资源的循环等待链，链中每一个进程已获得的资源同时被 链中下一个进程所请求。
  
-3. Race Condition ?
+**3. Race Condition ?**
   两个进程同时试图修改一个共享内存的内容，在没有并发控制的情况下，最后的结果依赖于两个进程的执行顺序与时机。
 	
 - 解决原则：
@@ -538,29 +557,32 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - 不要做任何关于CPU速度和数量的假设。 
 - 任何进程在运行到critical section之外时都不能阻塞其他进程。 
 - 不会有进程永远等在critical section之前。
-
-方案：
-Disabling interrupts(几乎没用)
-
-Lock variables（错误）
-
-Strict alternation（有问题）
-
-Perterson’s solution（有效）
-
-Test and set lock（有效）
-
-Sleep/ Wakeup（有缺陷）
-
-Semaphores(有效)
-
-Mutexes（有效） 
-
-go run -race  可以检测race
  
-4. TCP/IP UDP 
+**4. 传输层协议 TCP/UDP**
+ - TCP是面向连接的，可靠的流协议。TCP可实行“顺序控制”， “重发控制”， “流量控制”， “拥塞控制”。
+ - UDP不可靠数据报协议，可以确保发送消息的大小，但是不保证数据一定送达，所以有时候需要重发。
+ -  UDP主要用于哪些对高速传输和实时性有较高要求的通信或广播通信。
+ -  TCP 可以在 IP 这种无连接的网络上也能够实现高可靠性的通信（ 主要通过检验和、序列号、确认应答、重发控制、连接管理以及窗口控制等机制实现）
+- TCP 通信开始前需要做好连接准备，三次握手连接，四次挥手断开。
+  (1)客户端：SYN=1 seq =j
+  
+  (2)服务器 SYN=1 ACK=1 ack=J+1,seq=K
+  
+  (3)客户端 ACK=1 ack=K+1    
+- 利用窗口控制提高速度：TCP 以1个段为单位，每发送一个段进行一次确认应答的处理。这样的传输方式包的通信性能会比较低。TCP 引入了窗口这个概念。确认应答以更大的单位进行确认，转发时间将会被大幅地缩短。
+- 在整个窗口的确认应答没有到达之前，如果其中部分数据出现丢包，那么发送端仍然要负责重传。为此，发送端主机需要设置缓存保留这些待被重传的数据，直到收到他们的确认应答。而收到确认应答的情况下，将窗口滑动到确认应答中的序列号的位置。这样可以顺序地将多个段同时发送提高通信性能。这种机制也别称为滑动窗口控制。
  
- 
+**5. Python全局解释器锁**
+GIL Global Interpreter Lock.
+官方解释：GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)
+
+在多线程编程时，为了防止多个线程同时操作一个变量时发生冲突，我们会设置一个互斥锁，只有获取到这个锁的线程才可以操作这个变量，这样做虽然安全了，但是并行变串行影响了程序的效率。而GIL是Python解释器为了程序的稳定性，在解释多线程的程序时加一把全局解释锁，保证同一时刻只有一个线程在被解释，效率自然也就变低了。
+
+GIL不是Python的特性，它是Python的C解释器在实现的时候引入的特性，不是说我们的Python代码写出来就自带了GIL，而是在执行时，CPython解释器在解释多线程程序时会受到GIL锁的影响。 
+
+*如果用到了多线程编程，但是对并行没有要求，只是对并发有要求，那么GIL锁影响不大，如果对并行要求高，那么可以用multiprocess（多进程）替代Thread，这样每一个Python进程都有自己的Python解释器和内存空间。*
+
+
 ----------
 
 ### Reading List
