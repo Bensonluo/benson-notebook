@@ -2,30 +2,33 @@
 
 ### Table of Contents
 
-- [Data structure and Algorithm](#data-structure-and-algorithm)
-    + [Binary Tree](#binary-tree)
-    + [Linked List](#linked-list)
-    + [Stack and Queue](#stack-and-queue)
-    + [Binary representation](#binary-representation)
-    + [Binary Search](#binary-search)
-    + [Sorting algorithm](#sorting-algorithm)
-    + [Dynamic Programming](#dynamic-programming)
-    + [Sliding window](#sliding-window)
-    + [Backtracking](#backtracking)
-- [Go programing language](#go-programing-language)
-    + [Basic](#basic)
-    + [Pointer](#pointer)
-    + [Slice](#slice)
-    + [Hashmap](#hashmap)
-    + [Struct](#struct)
-    + [Marshaling](#marshaling)
-    + [Garbage collection](#garbage-collection)
-    + [Exception handing](#exception-handing)
-    + [Go routine](#go-routine)
-- [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
-- [Interview Questions](#interview-questions)
-- [Reading List](#reading-list)
-- [Support or Contact](#support-or-contact)
+- [Benson-notebook](#benson-notebook)
+    - [Table of Contents](#table-of-contents)
+    - [Data structure and Algorithm](#data-structure-and-algorithm)
+        - [Binary Tree](#binary-tree)
+        - [Linked List](#linked-list)
+        - [Stack and Queue](#stack-and-queue)
+        - [Binary representation](#binary-representation)
+        - [Binary Search](#binary-search)
+        - [Sorting algorithm](#sorting-algorithm)
+        - [Dynamic Programming](#dynamic-programming)
+        - [Sliding window](#sliding-window)
+        - [Backtracking](#backtracking)
+    - [Go programing language](#go-programing-language)
+        - [Basic](#basic)
+        - [Pointer](#pointer)
+        - [Slice](#slice)
+        - [Hashmap](#hashmap)
+        - [Struct](#struct)
+        - [Marshaling](#marshaling)
+        - [Garbage collection](#garbage-collection)
+        - [Exception handing](#exception-handing)
+        - [Go routine](#go-routine)
+    - [Redis](#redis)
+    - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
+    - [Interview Questions](#interview-questions)
+    - [Reading List](#reading-list)
+    - [Support or Contact](#support-or-contact)
   
 ----------
 
@@ -334,7 +337,7 @@ func dfs(grid [][]byte,i,j int)int{
         return 0
     }
     if grid[i][j]=='1'{
-        // 标记已经访问过(每一个点只需要访问一次)
+        // 标记已经访问的点
         grid[i][j]=0
         return dfs(grid,i-1,j)+dfs(grid,i,j-1)+dfs(grid,i+1,j)+dfs(grid,i,j+1)+1
     }
@@ -552,6 +555,51 @@ Go语言通过goroutine提供了对于并发编程的最清晰最直接的支持
 
 (8) Go routine最大的价值是其实现了并发协程和实际并行执行的线程的映射以及动态扩展，随着其运行库的不断发展和完善，其性能一定会越来越好，尤其是在CPU核数越来越多的未来，终有一天我们会为了代码的简洁和可维护性而放弃那一点点性能的差别。
 
+----------
+
+### Redis ###
+
+**Redis的数据类型：** 
+- String 整数，浮点数或者字符串
+- Set 集合
+- Zset 有序集合
+- Hash 散列表
+- List 列表
+
+**Redis 为什么这么快?**
+- 数据结构简单，操作省时
+- 跑在内存上
+- 多路复用io阻塞机制
+  (尽量减少网络 IO 的时间消耗）
+
+非阻塞 IO 内部实现采用 epoll，采用了 epoll+自己实现的简单的事件框架。epoll 中的读、写、关闭、连接都转化成了事件，然后利用 epoll 的多路复用特性，绝不在 io 上浪费一点时间。
+
+- 单线程保证了系统没有线程的上下文切换
+
+使用单线程，可以避免不必要的上下文切换和竞争条件，没有多进程或多线程引起的切换和 CPU 的消耗，不必考虑各种锁的问题，没有锁释放或锁定操作，不会因死锁而降低性能；
+
+**常用的使用场景：**
+- 缓存：提升服务器性能方面非常有效
+- 排行榜，利用Redis的SortSet(有序集合)数据结构能够简单的搞定
+- 计算器/限速器：利用Redis原子性的自增操作，我们可以统计类似用户点赞数、用户访问数等，这类操作如果用MySQL，频繁的读写会带来相当大的压力; 限速器比较典型的使用场景是限制某个用户访问某个API的频率，常用的有秒杀时，防止用户疯狂点击带来不必要的压力;
+- 简单消息队列: 除了Redis自身的发布/订阅模式，我们也可以利用List来实现一个队列机制，比如：到货通知、邮件发送之类的需求，不需要高可靠，但是会带来非常大的DB压力，完全可以用List来完成异步解耦；
+- Session共享: 以PHP为例，默认Session是保存在服务器的文件中，如果是集群服务，同一个用户过来可能落在不同机器上，这就会导致用户频繁登陆；采用Redis保存Session后，无论用户落在那台机器上都能够获取到对应的Session信息。
+
+- 一些频繁被访问的数据: 经常被访问的数据如果放在关系型数据库，每次查询的开销都会很大，而放在redis中，因为redis是放在内存中的可以很高效的访问
+
+**Redis的Master-slave 模式**
+
+链接过程： 
+
+1. 主服务器创建快照文件，发送给从服务器，并在发送期间使用缓冲区记录执行的写命令。快照文件发送完毕之后，开始向从服务器发送存储在缓冲区中的写命令；
+2. 从服务器丢弃所有旧数据，载入主服务器发来的快照文件，之后从服务器开始接受主服务器发来的写命令；
+3. 主服务器每执行一次写命令，就向从服务器发送相同的写命令。
+
+主从链：
+
+随着负载不断上升，主服务器可能无法很快地更新所有从服务器，或者重新连接和重新同步从服务器将导致系统超载。为了解决这个问题，可以创建一个中间层来分担主服务器的复制工作。中间层的服务器是最上层服务器的从服务器，又是最下层服务器的主服务器。
+
+*Sentinel（哨兵)* 可以监听集群中的服务器，并在主服务器进入下线状态时，自动从从服务器中选举出新的主服务器。
 
 ----------
 
@@ -608,6 +656,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 **3. Race Condition ?**
   两个进程同时试图修改一个共享内存的内容，在没有并发控制的情况下，最后的结果依赖于两个进程的执行顺序与时机。
 	
+
 - 解决原则：
 - 不会有两个及以上进程同时出现在他们的critical section。 
 - 不要做任何关于CPU速度和数量的假设。 
@@ -615,6 +664,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - 不会有进程永远等在critical section之前。
 
 **4. 传输层协议 TCP/UDP**
+
  - TCP是面向连接的，可靠的流协议。TCP可实行“顺序控制”， “重发控制”， “流量控制”， “拥塞控制”。
  - UDP不可靠数据报协议，可以确保发送消息的大小，但是不保证数据一定送达，所以有时候需要重发。
  -  UDP主要用于哪些对高速传输和实时性有较高要求的通信或广播通信。
@@ -640,6 +690,33 @@ GIL不是Python的特性，它是Python的C解释器在实现的时候引入的�
 
 *如果用到了多线程编程，但是对并行没有要求，只是对并发有要求，那么GIL锁影响不大，如果对并行要求高，那么可以用multiprocess（多进程）替代Thread，这样每一个Python进程都有自己的Python解释器和内存空间。*
 
+**6. 互斥锁，自旋锁**
+
+互斥锁是为了对临界区加以保护，以使任意时刻只有一个线程能够执行临界区的代码，实现了多线程对临界资源的互斥访问。
+
+互斥锁得不到锁时，线程会进入休眠，引发任务上下文切换，任务切换涉及一系列耗时的操作，因此用互斥锁一旦遇到阻塞切换，代价是十分昂贵的。
+
+而自旋锁阻塞后不会引发上下文切换，当锁被其他线程占有时，获取锁的线程便会进入自旋，不断检测自旋锁的状态，直到得到锁，*所以自旋就是循环等待的意思*。
+
+自旋锁使用与临界区代码比较短，锁的持有时间比较短的情况，否则会让其他线程一直等待造成饥饿现象。
+
+**7. 缓存穿透，缓存雪崩，缓存击穿**
+
+**缓存穿透**：访问一个不存在的key，缓存不起作用，请求会穿透到DB，流量大时DB会挂掉。
+
+解决方案： 
+  - 布隆过滤器，使用一个足够大的bitmap，用于存储可能访问的key，不存在的key直接被过滤；
+  - 访问key未在DB查询到值，也将空值写进缓存，但可以设置较短过期时间。
+
+**缓存雪崩**：大量的key设置了相同的过期时间，导致在缓存在同一时刻全部失效，造成瞬时DB请求量大、压力骤增，引起雪崩效应。
+
+解决方案：通过给缓存设置过期时间时加上一个随机值时间，使得每个key的过期时间分布开来，不会集中在同一时刻失效。
+
+**缓存击穿**： 一个存在的key，在缓存过期的一刻，同时有大量的请求，这些请求都会击穿到DB，造成瞬时DB请求量大、压力骤增。
+
+解决方案： 在访问key之前，采用SETNX（set if not exists）来设置另一个短期key来锁住当前key的访问，访问结束再删除该短期key。
+
+**8. **
 
 ----------
 
