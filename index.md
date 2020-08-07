@@ -1,4 +1,7 @@
+# Benson-notebook
+
 ### Table of Contents
+
 - [Data structure and Algorithm](#data-structure-and-algorithm)
     + [Binary Tree](#binary-tree)
     + [Linked List](#linked-list)
@@ -289,6 +292,58 @@ func isValid(s string) bool {
 }
 ```
 
+DFS model with stack
+
+ ```java
+boolean DFS(int root, int target) {
+    Set<Node> visited;
+    Stack<Node> s;
+    add root to s;
+    while (s is not empty) {
+        Node cur = the top element in s;
+        return true if cur is target;
+        for (Node next : the neighbors of cur) {
+            if (next is not in visited) {
+                add next to s;
+                add next to visited;
+            }
+        }
+        remove cur from s;
+    }
+    return false;
+}
+ ```
+
+DFS 岛屿数量 200
+
+```golang
+func numIslands(grid [][]byte) int {
+    var count int
+    for i:=0;i<len(grid);i++{
+        for j:=0;j<len(grid[i]);j++{
+            if grid[i][j]=='1' && dfs(grid,i,j)>=1{
+                count++
+            }
+        }
+    }
+    return count
+}
+
+func dfs(grid [][]byte,i,j int)int{
+    if i<0||i>=len(grid)||j<0||j>=len(grid[0]){
+        return 0
+    }
+    if grid[i][j]=='1'{
+        // 标记已经访问过(每一个点只需要访问一次)
+        grid[i][j]=0
+        return dfs(grid,i-1,j)+dfs(grid,i,j-1)+dfs(grid,i+1,j)+dfs(grid,i,j+1)+1
+    }
+    return 0
+}
+```
+
+
+
 #####  Binary representation
 
 #####  Binary Search
@@ -302,6 +357,7 @@ func isValid(s string) bool {
 #####  Backtracking
  全排列 46/47 
 ```golang
+
 ```
 
 
@@ -359,7 +415,7 @@ fmt.Println(x) // "2"
 - slice 不可比较
 
 - appendInt 函数
- 
+
 ``` golang
 func appendInt(x []int, y int) []int {
 	var z []int
@@ -466,7 +522,7 @@ if err != nil {
 }
 fmt.Printf("%s\n", data)
 ```
-  
+
 ##### Garbage collection
 Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -> 回收
 
@@ -496,7 +552,7 @@ Go语言通过goroutine提供了对于并发编程的最清晰最直接的支持
 
 (8) Go routine最大的价值是其实现了并发协程和实际并行执行的线程的映射以及动态扩展，随着其运行库的不断发展和完善，其性能一定会越来越好，尤其是在CPU核数越来越多的未来，终有一天我们会为了代码的简洁和可维护性而放弃那一点点性能的差别。
 
-  
+
 ----------
 
 
@@ -547,8 +603,8 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
  - 请求与保持条件  
    进程已经保持了至少一个资源，提出了新的资源请求，而该资源已被其他进程占有，此时请求进程被阻塞，但对自己已获得的资源保持不放。
  - 循环等待条件
-  存在一种进程资源的循环等待链，链中每一个进程已获得的资源同时被 链中下一个进程所请求。
- 
+    存在一种进程资源的循环等待链，链中每一个进程已获得的资源同时被 链中下一个进程所请求。
+
 **3. Race Condition ?**
   两个进程同时试图修改一个共享内存的内容，在没有并发控制的情况下，最后的结果依赖于两个进程的执行顺序与时机。
 	
@@ -557,7 +613,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - 不要做任何关于CPU速度和数量的假设。 
 - 任何进程在运行到critical section之外时都不能阻塞其他进程。 
 - 不会有进程永远等在critical section之前。
- 
+
 **4. 传输层协议 TCP/UDP**
  - TCP是面向连接的，可靠的流协议。TCP可实行“顺序控制”， “重发控制”， “流量控制”， “拥塞控制”。
  - UDP不可靠数据报协议，可以确保发送消息的大小，但是不保证数据一定送达，所以有时候需要重发。
@@ -571,9 +627,11 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
   (3)客户端 ACK=1 ack=K+1    
 - 利用窗口控制提高速度：TCP 以1个段为单位，每发送一个段进行一次确认应答的处理。这样的传输方式包的通信性能会比较低。TCP 引入了窗口这个概念。确认应答以更大的单位进行确认，转发时间将会被大幅地缩短。
 - 在整个窗口的确认应答没有到达之前，如果其中部分数据出现丢包，那么发送端仍然要负责重传。为此，发送端主机需要设置缓存保留这些待被重传的数据，直到收到他们的确认应答。而收到确认应答的情况下，将窗口滑动到确认应答中的序列号的位置。这样可以顺序地将多个段同时发送提高通信性能。这种机制也别称为滑动窗口控制。
- 
+
 **5. Python全局解释器锁**
+
 GIL Global Interpreter Lock.
+
 官方解释：GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)
 
 在多线程编程时，为了防止多个线程同时操作一个变量时发生冲突，我们会设置一个互斥锁，只有获取到这个锁的线程才可以操作这个变量，这样做虽然安全了，但是并行变串行影响了程序的效率。而GIL是Python解释器为了程序的稳定性，在解释多线程的程序时加一把全局解释锁，保证同一时刻只有一个线程在被解释，效率自然也就变低了。
