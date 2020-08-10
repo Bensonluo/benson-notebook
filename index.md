@@ -16,7 +16,6 @@
         - [Backtracking](#backtracking)
     - [Go programing language](#go-programing-language)
         - [Basic](#basic)
-        - [Pointer](#pointer)
         - [Slice](#slice)
         - [Hashmap](#hashmap)
         - [Struct](#struct)
@@ -317,8 +316,9 @@ boolean DFS(int root, int target) {
 }
  ```
 
-DFS 岛屿数量 200
+岛屿数量 200
 
+递归DFS
 ```golang
 func numIslands(grid [][]byte) int {
     var count int
@@ -339,10 +339,19 @@ func dfs(grid [][]byte,i,j int)int{
     if grid[i][j]=='1'{
         // 标记已经访问的点
         grid[i][j]=0
-        return dfs(grid,i-1,j)+dfs(grid,i,j-1)+dfs(grid,i+1,j)+dfs(grid,i,j+1)+1
+        return dfs(grid,i-1,j) +
+        dfs(grid,i,j-1) +
+        dfs(grid,i+1,j) +
+        dfs(grid,i,j+1) + 1
     }
     return 0
 }
+```
+
+字符串解码 394
+```golang
+
+
 ```
 
 
@@ -403,7 +412,7 @@ for key, value := range oldMap {
 ||
 ```
 
-##### Pointer
+- Pointer
 
 ```golang
 x := 1 
@@ -412,6 +421,15 @@ fmt.Println(*p) // "1"
 *p = 2 // equivalent to x = 2 (指向变量内存地址的值)
 fmt.Println(x) // "2"
 ```
+- Deferred
+
+在调用普通函数或方法前加上关键字defer，就完成了defer所需要的语法， defer后面的函数会被延迟执行，且不论包含defer语句的函数是正常结束，还是异常结束。
+
+一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反。
+
+defer语句经常被用于处理成对的操作，如**打开、关闭、连接、断开连接、加锁、释放锁**。通过defer机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资源被释放。释放资源的defer应该直接跟在请求资源的语句后。
+
+*还可用于打开关闭文件，操作互斥锁，调试复杂程序是用于记录进入和退出函数的时间。*
 
 ##### Slice
 
@@ -724,14 +742,14 @@ GIL不是Python的特性，它是Python的C解释器在实现的时候引入的�
 
 书名  | 阅读进度
 ------------- | -------------
-[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  156/374
+[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  225/374
 [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  |  0/114
 Go 语言高并发和微服务实战  |  40/390
 超大流量分布式系统架构解决方案 | 220/220 done
-Kubernetes 即学即用  | 50/218
+Kubernetes 即学即用  | 80/218
 机器学习应用系统设计 | 241/241 done
 Linux/UNIX 编程手册 | 120/1176
-深入理解计算机系统  |  90/733
+深入理解计算机系统  |  435/733
 剑指offer  |  196/333
 
 ----------
