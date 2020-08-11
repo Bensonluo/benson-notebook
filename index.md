@@ -23,6 +23,7 @@
         - [Garbage collection](#garbage-collection)
         - [Exception handing](#exception-handing)
         - [Go routine](#go-routine)
+        - [Go scheduler](#go-scheduler)
     - [Redis](#redis)
     - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
     - [Interview Questions](#interview-questions)
@@ -557,21 +558,147 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
 
 Go语言通过goroutine提供了对于并发编程的最清晰最直接的支持，Go routine 特性小结：
 
-(1) goroutine是Go语言运行库的功能，不是操作系统提供的功能，go routine不是用线程实现的。具体可参见Go语言源码里的pkg/runtime/proc.c
+1. goroutine是Go语言运行库的功能，不是操作系统提供的功能，go routine不是用线程实现的。具体可参见Go语言源码里的pkg/runtime/proc.c
 
-(2) go routine就是一段代码，一个函数入口，以及在堆上为其分配的一个堆栈。所以它非常廉价，我们可以很轻松的创建上万个goroutine，但它们并不是被操作系统所调度执行
+2. go routine就是一段代码，一个函数入口，以及在堆上为其分配的一个堆栈。所以它非常廉价，我们可以很轻松的创建上万个goroutine，但它们并不是被操作系统所调度执行
 
-(3) 除了被系统调用阻塞的线程外，Go运行库最多会启动$GOMAXPROCS个线程来运行goroutine
+3. 除了被系统调用阻塞的线程外，Go运行库最多会启动$GOMAXPROCS个线程来运行goroutine
 
-(4) go routine是协作式调度的，如果go routine会执行很长时间，而且不是通过等待读取或写入channel的数据来同步的话，就需要主动调用Go sched()来让出CPU
+4. go routine是协作式调度的，如果go routine会执行很长时间，而且不是通过等待读取或写入channel的数据来同步的话，就需要主动调用Go sched()来让出CPU
 
-(5) 和所有其他并发框架里的协程一样，go routine里所谓“无锁”的优点只在单线程下有效，如果$GOMAXPROCS > 1并且协程间需要通信，Go运行库会负责加锁保护数据，这也是为什么sieve.go这样的例子在多CPU多线程时反而更慢的原因
+5. 和所有其他并发框架里的协程一样，go routine里所谓“无锁”的优点只在单线程下有效，如果$GOMAXPROCS > 1并且协程间需要通信，Go运行库会负责加锁保护数据，这也是为什么sieve.go这样的例子在多CPU多线程时反而更慢的原因
 
-(6) Web等服务端程序要处理的请求从本质上来讲是并行处理的问题，每个请求基本独立，互不依赖，几乎没有数据交互，这不是一个并发编程的模型，而并发编程框架只是解决了其语义表述的复杂性，并不是从根本上提高处理的效率，也许是并发连接和并发编程的英文都是concurrent吧，很容易产生“并发编程框架和coroutine可以高效处理大量并发连接”的误解。
+6. Web等服务端程序要处理的请求从本质上来讲是并行处理的问题，每个请求基本独立，互不依赖，几乎没有数据交互，这不是一个并发编程的模型，而并发编程框架只是解决了其语义表述的复杂性，并不是从根本上提高处理的效率，也许是并发连接和并发编程的英文都是concurrent吧，很容易产生“并发编程框架和coroutine可以高效处理大量并发连接”的误解。
 
-(7) Go语言运行库封装了异步IO，所以可以写出貌似并发数很多的服务端，可即使我们通过调整$GOMAXPROCS来充分利用多核CPU并行处理，其效率也不如我们利用IO事件驱动设计的、按照事务类型划分好合适比例的线程池。在响应时间上，协作式调度是硬伤。
+7. Go语言运行库封装了异步IO，所以可以写出貌似并发数很多的服务端，可即使我们通过调整$GOMAXPROCS来充分利用多核CPU并行处理，其效率也不如我们利用IO事件驱动设计的、按照事务类型划分好合适比例的线程池。在响应时间上，协作式调度是硬伤。
 
-(8) Go routine最大的价值是其实现了并发协程和实际并行执行的线程的映射以及动态扩展，随着其运行库的不断发展和完善，其性能一定会越来越好，尤其是在CPU核数越来越多的未来，终有一天我们会为了代码的简洁和可维护性而放弃那一点点性能的差别。
+8. Go routine最大的价值是其实现了并发协程和实际并行执行的线程的映射以及动态扩展，随着其运行库的不断发展和完善，其性能一定会越来越好，尤其是在CPU核数越来越多的未来，终有一天我们会为了代码的简洁和可维护性而放弃那一点点性能的差别。
+
+- **Channels**
+
+```golang
+ch := make(chan int) // ch has type 'chan int'
+ch = make(chan int)    // unbuffered channel
+ch = make(chan int, 0) // unbuffered channel
+ch = make(chan int, 3) // buffered channel with capacity 3
+
+ch <- x  // a send statement
+x = <-ch // a receive expression in an assignment statement
+<-ch     // a receive statement; result is discarded
+
+close(ch) // close a channel, panic if still sending
+```
+   
+  1. channels 是Goroutine 之间传递消息的通信机制， channels都有一个特殊的类型，也就是channels可发送数据的类型。
+  2. 创建channel ```ch := make(chan int) ```。
+  3. 和map 一样， channels也对应一个make创建的底层数据结构的引用。
+  4. channels 可以用==来比较，如果引用相同对象那比较结果为真。
+  5. **不带缓存的channels** 的发送/接受操作会使自己阻塞直到另一个goroutine被接受/已发送, 所以又叫同步channels
+  6. **带缓存的channels** 内部有一个元素队列， 发送操作就是向内部缓存队列的尾部插入元素，接收操作则是从队列的头部删除元素。 如果队列已满，那么就会像无缓存channels一样阻塞。
+  7. 多个goroutines并发地向同一个channel发送数据，或从同一个channel接收数据时，如果我们使用了无缓存的channel，那么慢的goroutines将会因为没有人接收而被永远卡住。这种情况，称为goroutines泄漏，这将是一个BUG。*和垃圾变量不同，泄漏的goroutines并不会被自动回收，因此确保每个不再需要的goroutine能正常退出是重要的。*
+  8. sync.WaitGroup可以用来计数活跃的goroutine
+
+
+- **基于select的多路复用**
+- **Goroutine的退出**
+  
+  用*关闭一个channel*来进行广播
+  ```golang
+  var done = make(chan struct{})
+
+  func cancelled() bool {
+    select {
+    case <-done:
+        return true
+    default:
+        return false
+    }
+  }
+
+  // Cancel traversal when input is detected.
+  go func() {
+    os.Stdin.Read(make([]byte, 1)) // read a single byte
+    close(done)
+  }()
+  for {
+    select {
+    case <-done:
+        // Drain fileSizes to allow existing goroutines to finish.
+        for range fileSizes {
+            // Do nothing.
+        }
+        return
+    case size, ok := <-fileSizes:
+        // ...
+    }
+  }
+  //轮询取消状态
+  func walkDir(dir string, n *sync.WaitGroup, fileSizes chan<- int64) {
+    defer n.Done()
+    if cancelled() {
+        return
+    }
+    for _, entry := range dirents(dir) {
+        // ...
+    }
+  }
+
+  ```
+
+- **sync.Mutex互斥锁**
+    
+在Lock和Unlock之间的代码段中的内容goroutine可以随便读取或者修改，这个代码段叫做临界区。
+    
+    ```golang
+    func Balance() int {
+        mu.Lock()
+        defer mu.Unlock()
+        return balance
+    }
+    ```
+- **sync.RWMutex读写锁**
+  
+读操作并行执行，但写操作会完全互斥。这种锁叫作“多读单写”锁（multiple readers, single writer lock）, RLock只能在临界区共享变量没有任何写入操作时可用。
+```golang
+var mu sync.RWMutex
+var balance int
+func Balance() int {
+    mu.RLock() // readers lock
+    defer mu.RUnlock()
+    return balance
+}
+```
+RWMutex只有当获得锁的大部分goroutine都是读操作，而锁在竞争条件下，也就是说，goroutine们必须等待才能获取到锁的时候，RWMutex才是最能带来好处的。
+
+
+##### Go scheduler
+协程:
+
+协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈。 因此，协程能保留上一次调用时的状态（即所有局部状态的一个特定组合），每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。 线程和进程的操作是由程序触发系统接口，最后的执行者是系统；协程的操作执行者则是用户自身程序，goroutine也是协程。
+
+groutine能拥有强大的并发实现是通过**GPM调度模型**实现.
+
+Go的调度器内部有四个重要的结构：M，P，S，Sched.
+
+**M**: M代表内核级线程，一个M就是一个线程，goroutine就是跑在M之上的；M是一个很大的结构，里面维护小对象内存cache（mcache）、当前执行的goroutine、随机数发生器等等非常多的信息
+
+**G**: 代表一个goroutine，它有自己的栈，instruction pointer和其他信息（正在等待的channel等等），用于调度。
+
+**P**: P全称是Processor，处理器，它的主要用途就是用来执行goroutine的，所以它也维护了一个goroutine队列，里面存储了所有需要它来执行的goroutine, P用于调度的上下文。你可以把它看成一个本地化版本的调度器.
+
+**Sched**：代表调度器，它维护有存储M和G的队列以及调度器的一些状态信息等。
+
+**调度实现:**
+
+有2个物理线程M，每一个M都拥有一个处理器P，每一个也都有一个正在运行的goroutine。P的数量可以通过GOMAXPROCS()来设置，它其实也就代表了真正的并发度，即有多少个goroutine可以同时运行。
+
+P维护着这个队列（称之为runqueue），Go语言里，启动一个goroutine很容易：go function 就行，所以每有一个go语句被执行，runqueue队列就在其末尾加入一个goroutine，在下一个调度点，就从runqueue中取出（如何决定取哪个goroutine？）一个goroutine执行。
+
+当一个OS线程M0陷入阻塞时，P转而在运行M1. 当MO返回时，它必须尝试取得一个P来运行goroutine，一般情况下，它会从其他的OS线程那里拿一个P过来， 如果没有拿到的话，它就把goroutine放在一个global runqueue里，然后自己睡眠（放入线程缓存里）。所有的P也会周期性的检查global runqueue并运行其中的goroutine，否则global runqueue上的goroutine永远无法执行。
+
+另一种情况是P所分配的任务G很快就执行完了（分配不均），这就导致了这个处理器P很忙，但是其他的P还有任务，此时如果global runqueue没有任务G了，那么P不得不从其他的P里拿一些G来执行。
+
+通常来说，如果P从其他的P那里要拿任务的话，一般就拿run queue的一半，这就确保了每个OS线程都能充分的使用。
 
 ----------
 
@@ -628,9 +755,9 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 - [X] 课程简介
 - [X] RPC与多线程
-- [ ] GFS
-- [ ] Primary-Backup Replication
-- [ ] Go Threads and Raft
+- [X] GFS
+- [X] Primary-Backup Replication
+- [X] Go Threads and Raft
 - [ ] Fault Tolerance - Raft
 
 - 相关必读资料： 
@@ -641,7 +768,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
   
   Lab1: MapReduce ----- [paper](https://pdos.csail.mit.edu/6.824/papers/mapreduce.pdf)
   
-  Lab2:
+  Lab2: [Raft](https://pdos.csail.mit.edu/6.824/labs/lab-raft.html)-----[paper](https://pdos.csail.mit.edu/6.824/papers/raft-extended.pdf)
   
   Lab3:
   
@@ -742,9 +869,9 @@ GIL不是Python的特性，它是Python的C解释器在实现的时候引入的�
 
 书名  | 阅读进度
 ------------- | -------------
-[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  225/374
+[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  275/374
 [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  |  0/114
-Go 语言高并发和微服务实战  |  40/390
+Go 语言高并发和微服务实战  |  100/390
 超大流量分布式系统架构解决方案 | 220/220 done
 Kubernetes 即学即用  | 80/218
 机器学习应用系统设计 | 241/241 done
