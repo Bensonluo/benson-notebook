@@ -799,6 +799,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
     存在一种进程资源的循环等待链，链中每一个进程已获得的资源同时被 链中下一个进程所请求。
 
 **3. Race Condition ?**
+
   两个进程同时试图修改一个共享内存的内容，在没有并发控制的情况下，最后的结果依赖于两个进程的执行顺序与时机。
 	
 
@@ -825,15 +826,15 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 **5. Python全局解释器锁**
 
-GIL Global Interpreter Lock.
+  GIL Global Interpreter Lock.
 
-官方解释：GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)
+  官方解释：GIL is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once. This lock is necessary mainly because CPython's memory management is not thread-safe. (However, since the GIL exists, other features have grown to depend on the guarantees that it enforces.)
 
-在多线程编程时，为了防止多个线程同时操作一个变量时发生冲突，我们会设置一个互斥锁，只有获取到这个锁的线程才可以操作这个变量，这样做虽然安全了，但是并行变串行影响了程序的效率。而GIL是Python解释器为了程序的稳定性，在解释多线程的程序时加一把全局解释锁，保证同一时刻只有一个线程在被解释，效率自然也就变低了。
+  在多线程编程时，为了防止多个线程同时操作一个变量时发生冲突，我们会设置一个互斥锁，只有获取到这个锁的线程才可以操作这个变量，这样做虽然安全了，但是并行变串行影响了程序的效率。而GIL是Python解释器为了程序的稳定性，在解释多线程的程序时加一把全局解释锁，保证同一时刻只有一个线程在被解释，效率自然也就变低了。
 
-GIL不是Python的特性，它是Python的C解释器在实现的时候引入的特性，不是说我们的Python代码写出来就自带了GIL，而是在执行时，CPython解释器在解释多线程程序时会受到GIL锁的影响。 
+  GIL不是Python的特性，它是Python的C解释器在实现的时候引入的特性，不是说我们的Python代码写出来就自带了GIL，而是在执行时，CPython解释器在解释多线程程序时会受到GIL锁的影响。 
 
-*如果用到了多线程编程，但是对并行没有要求，只是对并发有要求，那么GIL锁影响不大，如果对并行要求高，那么可以用multiprocess（多进程）替代Thread，这样每一个Python进程都有自己的Python解释器和内存空间。*
+  *如果用到了多线程编程，但是对并行没有要求，只是对并发有要求，那么GIL锁影响不大，如果对并行要求高，那么可以用multiprocess（多进程）替代Thread，这样每一个Python进程都有自己的Python解释器和内存空间。*
 
 **6. 互斥锁，自旋锁**
 
@@ -847,19 +848,19 @@ GIL不是Python的特性，它是Python的C解释器在实现的时候引入的�
 
 **7. 缓存穿透，缓存雪崩，缓存击穿**
 
-**缓存穿透**：访问一个不存在的key，缓存不起作用，请求会穿透到DB，流量大时DB会挂掉。
+- **缓存穿透**：访问一个不存在的key，缓存不起作用，请求会穿透到DB，流量大时DB会挂掉。
 
-解决方案： 
+  解决方案： 
   - 布隆过滤器，使用一个足够大的bitmap，用于存储可能访问的key，不存在的key直接被过滤；
   - 访问key未在DB查询到值，也将空值写进缓存，但可以设置较短过期时间。
 
-**缓存雪崩**：大量的key设置了相同的过期时间，导致在缓存在同一时刻全部失效，造成瞬时DB请求量大、压力骤增，引起雪崩效应。
+- **缓存雪崩**：大量的key设置了相同的过期时间，导致在缓存在同一时刻全部失效，造成瞬时DB请求量大、压力骤增，引起雪崩效应。
 
-解决方案：通过给缓存设置过期时间时加上一个随机值时间，使得每个key的过期时间分布开来，不会集中在同一时刻失效。
+   解决方案：通过给缓存设置过期时间时加上一个随机值时间，使得每个key的过期时间分布开来，不会集中在同一时刻失效。
 
-**缓存击穿**： 一个存在的key，在缓存过期的一刻，同时有大量的请求，这些请求都会击穿到DB，造成瞬时DB请求量大、压力骤增。
+- **缓存击穿**： 一个存在的key，在缓存过期的一刻，同时有大量的请求，这些请求都会击穿到DB，造成瞬时DB请求量大、压力骤增。
 
-解决方案： 在访问key之前，采用SETNX（set if not exists）来设置另一个短期key来锁住当前key的访问，访问结束再删除该短期key。
+  解决方案： 在访问key之前，采用SETNX（set if not exists）来设置另一个短期key来锁住当前key的访问，访问结束再删除该短期key。
 
 **8. 海量数据的查询优化？**
 
