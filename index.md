@@ -29,7 +29,7 @@
     - [Interview Questions](#interview-questions)
     - [Reading List](#reading-list)
     - [Support or Contact](#support-or-contact)
-  
+
 ----------
 
 ### Data structure and Algorithm
@@ -413,6 +413,33 @@ for key, value := range oldMap {
 ||
 ```
 
+- String && byte
+
+  从go源码来看，string其实是一个指向byte数组的指针。
+
+  字符串是不可更改的，但是可以给他重新分配空间，给指针重新赋值。但是这也导致了他效率低下，因为之前的空间需要被gc回收。
+
+  ```go
+  s := "A1" // 分配存储"A1"的内存空间，s结构体里的str指针指向这快内存
+  s = "A2"  // 重新给"A2"的分配内存空间，s结构体里的str指针指向这快内存
+  ```
+
+  而 []byte和string的差别是更改变量的时候array的内容可以被更改。
+
+  ```go
+  s := []byte{1} // 分配存储1数组的内存空间，s结构体的array指针指向这个数组。
+  s = []byte{2}  // 将array的内容改为2
+  ```
+
+  总结：
+
+  - string可以直接比较，而[]byte不可以，所以[]byte不可以当map的key值。
+
+  - 因为无法修改string中的某个字符，需要粒度小到操作一个字符时，用[]byte。
+  - string值不可为nil，所以如果你想要通过返回nil表达额外的含义，就用[]byte。
+  - []byte切片这么灵活，想要用切片的特性就用[]byte。
+  - 需要大量字符串处理的时候用[]byte，性能好很多。
+
 - Pointer
 
 ```golang
@@ -588,7 +615,7 @@ x = <-ch // a receive expression in an assignment statement
 
 close(ch) // close a channel, panic if still sending
 ```
-   
+
   1. channels 是Goroutine 之间传递消息的通信机制， channels都有一个特殊的类型，也就是channels可发送数据的类型。
   2. 创建channel ```ch := make(chan int) ```。
   3. 和map 一样， channels也对应一个make创建的底层数据结构的引用。
@@ -646,7 +673,8 @@ close(ch) // close a channel, panic if still sending
   ```
 
 - **sync.Mutex互斥锁**
-    
+  
+
 在Lock和Unlock之间的代码段中的内容goroutine可以随便读取或者修改，这个代码段叫做临界区。
     
     ```golang
@@ -658,6 +686,7 @@ close(ch) // close a channel, panic if still sending
     ```
 - **sync.RWMutex读写锁**
   
+
 读操作并行执行，但写操作会完全互斥。这种锁叫作“多读单写”锁（multiple readers, single writer lock）, RLock只能在临界区共享变量没有任何写入操作时可用。
 ```golang
 var mu sync.RWMutex
