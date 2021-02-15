@@ -25,6 +25,7 @@
         - [Go routine](#go-routine)
         - [Go scheduler](#go-scheduler)
     - [Redis](#redis)
+    - [System Design](#System Design)
     - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
     - [Interview Questions](#interview-questions)
     - [Reading List](#reading-list)
@@ -777,6 +778,15 @@ P维护着这个队列（称之为runqueue），Go语言里，启动一个gorout
 
 ----------
 
+### System Design 
+
+搜索系统：（考虑负载均衡，读写分离，缓存，数据库分片，并发，对象存储， 消息队列）
+
+秒杀系统：
+
+
+
+
 
 ### MIT 6.824 Distributed Systems Spring 2020
 
@@ -787,7 +797,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 - [X] GFS
 - [X] Primary-Backup Replication
 - [X] Go Threads and Raft
-- [ ] Fault Tolerance - Raft
+- [x] Fault Tolerance - Raft
 
 - 相关必读资料： 
   
@@ -803,10 +813,8 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
   
   Lab4:
   
- - 未完待续
-   
-   
-   
+  
+  
 ----------
 
 ### Interview Questions
@@ -905,21 +913,24 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 ### Reading List
 
 书名  | 阅读进度
-------------- | -------------
+:------------ | -------------
 [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  275/374
-[Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  |  0/114
-Go 语言高并发和微服务实战  |  100/390
+[Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  | 106/114 
+Go 语言高并发和微服务实战  | 330/390 
 超大流量分布式系统架构解决方案 | 220/220 done
 Kubernetes 即学即用  | 80/218
 机器学习应用系统设计 | 241/241 done
 Linux/UNIX 编程手册 | 120/1176
 深入理解计算机系统  |  435/733
 剑指offer  |  196/333
+Effective Python | 156/213 
+Spring in Action | 0/464 
+Spring Boot in Action | 0% 
 
 ----------
 
 
 ### Support or Contact
 
-wechart: luopengllpp
+
 email: luopengllpp@hotmail.com
