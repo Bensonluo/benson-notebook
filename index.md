@@ -24,9 +24,9 @@
         - [Exception handing](#exception-handing)
         - [Go routine](#go-routine)
         - [Go scheduler](#go-scheduler)
-    - [Java](#Java)
+    - [Java](#java)
     - [Redis](#redis)
-    - [System Design](#System Design)
+    - [System Design](#system-design)
     - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
     - [Interview Questions](#interview-questions)
     - [Reading List](#reading-list)
@@ -782,12 +782,6 @@ M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行
 ----------
 
 ### Java
-
-
-
-
-
-
 
 ----------
 
