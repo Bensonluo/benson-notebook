@@ -372,6 +372,42 @@ func dfs(grid [][]byte,i,j int)int{
 
 #####  Sliding window
 
+239 [滑动窗口最大值](https://leetcode-cn.com/problems/sliding-window-maximum/)
+
+维护一个队列存储最大值
+
+```golang
+func maxSlidingWindow(nums []int, k int) []int {
+	if len(nums) == 0 {
+		return []int{}
+	}
+	//用切片模拟一个双端队列
+	queue := []int{}
+	result := []int{}
+	for i := range nums {
+		for i > 0 && (len(queue) > 0) && nums[i] > queue[len(queue)-1] {
+            //将比当前元素小的元素祭天
+			queue = queue[:len(queue)-1]
+		}
+        //将当前元素放入queue中
+		queue = append(queue, nums[i])
+		if i >= k && nums[i-k] == queue[0] {
+            //维护队列，保证其头元素为当前窗口最大值
+			queue = queue[1:]
+		}
+		if i >= k-1 {
+            //放入结果数组
+			result = append(result, queue[0])
+		}
+	}
+	return result
+}
+```
+
+双端队列：
+
+
+
 #####  Backtracking
  全排列 46/47 
 ```golang
@@ -828,6 +864,30 @@ M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行
 随着负载不断上升，主服务器可能无法很快地更新所有从服务器，或者重新连接和重新同步从服务器将导致系统超载。为了解决这个问题，可以创建一个中间层来分担主服务器的复制工作。中间层的服务器是最上层服务器的从服务器，又是最下层服务器的主服务器。
 
 *Sentinel（哨兵)* 可以监听集群中的服务器，并在主服务器进入下线状态时，自动从从服务器中选举出新的主服务器。
+
+**分布式锁**
+
+分布式锁一般有如下的特点：
+
+- 互斥性： 同一时刻只能有一个线程持有锁
+- 可重入性： 同一节点上的同一个线程如果获取了锁之后能够再次获取锁
+- 锁超时：和J.U.C中的锁一样支持锁超时，防止死锁
+- 高性能和高可用： 加锁和解锁需要高效，同时也需要保证高可用，防止分布式锁失效
+- 具备阻塞和非阻塞性：能够及时从阻塞状态中被唤醒
+
+我们一般实现分布式锁有以下几种方式实现分布式锁：
+
+- 基于数据库
+- 基于Redis
+- 基于zookeeper
+
+**cluster怎么保证键的均匀分配？为什么用Crc16算法，和MD5的区别？**
+
+Redis Cluser采用虚拟槽分区，所有的键根据哈希函数映射到0~16383个整数槽内，计算公式：slot=CRC16（key）&16383。
+
+CRC  的信息字段和校验字段的长度可以选定。
+
+Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效率和速度比MD5快，且取得了速度和空间占用的平衡。
 
 --------
 
