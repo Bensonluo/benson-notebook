@@ -8,12 +8,12 @@
         - [Binary Tree](#binary-tree)
         - [Linked List](#linked-list)
         - [Stack and Queue](#stack-and-queue)
-        - [Binary representation](#binary-representation)
         - [Binary Search](#binary-search)
         - [Sorting algorithm](#sorting-algorithm)
         - [Dynamic Programming](#dynamic-programming)
         - [Sliding window](#sliding-window)
         - [Backtracking](#backtracking)
+        - [Other](#other)
     - [Go programing language](#go-programing-language)
         - [Basic](#basic)
         - [Slice](#slice)
@@ -271,6 +271,57 @@ func hasCycle(head *ListNode) bool {
 }
 ```
 
+160 相交链表 -- 求长度差
+
+```golang
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+    if headA==nil || headB==nil {
+        return nil
+    }
+    tmpNode := headA ;
+    lengthA := 0
+    for true {
+        if tmpNode.Next != nil {
+            tmpNode = tmpNode.Next
+            lengthA++
+        } else {
+            break
+        }
+    }
+    tmpNode = headB
+    lengthB := 0
+    for true {
+        if tmpNode.Next != nil {
+            tmpNode = tmpNode.Next
+            lengthB++
+        } else {
+            break
+        }
+    }
+
+    if lengthA >= lengthB {
+            for i := 0; i < lengthA - lengthB; i++ {
+                headA = headA.Next;
+            }
+        } else {
+            for i := 0; i < lengthB - lengthA; i++ {
+                headB = headB.Next;
+            }
+        }
+
+    for headA != nil {
+        if headA == headB {
+            return headA
+        } 
+        headA = headA.Next
+        headB = headB.Next
+    }
+    return nil
+}
+```
+
+
+
 
 
 ##### Stack and Queue
@@ -360,15 +411,80 @@ func dfs(grid [][]byte,i,j int)int{
 
 ```
 
-
-
-#####  Binary representation
-
 #####  Binary Search
 
 #####  Sorting algorithm
 
 #####  Dynamic Programming
+
+264 丑数2  --  三指针 DP
+
+```
+
+```
+
+
+
+53 最大子序和         基础题 分治法 DP
+
+基本DP 思想公式 `status[n+1] = max(status[n], status[n] + nums[n+1]) `
+
+```golang
+func maxSubArray(nums []int) int {
+	len := len(nums)
+	ret := nums[0]
+	dp := nums[0]
+	for i:=1; i<len; i++ {
+		dp = maxV(nums[i], dp + nums[i])
+		ret = maxV(ret, dp)
+	}
+	return ret
+}
+
+func maxV(a int, b int) int {
+	if a>b {
+		return a
+	}
+	return b
+}
+```
+
+121 买卖股票
+
+```golang
+DP思想
+func maxProfit(prices []int) int {
+    profit := 0
+	buyPrice := prices[0]
+	for i :=1 ; i< len(prices); i++ {
+
+		if p := prices[i] - buyPrice; p > profit {
+			profit = p
+		}
+		if prices[i] < buyPrice {
+			buyPrice = prices[i]
+		}
+    }
+    return profit
+}
+```
+
+122 买卖股票2 -- 贪心算法
+
+```golang
+PS: 只要今天比昨天贵就卖
+func maxProfit(prices []int) int {
+    profit := 0
+    for i:=1; i< len(prices); i++ {
+        if prices[i] > prices[i-1] {
+            profit += prices[i] - prices[i-1]
+        }
+    }
+    return profit
+}
+```
+
+
 
 #####  Sliding window
 
@@ -403,8 +519,6 @@ func maxSlidingWindow(nums []int, k int) []int {
 	return result
 }
 ```
-
-双端队列：
 
 
 
@@ -457,6 +571,21 @@ class Solution {
     public int lowbit(int x){
         return x & -x;
     }
+```
+
+212 找重复 List Set HashTable
+
+```Golang
+func containsDuplicate(nums []int) bool {
+    set := map[int]struct{}{}  //用map模拟set, 赋予空结构体
+    for _, v := range nums {
+        if _, has := set[v]; has {
+            return true
+        }
+        set[v] = struct{}{}
+    }
+    return false
+}
 ```
 
 
@@ -637,6 +766,7 @@ for k,v:=range map{
     println(k,v)
 }
 ```
+- 
 - map 元素不能取址操作，原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效
 - map 键需要可比较，不能为 slice、map、function
 - map 值都有默认值，可以直接操作默认值，如：m[age]++ 值由 0 变为 1
