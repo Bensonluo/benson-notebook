@@ -13,7 +13,7 @@
         - [Dynamic Programming](#dynamic-programming)
         - [Sliding window](#sliding-window)
         - [Backtracking](#backtracking)
-        - [Other](#other)
+        - [Others](#others)
     - [Go programing language](#go-programing-language)
         - [Basic](#basic)
         - [Slice](#slice)
@@ -413,17 +413,93 @@ func dfs(grid [][]byte,i,j int)int{
 
 #####  Binary Search
 
+35 搜插位置   基础二分搜索
+
+```golang
+func searchInsert(nums []int, target int) int {
+    start := 0
+    end := len(nums)
+    mid := 0
+    
+    for start < end {
+        mid = start + (end-start)/2
+        if target < nums[mid] {
+            end = mid
+        } else if target > nums[mid] {
+            start = mid + 1
+        } else if target == nums[mid]{
+            return mid
+        }
+    }
+    return start
+}
+```
+
+
+
 #####  Sorting algorithm
 
 #####  Dynamic Programming
 
-264 丑数2  --  三指针 DP
+264 丑数2  --  三指针 + DP
 
 ```
+func nthUglyNumber(n int) int {
+    dp := make([]int, n+1)
+    dp[1] = 1
+    x, y, z := 1, 1, 1
+    for i:=2; i<n+1; i++ {
+        x2, x3, x5 := dp[x]*2, dp[y]*3, dp[z]*5
+        dp[i] = min(min(x2, x3), x5)
+        if dp[i] == x2 {
+            x++
+        } 
+        if dp[i] == x3 {
+            y++
+        }
+        if dp[i] == x5 {
+            z++
+        }
+    }
+    return dp[n]
+}
 
+func min(x int, y int) int {
+    if x>y {
+        return y
+    }
+    return x
+}
 ```
 
+65 最小路径和 经典动态规划
 
+```golang
+func minPathSum(grid [][]int) int {
+	m, n := len(grid), len(grid[0])
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if i == 0 && j == 0 {
+				continue
+			} else if i == 0 {
+				grid[i][j] = grid[i][j-1] + grid[i][j]
+			} else if j == 0 {
+				grid[i][j] = grid[i-1][j] + grid[i][j]
+			} else {
+				grid[i][j] = min(grid[i-1][j], grid[i][j-1]) + grid[i][j]
+			}
+		}
+	}
+	return grid[m-1][n-1]
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+```
 
 53 最大子序和         基础题 分治法 DP
 
@@ -588,6 +664,27 @@ func containsDuplicate(nums []int) bool {
 }
 ```
 
+349 求两个无序数组交集 - >哈希表     延伸：两个有序数组交集->双指针一次遍历
+
+```
+func intersection(nums1 []int, nums2 []int) []int {
+    mp := make(map[int]int)
+    res := make([]int, 0)
+    for _, v := range nums1 {
+        if mp[v] == 0 {
+            mp[v]++
+        } 
+    }
+    for _, v := range nums2 {
+        if mp[v] == 1 {
+            res = append(res, v)
+            mp[v]--
+        }
+    }
+    return res
+}
+```
+
 
 
 
@@ -603,6 +700,9 @@ s := ""
 var s string
 var s = ""
 var s string = ""
+var identifier []type
+slic := make([]int,len)
+map_variable := make(map[key_data_type]value_data_type)
 ```
 
 第一种形式，是一条短变量声明，最简洁，但只能用在函数内部，而不能用于包变量。
@@ -631,6 +731,35 @@ for key, value := range oldMap {
 ```
 
 - String && byte
+
+  互相转换
+
+  ```golang
+  // string to []byte
+      s1 := "string"
+      by := []byte(s1)
+  
+      // []byte to string
+      s2 := string(by)
+  ```
+
+  黑魔法转换 - 性能更优
+
+  ```golang
+  func String2Bytes(s string) []byte {
+      sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+      bh := reflect.SliceHeader{
+          Data: sh.Data,
+          Len:  sh.Len,
+          Cap:  sh.Len,
+      }
+      return *(*[]byte)(unsafe.Pointer(&bh))
+  }
+  
+  func Bytes2String(b []byte) string {
+      return *(*string)(unsafe.Pointer(&b))
+  }
+  ```
 
   从go源码来看，string其实是一个指向byte数组的指针。
 
@@ -677,6 +806,18 @@ defer语句经常被用于处理成对的操作，如**打开、关闭、连接�
 *还可用于打开关闭文件，操作互斥锁，调试复杂程序是用于记录进入和退出函数的时间。*
 
 ##### Slice
+
+Slice的删除by Index
+
+`seq = append(seq[:index], seq[index+1:]...)`
+
+插入：
+
+```golang
+rear:=append([]string{},ss[index:]...) 创建临时切片保存后部元素
+ss=append(ss[0:index],"inserted") 追加到前切片尾部
+ss=append(ss,rear...) 合并
+```
 
 - slice 不可比较
 
@@ -1183,6 +1324,10 @@ Linux/UNIX 编程手册 | 120/1176
 Effective Python | 156/213 
 Spring in Action | 0/464 
 Spring Boot in Action | 0% 
+ Spring Microservice in Action                                | 0            
+ 计算机网络 A top-down Approcach                              | 52/510       
+
+
 
 ----------
 
