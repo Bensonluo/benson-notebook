@@ -1313,7 +1313,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 书名  | 阅读进度
 :------------ | -------------
 [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  275/374
-[Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  | 106/114 
+[Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  | 114/114 done 
 Go 语言高并发和微服务实战  | 330/390 
 超大流量分布式系统架构解决方案 | 220/220 done
 Kubernetes 即学即用  | 80/218
@@ -1321,11 +1321,11 @@ Kubernetes 即学即用  | 80/218
 Linux/UNIX 编程手册 | 120/1176
 深入理解计算机系统  |  435/733
 剑指offer  |  196/333
-Effective Python | 156/213 
-Spring in Action | 0/464 
+Effective Python | 213/213 done 
+ 计算机网络 A top-down Approcach                              | 152/510      
 Spring Boot in Action | 0% 
  Spring Microservice in Action                                | 0            
- 计算机网络 A top-down Approcach                              | 52/510       
+ Spring in Action                                             | 0/464        
 
 
 
