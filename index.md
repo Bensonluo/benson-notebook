@@ -4,6 +4,7 @@
 
 - [Benson-notebook](#benson-notebook)
     - [Table of Contents](#table-of-contents)
+    - [Reading List](#reading-list)
     - [Data structure and Algorithm](#data-structure-and-algorithm)
         - [Binary Tree](#binary-tree)
         - [Linked List](#linked-list)
@@ -26,17 +27,70 @@
         - [Go scheduler](#go-scheduler)
     - [Java](#java)
     - [Redis](#redis)
-    - [System Design](#system-design)
+    - [System Design](#system-design)  
     - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
     - [Interview Questions](#interview-questions)
-    - [Reading List](#reading-list)
     - [Support or Contact](#support-or-contact)
+        
 
 ----------
+
+
+
+### Reading List
+
+| 书名                                                         | 阅读进度     |
+| :----------------------------------------------------------- | ------------ |
+| [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html) | 275/374      |
+| [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) | 114/114 done |
+| Go 语言高并发和微服务实战                                    | 330/390      |
+| 超大流量分布式系统架构解决方案                               | 220/220 done |
+| Kubernetes 即学即用                                          | 80/218       |
+| 机器学习应用系统设计                                         | 241/241 done |
+| Linux/UNIX 编程手册                                          | 120/1176     |
+| 深入理解计算机系统                                           | 435/733      |
+| 剑指offer                                                    | 196/333      |
+| Effective Python                                             | 213/213 done |
+| 计算机网络 A top-down Approcach                              | 152/510      |
+| Spring Boot in Action                                        | 0%           |
+| Spring Microservice in Action                                | 0            |
+| Spring in Action                                             | 0/464        |
+
+
+
+----------
+
+
 
 ### Data structure and Algorithm
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
+
+##### 各数据结构时间复杂度
+
+| 数据结构   | 插入    | 删除    | 查找    |
+| :--------- | ------- | ------- | ------- |
+| 数组       | o(n)    | o(1)    | o(n)    |
+| 有序数组   | o(logn) | o(n)    | o(n)    |
+| 链表       | o(n)    | o(1)    | o(n)    |
+| 有序链表   | o(n)    | o(n)    | o(n)    |
+| 二叉树最坏 | o(n)    | o(n)    | o(n)    |
+| 二叉树一般 | o(logn) | o(logn) | o(logn) |
+| 平衡树AVL  | o(logn) | o(logn) | o(logn) |
+| 哈希表     | o(1)    | o(1)    | o(1)    |
+| 双向链表   | O(n)    | O(1)    | O(1)    |
+
+##### 主要排序算法的效率
+
+| 排序算法 | 平均时间   | 最坏时间   | 空间     | 稳定性 | 注释 |
+| -------- | ---------- | ---------- | -------- | ------ | ---- |
+| 冒泡     | o(n^2)     | o(n^2)     | o(1)     | 稳定   |      |
+| 选择     | o(n^2)     | o(n^2)     | o(1)     | 不稳定 |      |
+| 插入     | o(n^2)     | o(n^2)     | o(1)     | 稳定   |      |
+| 快速     | o(n log n) | o(n^2)     | o(log n) | 不稳定 |      |
+| 归并     | o(n log n) | o(n log n) | o(n)     | 稳定   |      |
+
+
 
 ##### Binary Tree
 
@@ -135,7 +189,6 @@ func postorderTraversal(root *TreeNode) []int {
     }
     return result
 }
-
 ```
 
 ##### Linked List
@@ -1305,27 +1358,6 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 5. TypeScript 在开发时就能给出编译错误，而 JavaScript 错误则需要在运行时才能暴露
 
 
-
-----------
-
-### Reading List
-
-书名  | 阅读进度
-:------------ | -------------
-[The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html)  |  275/374
-[Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/)  | 114/114 done 
-Go 语言高并发和微服务实战  | 330/390 
-超大流量分布式系统架构解决方案 | 220/220 done
-Kubernetes 即学即用  | 80/218
-机器学习应用系统设计 | 241/241 done
-Linux/UNIX 编程手册 | 120/1176
-深入理解计算机系统  |  435/733
-剑指offer  |  196/333
-Effective Python | 213/213 done 
- 计算机网络 A top-down Approcach                              | 152/510      
-Spring Boot in Action | 0% 
- Spring Microservice in Action                                | 0            
- Spring in Action                                             | 0/464        
 
 
 
