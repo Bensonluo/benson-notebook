@@ -4,7 +4,11 @@
 
 - [Benson-notebook](#benson-notebook)
     - [Table of Contents](#table-of-contents)
+    
     - [Reading List](#reading-list)
+    
+    - [LeetCode Progress](#leetcode-progress)
+    
     - [Data structure and Algorithm](#data-structure-and-algorithm)
         - [Binary Tree](#binary-tree)
         - [Linked List](#linked-list)
@@ -15,6 +19,7 @@
         - [Sliding window](#sliding-window)
         - [Backtracking](#backtracking)
         - [Others](#others)
+        
     - [Go programing language](#go-programing-language)
         - [Basic](#basic)
         - [Slice](#slice)
@@ -25,13 +30,20 @@
         - [Exception handing](#exception-handing)
         - [Go routine](#go-routine)
         - [Go scheduler](#go-scheduler)
-    - [Java](#java)
-    - [Redis](#redis)
-    - [System Design](#system-design)  
-    - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
-    - [Interview Questions](#interview-questions)
-    - [Support or Contact](#support-or-contact)
         
+    - [Java](#java)
+    
+    - [Redis](#redis)
+    
+    - [System Design](#system-design)  
+    
+    - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
+    
+    - [Interview Questions](#interview-questions)
+    
+    - [Support or Contact](#support-or-contact)
+      
+      
 
 ----------
 
@@ -58,13 +70,29 @@
 
 
 
+------
+
+
+
+### LeetCode Progress
+
+[My Leetcode account](https://leetcode-cn.com/u/peng-194/)
+
+| Problem Solved : | 90   |
+| ---------------- | ---- |
+| 简单             | 62   |
+| 中等             | 27   |
+| 困难             | 1    |
+| 通过率           | 60 % |
+| 总提交数         | 177  |
+
+
+
 ----------
 
 
 
 ### Data structure and Algorithm
-
-[My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
 ##### 各数据结构时间复杂度
 
@@ -375,9 +403,8 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 
 
 
-
-
 ##### Stack and Queue
+
 字符串匹配（有效的括号） 20
 ```golang
 //左半边入栈, 右边匹配出栈否则false
@@ -496,7 +523,7 @@ func searchInsert(nums []int, target int) int {
 
 264 丑数2  --  三指针 + DP
 
-```
+```golang
 func nthUglyNumber(n int) int {
     dp := make([]int, n+1)
     dp[1] = 1
@@ -649,6 +676,35 @@ func maxSlidingWindow(nums []int, k int) []int {
 }
 ```
 
+3 无重复字符的最长子串 
+
+```golang
+func lengthOfLongestSubstring(s string) int {
+    byt := []byte(s)
+    if len(byt) == 0 {
+        return 0
+    }
+    hmap := make(map[byte]int) 
+    res := 0
+    start := 0
+    for i:=0; i<len(byt); i++ {
+        if _, ok := hmap[byt[i]]; ok {
+            start = max(start, hmap[byt[i]] + 1) //有重复字符推进维护窗口
+        }
+        hmap[byt[i]] = i  //更新map 存index，key为字符
+        res = max(res, i - start + 1) 
+    }
+    return res
+}
+
+func max(x,y int)int {
+    if x>y {
+        return x
+    }
+    return y
+}
+```
+
 
 
 #####  Backtracking
@@ -743,6 +799,8 @@ func intersection(nums1 []int, nums2 []int) []int {
 
 ----------
 
+
+
 ### Go programing language
 
 ##### Basic
@@ -783,7 +841,7 @@ for key, value := range oldMap {
 ||
 ```
 
-- String && byte
+- string && byte && rune
 
   互相转换
 
@@ -794,6 +852,13 @@ for key, value := range oldMap {
   
       // []byte to string
       s2 := string(by)
+  
+  
+  //string 转 rune
+  r := []rune(str)
+  
+  //rune 转 string
+  str = string(r)
   ```
 
   黑魔法转换 - 性能更优
@@ -816,7 +881,7 @@ for key, value := range oldMap {
 
   从go源码来看，string其实是一个指向byte数组的指针。
 
-  字符串是不可更改的，但是可以给他重新分配空间，给指针重新赋值。但是这也导致了他效率低下，因为之前的空间需要被gc回收。
+  字符串string是不可更改的，但是可以给他重新分配空间，给指针重新赋值。但是这也导致了他效率低下，因为之前的空间需要被gc回收。
 
   ```go
   s := "A1" // 分配存储"A1"的内存空间，s结构体里的str指针指向这快内存
@@ -827,10 +892,34 @@ for key, value := range oldMap {
 
   ```go
   s := []byte{1} // 分配存储1数组的内存空间，s结构体的array指针指向这个数组。
-  s = []byte{2}  // 将array的内容改为2
+  s = []byte{2}  // 将byte array的内容改为2
+  ```
+
+  ```golang
+  // rune能表示的范围更多，比如中文(占3个字符)
+  	str2:="你好,中国"
+  	c:=[]rune(str2)
+  	d:=[]byte(str2)
+  	//c: [20320 22909 44 20013 22269]  中文字符也能拆
+  	fmt.Println("c:",c) 
+  	//d: [228 189 160 229 165 189 44 228 184 173 229 155 189]  一个中文拆成3个字符表示4*3+1=13
+  	fmt.Println("d:",d) 
+  }
+  ```
+
+  ```golang
+  //编辑修改字符串string 最好用rune 因为一个 UTF8 编码的字符可能会占多个字节
+  x := "text"
+  xRunes := []rune(x)
+  xRunes[0] = '人'
+  x = string(xRunes)
+  fmt.Println(x)    // 人ext
   ```
 
   总结：
+
+  - byte 等同于int8，常用来处理ascii字符
+  - rune 等同于int32，常用来处理unicode或utf-8字符
 
   - string可以直接比较，而[]byte不可以，所以[]byte不可以当map的key值。
 
@@ -937,12 +1026,12 @@ func main() {
   
 ``` golang
 // 创建队列
-queue:=make([]int,0)
+queue := make([]int,0)
 // enqueue入队
 queue=append(queue,10)
 // dequeue出队
-v:=queue[0]
-queue=queue[1:]
+v := queue[0]
+queue = queue[1:]
 // 长度0为空
 len(queue)==0
 ```
@@ -950,13 +1039,14 @@ len(queue)==0
 ##### Hashmap 
 ``` golang
 // 创建
-map:=make(map[string]int)
+map := make(map[string]int)
+map := map[string]int{}
 // 设置kv
-map["key"]=1
+map["key"] = 1
 // 删除k 失败返0
 delete(map,"key")
 // 遍历
-for k,v:=range map{
+for k,v := range map{
     println(k,v)
 }
 ```
@@ -1139,15 +1229,24 @@ M会和一个系统内核线程绑定，而P和G的关系是一对多，M与P, P
 
 M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行的G队列转投新M.
 
-----------
 
-### Java
 
 ----------
+
+
+
+### Space holder
+
+
+
+----------
+
+
 
 ### Redis ###
 
 **Redis的数据类型：** 
+
 - String 整数，浮点数或者字符串
 - Set 集合
 - Zset 有序集合
@@ -1213,7 +1312,11 @@ CRC  的信息字段和校验字段的长度可以选定。
 
 Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效率和速度比MD5快，且取得了速度和空间占用的平衡。
 
+
+
 --------
+
+
 
 ### System Design 
 
@@ -1223,11 +1326,18 @@ Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效�
 
 2. 技术上 抗压 
    - 监控如达到压力测试的极限QPS, 直接返回已抢完
+   
    - 提高服务器数量性能
+   
    - 分层效验：读可弱一致性效验，写强一致性
+   
    - 用消息队列缓冲请求
+   
+     
 
 ---------
+
+
 
 ### MIT 6.824 Distributed Systems Spring 2020
 
@@ -1258,7 +1368,11 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
   
 ----------
 
+
+
 ### Interview Questions
+
+AKA 八股文
 
  **1. mysql索引为什么要用B+树？**
  - 高度矮, 磁盘IO相对少
@@ -1352,16 +1466,19 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 **9. Typescript 的优势**
 
 1. TypeScript 是强类型面对对象编程语言, 增加了代码的可读性和可维护性
+
 2. 支持静态类型，支持 Class、Interface、Generics、Enums等。
+
 3. TypeScript 拥抱了 ES6 规范
+
 4. 兼容很多第三方库。
+
 5. TypeScript 在开发时就能给出编译错误，而 JavaScript 错误则需要在运行时才能暴露
 
-
-
-
+   
 
 ----------
+
 
 
 ### Support or Contact
