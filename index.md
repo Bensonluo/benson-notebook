@@ -10,6 +10,7 @@
     - [LeetCode Progress](#leetcode-progress)
     
     - [Data structure and Algorithm](#data-structure-and-algorithm)
+        
         - [Binary Tree](#binary-tree)
         - [Linked List](#linked-list)
         - [Stack and Queue](#stack-and-queue)
@@ -1078,6 +1079,27 @@ fmt.Printf("%s\n", data)
 Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -> 回收
 
 注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。
+
+流程图：
+
+![](/Users/luopeng/Documents/GitHub/benson-notebook/images/golang-gc.jpeg)
+
+重点概念：
+
+- **写屏障**
+- **gray black white三色标记**
+
+1. 黑色: 对象在这次GC中已标记,且这个对象包含的子对象也已标记
+2. 灰色: 对象在这次GC中已标记, 但这个对象包含的子对象未标记
+3. 白色: 对象在这次GC中未标记
+
+- **gc-root 可达性分析**
+
+- **并行的标记/扫描**
+
+- **STW 停止**世界（暂停用户协程）/启动用户协程
+
+  
 
 ##### Exception handing
  - Go使用控制流机制（如if和return）处理异常
