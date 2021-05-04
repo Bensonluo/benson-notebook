@@ -10,7 +10,7 @@
     - [LeetCode Progress](#leetcode-progress)
     
     - [Data structure and Algorithm](#data-structure-and-algorithm)
-        
+      
         - [Binary Tree](#binary-tree)
         - [Linked List](#linked-list)
         - [Stack and Queue](#stack-and-queue)
@@ -32,6 +32,10 @@
         - [Go routine](#go-routine)
         - [Go scheduler](#go-scheduler)
         
+    - [Networking](#networking)
+    
+    - [Database](#database)
+    
     - [Java](#java)
     
     - [Redis](#redis)
@@ -52,22 +56,28 @@
 
 ### Reading List
 
-| 书名                                                         | 阅读进度     |
-| :----------------------------------------------------------- | ------------ |
-| [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html) | 275/374      |
-| [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) | 114/114 done |
-| Go 语言高并发和微服务实战                                    | 330/390      |
-| 超大流量分布式系统架构解决方案                               | 220/220 done |
-| Kubernetes 即学即用                                          | 80/218       |
-| 机器学习应用系统设计                                         | 241/241 done |
-| Linux/UNIX 编程手册                                          | 120/1176     |
-| 深入理解计算机系统                                           | 435/733      |
-| 剑指offer                                                    | 196/333      |
-| Effective Python                                             | 213/213 done |
-| 计算机网络 A top-down Approcach                              | 152/510      |
-| Spring Boot in Action                                        | 0%           |
-| Spring Microservice in Action                                | 0            |
-| Spring in Action                                             | 0/464        |
+| 书名                                                         | 目前优先级 | 状态        | 阅读进度 |
+| :----------------------------------------------------------- | ---------- | ----------- | -------- |
+| [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html) |            | Main points | 275/374  |
+| [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) |            | Completed   | 114/114  |
+| Go 语言高并发和微服务实战                                    |            | Main points | 330/390  |
+| 超大流量分布式系统架构解决方案                               |            | Completed   | 220/220  |
+| Go语言实战                                                   | 4          | In progress | 0/246    |
+| 分布式系统-常用技术及案例分析                                | 1          | In progress | 0/540    |
+| 企业级大数据平台构建-架构与实现                              | 9          | OnHold      | 0/249    |
+| 设计模式-Reusable O-O Sofeware                               | 2          | In progress | 0/290    |
+| Kubernetes 即学即用                                          |            | Main points | 80/218   |
+| 机器学习应用系统设计                                         |            | Completed   | 241/241  |
+| Linux/UNIX 编程手册                                          |            | OnHold      | 120/1176 |
+| 深入理解计算机系统                                           |            | Main points | 435/733  |
+| 剑指offer                                                    | 3          | Main points | 266/333  |
+| Effective Python                                             |            | Completed   | 213/213  |
+| 计算机网络 A top-down Approcach                              | 2          | In progress | 152/510  |
+| Spring Boot in Action                                        | 999        | Blocked     | 0%       |
+| Spring Microservice in Action                                | 999        | Blocked     | 0        |
+| Spring in Action                                             | 999        | Blocked     | 0/464    |
+
+
 
 
 
@@ -79,13 +89,12 @@
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
-| Problem Solved : | 90   |
+| Problem Solved : | 112  |
 | ---------------- | ---- |
-| 简单             | 62   |
-| 中等             | 27   |
-| 困难             | 1    |
-| 通过率           | 60 % |
-| 总提交数         | 177  |
+| 简单             | 73   |
+| 中等             | 37   |
+| 困难             | 2    |
+| 总提交数         | 223  |
 
 
 
@@ -651,29 +660,31 @@ func maxProfit(prices []int) int {
 
 ```golang
 func maxSlidingWindow(nums []int, k int) []int {
-	if len(nums) == 0 {
-		return []int{}
-	}
-	//用切片模拟一个双端队列
-	queue := []int{}
-	result := []int{}
-	for i := range nums {
-		for i > 0 && (len(queue) > 0) && nums[i] > queue[len(queue)-1] {
-            //将比当前元素小的元素祭天
-			queue = queue[:len(queue)-1]
-		}
-        //将当前元素放入queue中
-		queue = append(queue, nums[i])
-		if i >= k && nums[i-k] == queue[0] {
-            //维护队列，保证其头元素为当前窗口最大值
-			queue = queue[1:]
-		}
-		if i >= k-1 {
-            //放入结果数组
-			result = append(result, queue[0])
-		}
-	}
-	return result
+    if len(nums) == 0 {
+        return []int{}
+    }
+
+    //维护一个有序切片
+    window := make([]int, 0)
+    res := make([]int, 0)
+    for i:=0; i<len(nums); i++ {
+        //循环删除维护队列尾部最小元素如果其小于当前元素
+        for i>0 && len(window)>0 && nums[i] > window[len(window)-1] {
+            window = window[:len(window)-1]
+        }
+      
+        window = append(window, nums[i])
+        //如果窗口尾端值为最大值，推出维护队列
+        if i >= k && nums[i-k] == window[0] {
+            window = window[1:]
+        }
+           
+        //将当前最大值写入结果
+        if i >= k-1 {
+            res = append(res, window[0])
+        } 
+    }
+    return res
 }
 ```
 
@@ -698,8 +709,8 @@ func lengthOfLongestSubstring(s string) int {
     return res
 }
 
-func max(x,y int)int {
-    if x>y {
+func max(x, y int) int {
+    if x > y {
         return x
     }
     return y
@@ -792,6 +803,47 @@ func intersection(nums1 []int, nums2 []int) []int {
         }
     }
     return res
+}
+```
+
+5 最长回文子串 中心扩散法  647题类似
+
+```golang
+func longestPalindrome(s string) string {
+    if s == "" || len(s) == 0 {
+            return "";
+        }
+    start, end := 0, 0
+    maxS := 0
+    maxLen := 0
+    length := 1
+    for k:=0; k<len(s); k++ {
+        start, end = k-1, k+1
+        //向左扩散
+        for start >= 0 && s[start] == s[k] {
+            start--
+            length++
+        }
+        //向右扩散
+        for end < len(s) && s[end] == s[k] {
+            end++
+            length++
+        }
+        //向两边同时扩散
+        for start >= 0 && end < len(s) && s[start] == s[end] {
+            start--
+            end++
+            length += 2
+        }
+        //更新最大回文len和indexs
+        if length > maxLen {
+            maxLen = length
+            maxS = start
+        }
+        //重置长度
+        length = 1
+    }
+    return s[maxS+1 : maxS+maxLen+1]
 }
 ```
 
@@ -1082,7 +1134,7 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
 
 流程图：
 
-![](/Users/luopeng/Documents/GitHub/benson-notebook/images/golang-gc.jpeg)
+![](https://pic1.zhimg.com/80/v2-3fd461ae369acf7f71a1cb055a4f5154_1440w.jpg)
 
 重点概念：
 
@@ -1257,13 +1309,40 @@ M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行
 
 
 
-### Space holder
+### Networking
+
+
+
+
 
 
 
 ----------
 
 
+
+### Database
+
+| 特性           | InnoDB | MyISAM | MEMORY |
+| -------------- | ------ | ------ | ------ |
+| 事物安全       | 支持   | 不支持 | 不支持 |
+| 对外键的支持   | 支持   | 不支持 | 不支持 |
+| 存储限制       | 64T    | 有     | 有     |
+| 空间使用       | 高     | 低     | 低     |
+| 内存使用       | 高     | 低     | 高     |
+| 插入数据的速度 | 低     | 高     | 高     |
+
+InnoDB是Mysql的默认存储引擎(5.5.5之前是MyISAM）
+
+当需要使用数据库事务时候，InnoDb是首选
+
+由于锁的粒度小，写操作不会锁定全表。所以在并发度较高的场景下使用会提升效率的。
+
+大批量的插入语句时（INSERT语句）在MyIASM引擎中执行的比较的快，但是UPDATE语句在Innodb下执行的会比较的快，尤其是在并发量大的时候。
+
+
+
+----------
 
 ### Redis ###
 
@@ -1342,7 +1421,7 @@ Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效�
 
 ### System Design 
 
-**秒杀红包系统**：（超高并发，限流，维持可用）
+**秒杀红包系统**：（超高并发，限流，削峰，维持可用）
 
 1. 业务上 限流（分散时间，区别用户，点击门槛）
 
@@ -1394,7 +1473,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 ### Interview Questions
 
-AKA 八股文
+AKA 八股文 以及其他未能及时归类
 
  **1. mysql索引为什么要用B+树？**
  - 高度矮, 磁盘IO相对少
