@@ -1,59 +1,5 @@
 # Benson-notebook
 
-### Table of Contents
-
-- [Benson-notebook](#benson-notebook)
-    - [Table of Contents](#table-of-contents)
-    
-    - [Reading List](#reading-list)
-    
-    - [LeetCode Progress](#leetcode-progress)
-    
-    - [Data structure and Algorithm](#data-structure-and-algorithm)
-      
-        - [Binary Tree](#binary-tree)
-        - [Linked List](#linked-list)
-        - [Stack and Queue](#stack-and-queue)
-        - [Binary Search](#binary-search)
-        - [Sorting algorithm](#sorting-algorithm)
-        - [Dynamic Programming](#dynamic-programming)
-        - [Sliding window](#sliding-window)
-        - [Backtracking](#backtracking)
-        - [Others](#others)
-        
-    - [Go programing language](#go-programing-language)
-        - [Basic](#basic)
-        - [Slice](#slice)
-        - [Hashmap](#hashmap)
-        - [Struct](#struct)
-        - [Marshaling](#marshaling)
-        - [Garbage collection](#garbage-collection)
-        - [Exception handing](#exception-handing)
-        - [Go routine](#go-routine)
-        - [Go scheduler](#go-scheduler)
-        
-    - [Networking](#networking)
-    
-    - [Database](#database)
-    
-    - [Java](#java)
-    
-    - [Redis](#redis)
-    
-    - [System Design](#system-design)  
-    
-    - [MIT 6.824 Distributed Systems Spring 2020](#mit-6824-distributed-systems-spring-2020)
-    
-    - [Interview Questions](#interview-questions)
-    
-    - [Support or Contact](#support-or-contact)
-      
-      
-
-----------
-
-
-
 ### Reading List
 
 | 书名                                                         | 目前优先级 | 状态        | 阅读进度 |
@@ -65,7 +11,7 @@
 | Go语言实战                                                   | 4          | In progress | 0/246    |
 | 分布式系统-常用技术及案例分析                                | 1          | In progress | 0/540    |
 | 企业级大数据平台构建-架构与实现                              | 9          | OnHold      | 0/249    |
-| 设计模式-Reusable O-O Sofeware                               | 2          | In progress | 0/290    |
+| 设计模式-Reusable O-O Software                               | 2          | In progress | 0/290    |
 | Kubernetes 即学即用                                          |            | Main points | 80/218   |
 | 机器学习应用系统设计                                         |            | Completed   | 241/241  |
 | Linux/UNIX 编程手册                                          |            | OnHold      | 120/1176 |
@@ -76,8 +22,6 @@
 | Spring Boot in Action                                        | 999        | Blocked     | 0%       |
 | Spring Microservice in Action                                | 999        | Blocked     | 0        |
 | Spring in Action                                             | 999        | Blocked     | 0/464    |
-
-
 
 
 
@@ -1046,7 +990,6 @@ func appendInt(x []int, y int) []int {
 操作。从这个角度看，slice并不是一个纯粹的引用类型，它实际上是一个聚合类型。
 
 - slice可以用来模拟stack
-  
 ```golang
 //使用append函数将新的值压入stack：
 stack = append(stack, v) // push v
@@ -1076,7 +1019,6 @@ func main() {
 ```
 
 - 模拟队列
-  
 ``` golang
 // 创建队列
 queue := make([]int,0)
@@ -1116,7 +1058,6 @@ for k,v := range map{
 - 一个命名为S的结构体类型将不能再包含S类型的成员（该限制同样适应于数组。）但是S类型的结构体可以包含*S指针类型的成员
 - 创建并初始化一个结构体变量，并返回结构体的地址：```pp := &Point{1, 2}```
 - 结构体的全部成员都是可以比较的，那么结构体也是可以比较的，== 会比较结构体的每一个成员
-  
 ##### Marshaling
 ``` golang
 data, err := json.Marshal(movies)
@@ -1208,7 +1149,7 @@ close(ch) // close a channel, panic if still sending
   用*关闭一个channel*来进行广播
   ```golang
   var done = make(chan struct{})
-
+  
   func cancelled() bool {
     select {
     case <-done:
@@ -1217,7 +1158,7 @@ close(ch) // close a channel, panic if still sending
         return false
     }
   }
-
+  
   // Cancel traversal when input is detected.
   go func() {
     os.Stdin.Read(make([]byte, 1)) // read a single byte
@@ -1245,11 +1186,10 @@ close(ch) // close a channel, panic if still sending
         // ...
     }
   }
-
+  
   ```
 
 - **sync.Mutex互斥锁**
-  
 
 在Lock和Unlock之间的代码段中的内容goroutine可以随便读取或者修改，这个代码段叫做临界区。
     
@@ -1261,7 +1201,6 @@ close(ch) // close a channel, panic if still sending
     }
     ```
 - **sync.RWMutex读写锁**
-  
 
 读操作并行执行，但写操作会完全互斥。这种锁叫作“多读单写”锁（multiple readers, single writer lock）, RLock只能在临界区共享变量没有任何写入操作时可用。
 ```golang
@@ -1464,7 +1403,6 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
   Lab3:
   
   Lab4:
-  
   
   
 ----------
