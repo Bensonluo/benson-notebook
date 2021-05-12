@@ -520,6 +520,32 @@ func maxProfit(prices []int) int {
 }
 ```
 
+322 零钱兑换 - 背包问题
+
+```golang
+//类似背包问题，可使用动态规划解决
+//转移方程： f(n) = min(f(n - c1), f(n - c2), ... f(n - cn)) + 1
+func coinChange(coins []int, amount int) int {
+    if coins == nil || len(coins) == 0 {
+        return -1
+    }
+    res := make([]int, amount+1)
+    for i:=1; i < amount+1; i++ {
+        res[i] = math.MaxInt32
+        for _, v := range coins {
+            if i - v >= 0 {
+                res[i] = min(res[i], res[i-v]+1)   
+            }
+        }
+    }
+
+    if res[amount] == math.MaxInt32 {
+        return -1
+    }
+    return res[amount]
+}
+```
+
 
 
 #####  Sliding window
@@ -594,6 +620,55 @@ func max(x, y int) int {
 ```golang
 
 ```
+
+
+
+78 子集
+
+```golang
+//遍历，遇到一个数就把所有子集加上该数组成新的子集
+func subsets(nums []int) [][]int {
+    res := make([][]int, 1, int(math.Pow(2, float64(len(nums)))) + 1)
+    res[0] = []int{}
+    for _, ar := range nums {
+        for _, v := range res {
+            newV := make([]int, len(v), len(v)+1)
+            //不能直接append编辑res,因为会改变res所指向的内存地址
+            //深拷贝一个newV再append
+            copy(newV, v)
+            res = append(res, append(newV, ar))
+        }
+    }
+    return res
+}
+```
+
+
+
+90 子集2 - 回溯
+
+```golang
+func subsetsWithDup(nums []int) (res [][]int) {
+	var dfs func(temp []int, idx int)
+	n := len(nums)
+	sort.Ints(nums)
+	dfs = func(temp []int, idx int) {
+		res = append(res, append([]int(nil), temp...))
+		for i := idx; i < n; i++ {
+			if i > idx && nums[i] == nums[i-1] {
+				continue
+			}
+			temp = append(temp, nums[i])
+			dfs(temp, i+1)
+			temp = temp[:len(temp)-1]
+		}
+	}
+	dfs([]int{}, 0)
+	return
+}
+```
+
+
 
 ##### Others
 

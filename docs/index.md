@@ -8,7 +8,7 @@
 | [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) |            | Completed   | 114/114  |
 | Go 语言高并发和微服务实战                                    |            | Main points | 330/390  |
 | 超大流量分布式系统架构解决方案                               |            | Completed   | 220/220  |
-| Go语言实战                                                   | 4          | In progress | 0/246    |
+| Go语言实战                                                   | 4          | In progress | 125/246 |
 | 分布式系统-常用技术及案例分析                                | 1          | In progress | 0/540    |
 | 企业级大数据平台构建-架构与实现                              | 9          | OnHold      | 0/249    |
 | 设计模式-Reusable O-O Software                               | 2          | In progress | 186/290    |
@@ -33,12 +33,12 @@
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
-| Problem Solved : | 124  |
+| Problem Solved : | 127  |
 | ---------------- | ---- |
-| 简单             | 81   |
-| 中等             | 41   |
+| 简单             | 82   |
+| 中等             | 43   |
 | 困难             | 2    |
-| 总提交数         | 242  |
+| 总提交数         | 248  |
 
 
 
