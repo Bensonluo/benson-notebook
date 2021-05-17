@@ -441,3 +441,50 @@ M会和一个系统内核线程绑定，而P和G的关系是一对多，M与P, P
 在运行过程中， M与P的组合才能为G提供运行环境，多个可执行的G会挂在某个P上等待调度和执行，P由程序决定，M由Go语言创建。
 
 M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行的G队列转投新M.
+
+##### Golang 规范与注意
+
+- Golang主程序必须要等待所有的Goroutine结束才能够退出，否则如果先退出主程序会导致所有的Goroutine可能未执行结束就退出了， 用WaitGroup.
+- 每个Goroutine都要有recover机制，因为当一个Goroutine抛panic的时候只有自身能够捕捉到其它Goroutine是没有办法捕捉的, 如果没有recover机制，整个进程会crash。
+- Recover只能在defer里面生效，如果不是在defer里调用，会直接返回nil。
+- Goroutine发生panic时，只会调用自身的defer，所以即便主Goroutine里写了recover逻辑，也无法recover。
+
+```golang
+package main
+
+import (
+    "sync"
+    "fmt"
+    "time"
+)
+
+func calc(w *sync.WaitGroup, i int)  {
+    defer func() {
+        err := recover()
+        if err != nil {
+          fmt.Println("panic error.")
+        }
+    }()
+    
+    fmt.Println("calc: ", i)
+    time.Sleep(time.Second)
+    w.Done()
+}
+
+func main()  {
+    # WaitGroup能够一直等到所有的goroutine执行完成，并且阻塞主线程的执行，直到所有的goroutine执行完成。
+    wg := sync.WaitGroup{}    
+    for i:=0; i<10; i++ {
+        wg.Add(1)
+        go calc(&wg, i)
+    }
+    # 阻塞主线程等到所有的goroutine执行完成
+    wg.Wait()
+    fmt.Println("all goroutine finish")
+}
+```
+
+- 使用 http.Client，如果没有 `resp.Body.Close()`，可能导致 goroutine 泄露。
+- Slice -> reslice 的地址引用问题。
+- 还有很多可以查阅 [50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs](http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/)
+
