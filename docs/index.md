@@ -9,7 +9,7 @@
 | Go 语言高并发和微服务实战                                    |            | Main points | 330/390  |
 | 超大流量分布式系统架构解决方案                               |            | Completed   | 220/220  |
 | Go语言实战                                                   | 4          | In progress | 125/246 |
-| 分布式系统-常用技术及案例分析                                | 1          | In progress | 0/540    |
+| 分布式系统-常用技术及案例分析                                | 1          | In progress | 102/540 |
 | 企业级大数据平台构建-架构与实现                              | 9          | OnHold      | 0/249    |
 | 设计模式-Reusable O-O Software                               | 2          | In progress | 186/290    |
 | Kubernetes 即学即用                                          |            | Main points | 80/218   |
@@ -33,12 +33,12 @@
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
-| Problem Solved : | 127  |
+| Problem Solved : | 133  |
 | ---------------- | ---- |
-| 简单             | 82   |
-| 中等             | 43   |
+| 简单             | 84   |
+| 中等             | 47   |
 | 困难             | 2    |
-| 总提交数         | 248  |
+| 总提交数         | 263  |
 
 
 

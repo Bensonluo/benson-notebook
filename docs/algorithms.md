@@ -308,27 +308,7 @@ func isValid(s string) bool {
 }
 ```
 
-DFS model with stack
 
- ```java
-boolean DFS(int root, int target) {
-    Set<Node> visited;
-    Stack<Node> s;
-    add root to s;
-    while (s is not empty) {
-        Node cur = the top element in s;
-        return true if cur is target;
-        for (Node next : the neighbors of cur) {
-            if (next is not in visited) {
-                add next to s;
-                add next to visited;
-            }
-        }
-        remove cur from s;
-    }
-    return false;
-}
- ```
 
 岛屿数量 200
 
@@ -361,6 +341,31 @@ func dfs(grid [][]byte,i,j int)int{
     return 0
 }
 ```
+
+
+
+DFS model with stack java 
+
+```java
+boolean DFS(int root, int target) {    
+  Set<Node> visited;    
+  Stack<Node> s;    
+  add root to s;    
+  while (s is not empty) {        
+    Node cur = the top element in s;        
+    return true if cur is target;        
+    for (Node next : the neighbors of cur) {            
+      if (next is not in visited) {                
+        add next to s;                
+        add next to visited;            
+      }        
+    }        
+    remove cur from s;    
+  }    return false;
+}
+```
+
+
 
 最大的正方形岛屿面积
 
@@ -396,8 +401,6 @@ func searchInsert(nums []int, target int) int {
 ```
 
 
-
-#####  Sorting algorithm
 
 #####  Dynamic Programming
 
@@ -460,6 +463,33 @@ func min(a, b int) int {
 	return b
 }
 ```
+
+
+
+[62 不同路径](https://leetcode-cn.com/problems/unique-paths/)
+
+```golang
+//经典动态规划问题 dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+//要么是从上面格子下来的，要么是从左边格子过来的
+func uniquePaths(m int, n int) int {
+    dp := make([][]int, m)
+    for i:=0; i<m; i++ {
+      	dp[i] = make([]int, n)
+        for j:=0; j<n; j++ {
+            //边缘上只有一条路可走
+            if i==0 || j==0 {
+                dp[i][j] = 1
+            }else {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+
+            }
+        }
+    }
+    return dp[m-1][n-1]
+}
+```
+
+
 
 53 最大子序和         基础题 分治法 DP
 
@@ -791,3 +821,4 @@ func longestPalindrome(s string) string {
     return s[maxS+1 : maxS+maxLen+1]
 }
 ```
+
