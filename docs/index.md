@@ -1,6 +1,6 @@
 # Main notebook
 
-### Reading List
+## Reading List
 
 | 书名                                                         | 目前优先级 | 状态        | 阅读进度 |
 | :----------------------------------------------------------- | ---------- | ----------- | -------- |
@@ -29,16 +29,16 @@
 
 
 
-### LeetCode Progress
+## LeetCode Progress
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
-| Problem Solved : | 133  |
+| Problem Solved : | 135  |
 | ---------------- | ---- |
 | 简单             | 84   |
-| 中等             | 47   |
+| 中等             | 49   |
 | 困难             | 2    |
-| 总提交数         | 263  |
+| 总提交数         | 269  |
 
 
 
@@ -46,9 +46,11 @@
 
 
 
-### [Data structure and Algorithm](https://bensonluo.github.io/benson-notebook/algorithms/)
+## [Data structure and Algorithm](https://bensonluo.github.io/benson-notebook/algorithms/) 
 
-##### 各数据结构时间复杂度
+点击标题跳转
+
+### 各数据结构时间复杂度
 
 | 数据结构   | 插入    | 删除    | 查找    |
 | :--------- | ------- | ------- | ------- |
@@ -62,7 +64,7 @@
 | 哈希表     | o(1)    | o(1)    | o(1)    |
 | 双向链表   | O(n)    | O(1)    | O(1)    |
 
-##### 主要排序算法的效率
+### 主要排序算法的效率
 
 | 排序算法 | 平均时间   | 最坏时间   | 空间     | 稳定性 | 注释 |
 | -------- | ---------- | ---------- | -------- | ------ | ---- |
@@ -75,19 +77,21 @@
 
 ----------
 
-### [Golang](https://bensonluo.github.io/benson-notebook/golang/)
+## [Golang](https://bensonluo.github.io/benson-notebook/golang/)
+
+点击标题跳转
 
 
 ----------
 
 
-### Networking
+## Networking
 
 
 ----------
 
 
-### Database
+## Database
 
 | 特性           | InnoDB | MyISAM | MEMORY |
 | -------------- | ------ | ------ | ------ |
@@ -110,7 +114,7 @@ InnoDB是Mysql的默认存储引擎(5.5.5之前是MyISAM）
 
 ----------
 
-### Redis ###
+## Redis ##
 
 **Redis的数据类型：** 
 
@@ -185,7 +189,7 @@ Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效�
 
 
 
-### System Design 
+## System Design 
 
 **秒杀红包系统**：（超高并发，限流，削峰，维持可用）
 
@@ -206,7 +210,7 @@ Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效�
 
 
 
-### MIT 6.824 Distributed Systems Spring 2020
+## MIT 6.824 Distributed Systems
 
 link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=15797605702990137477)
 
@@ -236,7 +240,7 @@ link: [Videos](https://www.bilibili.com/video/BV1x7411M7Sf?from=search&seid=1579
 
 
 
-### Interview Questions
+## Interview Questions
 
 AKA 八股文 以及其他未能及时归类
 
@@ -347,7 +351,7 @@ AKA 八股文 以及其他未能及时归类
 
 
 
-### Support or Contact
+## Support or Contact
 
 
 email: luopengllpp@hotmail.com

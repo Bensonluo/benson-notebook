@@ -1,6 +1,6 @@
 # Data structure and Algorithms 
 
-##### Binary Tree
+## Binary Tree
 
 - 前序遍历：先访问根节点-> 前序遍历左子树-> 前序遍历右子树 
 - 中序遍历：先中序遍历左子树-> 根节点-> 中序遍历右子树 
@@ -99,7 +99,7 @@ func postorderTraversal(root *TreeNode) []int {
 }
 ```
 
-##### Linked List
+## Linked List
 
 删除有序链表中的重复元素 83
 ```golang
@@ -283,7 +283,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 
 
 
-##### Stack and Queue
+## Stack and Queue
 
 字符串匹配（有效的括号） 20
 ```golang
@@ -376,7 +376,9 @@ boolean DFS(int root, int target) {
 
 ```
 
-#####  Binary Search
+
+
+##  Binary Search
 
 35 搜插位置   基础二分搜索
 
@@ -402,7 +404,7 @@ func searchInsert(nums []int, target int) int {
 
 
 
-#####  Dynamic Programming
+##  Dynamic Programming
 
 264 丑数2  --  三指针 + DP
 
@@ -578,7 +580,7 @@ func coinChange(coins []int, amount int) int {
 
 
 
-#####  Sliding window
+##  Sliding window
 
 239 [滑动窗口最大值](https://leetcode-cn.com/problems/sliding-window-maximum/)
 
@@ -645,7 +647,7 @@ func max(x, y int) int {
 
 
 
-#####  Backtracking
+##  Backtracking
  全排列 46/47 
 ```golang
 
@@ -700,7 +702,7 @@ func subsetsWithDup(nums []int) (res [][]int) {
 
 
 
-##### Others
+## Others
 
 位运算 
 
@@ -820,5 +822,12 @@ func longestPalindrome(s string) string {
     }
     return s[maxS+1 : maxS+maxLen+1]
 }
+```
+
+### 拓扑排序
+
+207 课程表
+
+```
 ```
 

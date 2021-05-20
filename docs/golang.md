@@ -1,6 +1,6 @@
 # Go programing language
 
-##### Basic
+## Basic
 
 - Variable declaration
 ``` golang
@@ -40,91 +40,104 @@ for key, value := range oldMap {
 
 - string && byte && rune
 
-  互相转换
+互相转换
 
-  ```golang
-  // string to []byte
-      s1 := "string"
-      by := []byte(s1)
-  
-      // []byte to string
-      s2 := string(by)
-  
-  
-  //string 转 rune
-  r := []rune(str)
-  
-  //rune 转 string
-  str = string(r)
-  ```
+```golang
+// string to []byte
+s1 := "string"
+by := []byte(s1)
 
-  黑魔法转换 - 性能更优
+// []byte to string
+s2 := string(by)
 
-  ```golang
-  func String2Bytes(s string) []byte {
-      sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
-      bh := reflect.SliceHeader{
-          Data: sh.Data,
-          Len:  sh.Len,
-          Cap:  sh.Len,
-      }
-      return *(*[]byte)(unsafe.Pointer(&bh))
-  }
-  
-  func Bytes2String(b []byte) string {
-      return *(*string)(unsafe.Pointer(&b))
-  }
-  ```
 
-  从go源码来看，string其实是一个指向byte数组的指针。
+//string 转 rune
+r := []rune(str)
 
-  字符串string是不可更改的，但是可以给他重新分配空间，给指针重新赋值。但是这也导致了他效率低下，因为之前的空间需要被gc回收。
+//rune 转 string
+str = string(r)
+```
 
-  ```go
-  s := "A1" // 分配存储"A1"的内存空间，s结构体里的str指针指向这快内存
-  s = "A2"  // 重新给"A2"的分配内存空间，s结构体里的str指针指向这快内存
-  ```
 
-  而 []byte和string的差别是更改变量的时候array的内容可以被更改。
 
-  ```go
-  s := []byte{1} // 分配存储1数组的内存空间，s结构体的array指针指向这个数组。
-  s = []byte{2}  // 将byte array的内容改为2
-  ```
+黑魔法转换 - 性能更优
 
-  ```golang
-  // rune能表示的范围更多，比如中文(占3个字符)
-  	str2:="你好,中国"
-  	c:=[]rune(str2)
-  	d:=[]byte(str2)
-  	//c: [20320 22909 44 20013 22269]  中文字符也能拆
-  	fmt.Println("c:",c) 
-  	//d: [228 189 160 229 165 189 44 228 184 173 229 155 189]  一个中文拆成3个字符表示4*3+1=13
-  	fmt.Println("d:",d) 
-  }
-  ```
 
-  ```golang
-  //编辑修改字符串string 最好用rune 因为一个 UTF8 编码的字符可能会占多个字节
-  x := "text"
-  xRunes := []rune(x)
-  xRunes[0] = '人'
-  x = string(xRunes)
-  fmt.Println(x)    // 人ext
-  ```
 
-  总结：
+```golang
+func String2Bytes(s string) []byte {
+    sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+    bh := reflect.SliceHeader{
+        Data: sh.Data,
+        Len:  sh.Len,
+        Cap:  sh.Len,
+    }
+    return *(*[]byte)(unsafe.Pointer(&bh))
+}
 
-  - byte 等同于int8，常用来处理ascii字符
-  - rune 等同于int32，常用来处理unicode或utf-8字符
+func Bytes2String(b []byte) string {
+    return *(*string)(unsafe.Pointer(&b))
+}
+```
 
-  - string可以直接比较，而[]byte不可以，所以[]byte不可以当map的key值。
 
-  - 因为无法修改string中的某个字符，需要粒度小到操作一个字符时，用[]byte。
-  - string值不可为nil，所以如果你想要通过返回nil表达额外的含义，就用[]byte。
-  - []byte切片这么灵活，想要用切片的特性就用[]byte。
-  - 需要大量字符串处理的时候用[]byte，性能好很多。
 
+从go源码来看，string其实是一个指向byte数组的指针。
+
+字符串string是不可更改的，但是可以给他重新分配空间，给指针重新赋值。但是这也导致了他效率低下，因为之前的空间需要被gc回收。
+
+```golang
+s := "A1" // 分配存储"A1"的内存空间，s结构体里的str指针指向这快内存
+s = "A2"  // 重新给"A2"的分配内存空间，s结构体里的str指针指向这快内存
+```
+
+
+
+而 []byte和string的差别是更改变量的时候array的内容可以被更改。
+
+
+
+```golang
+s := []byte{1} // 分配存储1数组的内存空间，s结构体的array指针指向这个数组。
+s = []byte{2}  // 将byte array的内容改为2
+```
+
+
+
+```golang
+// rune能表示的范围更多，比如中文(占3个字符)
+	str2:="你好,中国"
+	c:=[]rune(str2)
+	d:=[]byte(str2)
+	//c: [20320 22909 44 20013 22269]  中文字符也能拆
+	fmt.Println("c:",c) 
+	//d: [228 189 160 229 165 189 44 228 184 173 229 155 189]  一个中文拆成3个字符表示4*3+1=13
+	fmt.Println("d:",d) 
+}
+```
+
+```golang
+//编辑修改字符串string 最好用rune 因为一个 UTF8 编码的字符可能会占多个字节
+x := "text"
+xRunes := []rune(x)
+xRunes[0] = '人'
+x = string(xRunes)
+fmt.Println(x)    // 人ext
+```
+
+
+
+总结：
+
+- byte 等同于int8，常用来处理ascii字符
+- rune 等同于int32，常用来处理unicode或utf-8字符
+
+- string可以直接比较，而[]byte不可以，所以[]byte不可以当map的key值。
+
+- 因为无法修改string中的某个字符，需要粒度小到操作一个字符时，用[]byte。
+- string值不可为nil，所以如果你想要通过返回nil表达额外的含义，就用[]byte。
+- []byte切片这么灵活，想要用切片的特性就用[]byte。
+- 需要大量字符串处理的时候用[]byte，性能好很多。
 - Pointer
 
 ```golang
@@ -144,7 +157,7 @@ defer语句经常被用于处理成对的操作，如**打开、关闭、连接�
 
 *还可用于打开关闭文件，操作互斥锁，调试复杂程序是用于记录进入和退出函数的时间。*
 
-##### Slice
+## Slice
 
 Slice的删除by Index
 
@@ -231,7 +244,7 @@ queue = queue[1:]
 len(queue)==0
 ```
 
-##### Hashmap 
+## Hashmap 
 ``` golang
 // 创建
 map := make(map[string]int)
@@ -251,14 +264,14 @@ for k,v := range map{
 - map 值都有默认值，可以直接操作默认值，如：m[age]++ 值由 0 变为 1
 - 比较两个 map 需要遍历，其中的 kv 是否相同，因为有默认值关系，所以需要检查 val 和 ok 两个值
 
-##### Struct
+## Struct
 - 通过点操作符访问, 或者是对成员取地址，然后通过指针访问
 - 结构体成员的输入顺序也有重要的意义
 - 大写字母开头的，那么该成员就是导出
 - 一个命名为S的结构体类型将不能再包含S类型的成员（该限制同样适应于数组。）但是S类型的结构体可以包含*S指针类型的成员
 - 创建并初始化一个结构体变量，并返回结构体的地址：```pp := &Point{1, 2}```
 - 结构体的全部成员都是可以比较的，那么结构体也是可以比较的，== 会比较结构体的每一个成员
-##### Marshaling
+## Marshaling
 ``` golang
 data, err := json.Marshal(movies)
 data, err := json.MarshalIndent(movies, "", " ") //带缩进
@@ -268,7 +281,7 @@ if err != nil {
 fmt.Printf("%s\n", data)
 ```
 
-##### Garbage collection
+## Garbage collection
 Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -> 回收
 
 注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。
@@ -294,11 +307,11 @@ Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函
 
   
 
-##### Exception handing
+## Exception handing
  - Go使用控制流机制（如if和return）处理异常
  - 错误处理策略: 向上传播/重试/输出并结束/输出不中断/忽略
 
-##### Go routine
+## Go routine
 
 Go语言通过goroutine提供了对于并发编程的最清晰最直接的支持，Go routine 特性小结：
 
@@ -344,62 +357,64 @@ close(ch) // close a channel, panic if still sending
 
 
 - **基于select的多路复用**
+
 - **Goroutine的退出**
   
   用*关闭一个channel*来进行广播
-  ```golang
-  var done = make(chan struct{})
-  
-  func cancelled() bool {
-    select {
-    case <-done:
-        return true
-    default:
-        return false
-    }
+
+```golang
+var done = make(chan struct{})
+
+func cancelled() bool {
+  select {
+  case <-done:
+      return true
+  default:
+      return false
   }
-  
-  // Cancel traversal when input is detected.
-  go func() {
-    os.Stdin.Read(make([]byte, 1)) // read a single byte
-    close(done)
-  }()
-  for {
-    select {
-    case <-done:
-        // Drain fileSizes to allow existing goroutines to finish.
-        for range fileSizes {
-            // Do nothing.
-        }
-        return
-    case size, ok := <-fileSizes:
-        // ...
-    }
+}
+
+// Cancel traversal when input is detected.
+go func() {
+  os.Stdin.Read(make([]byte, 1)) // read a single byte
+  close(done)
+}()
+for {
+  select {
+  case <-done:
+      // Drain fileSizes to allow existing goroutines to finish.
+      for range fileSizes {
+          // Do nothing.
+      }
+      return
+  case size, ok := <-fileSizes:
+      // ...
   }
-  //轮询取消状态
-  func walkDir(dir string, n *sync.WaitGroup, fileSizes chan<- int64) {
-    defer n.Done()
-    if cancelled() {
-        return
-    }
-    for _, entry := range dirents(dir) {
-        // ...
-    }
+}
+//轮询取消状态
+func walkDir(dir string, n *sync.WaitGroup, fileSizes chan<- int64) {
+  defer n.Done()
+  if cancelled() {
+      return
   }
-  
-  ```
+  for _, entry := range dirents(dir) {
+      // ...
+  }
+}
+```
+
 
 - **sync.Mutex互斥锁**
 
 在Lock和Unlock之间的代码段中的内容goroutine可以随便读取或者修改，这个代码段叫做临界区。
     
-    ```golang
-    func Balance() int {
-        mu.Lock()
-        defer mu.Unlock()
-        return balance
-    }
-    ```
+```golang
+func Balance() int {
+    mu.Lock()
+    defer mu.Unlock()
+    return balance
+}
+```
 - **sync.RWMutex读写锁**
 
 读操作并行执行，但写操作会完全互斥。这种锁叫作“多读单写”锁（multiple readers, single writer lock）, RLock只能在临界区共享变量没有任何写入操作时可用。
@@ -415,7 +430,7 @@ func Balance() int {
 RWMutex只有当获得锁的大部分goroutine都是读操作，而锁在竞争条件下，也就是说，goroutine们必须等待才能获取到锁的时候，RWMutex才是最能带来好处的。
 
 
-##### Go scheduler
+## Go scheduler
 协程:
 
 协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈。 因此，协程能保留上一次调用时的状态（即所有局部状态的一个特定组合），每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。 线程和进程的操作是由程序触发系统接口，最后的执行者是系统；协程的操作执行者则是用户自身程序，goroutine也是协程。
@@ -442,7 +457,98 @@ M会和一个系统内核线程绑定，而P和G的关系是一对多，M与P, P
 
 M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行的G队列转投新M.
 
-##### Golang 规范与注意
+
+
+## Go 的面对对象OO
+
+Golang 是否是一个面对对象语言？
+
+*Yes and no. Although Go has types and methods and allows an object-oriented style of programming, there is no type hierarchy. The concept of “interface” in Go provides a different approach that we believe is easy to use and in some ways more general. There are also ways to embed types in other types to provide something analogous — but not identical — to subclassing. Moreover, methods in Go are more general than in C++ or Java: they can be defined for any sort of data, even built-in types such as plain, “unboxed” integers. They are not restricted to structs (classes).*
+
+*Also, the lack of a type hierarchy makes “objects” in Go feel much more lightweight than in languages such as C++ or Java.*
+
+
+
+**用Go 实现面对对对象**
+
+**封装：** 用首字母大小写来控制属性访问权限
+
+```golang
+Example:
+type Animal struct {
+  name string
+}
+
+func NewAnimal() *Animal {
+  return &Animal{}
+}
+
+func (p *Animal) SetName(name string) {
+  p.name = name
+}
+
+func (p *Animal) GetName() string {
+  return p.name
+}
+```
+
+**继承：**Go用结构体组合的方式实现
+
+```golang
+type Animal struct {
+	Name string
+}
+
+type Cat struct {
+  Animal
+  FeatureA string
+}
+
+type Dog struct {
+  Animal
+  FeatureB string
+}
+
+//Cat, Dog 实例都可以调用Animal结构体
+pet := NewAnimal()
+pet.SetName("秋田犬")
+
+dog := Dog{Animal: *pet}
+fmt.Println(dog.GetName) //prints 秋田犬
+
+```
+
+**多态：**Go通过接口实现
+
+```golang
+type Animal interface{
+  Say() //只要是拥有这个函数的结构体就可以用这个接口来接收
+}
+
+func (c *Cat) Say() {
+  fmt.Println("meow")
+}
+
+func (d *Dog) Say() {
+	  fmt.Println("woof")
+}
+
+func main() {
+  var a Animal
+ 	a = Dog{} //woof
+ 	a.Say()
+ 	a = Cat{}	//meow
+ 	a.Say()
+}
+```
+
+总结：
+
+**Golang中的接口设计解耦了接口和实现类之间的联系**，增加了编码的灵活度，解决了供需关系颠倒的问题。但是由于没了接口和实现类的强绑定，其实也一定程度上增加了开发和维护的成本。
+
+
+
+## Golang 规范与注意
 
 - Golang主程序必须要等待所有的Goroutine结束才能够退出，否则如果先退出主程序会导致所有的Goroutine可能未执行结束就退出了， 用WaitGroup.
 - 每个Goroutine都要有recover机制，因为当一个Goroutine抛panic的时候只有自身能够捕捉到其它Goroutine是没有办法捕捉的, 如果没有recover机制，整个进程会crash。
