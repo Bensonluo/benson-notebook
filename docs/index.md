@@ -10,7 +10,7 @@
 | 超大流量分布式系统架构解决方案                               |            | Completed   | 220/220  |
 | Go语言实战                                                   | 4          | In progress | 125/246 |
 | 分布式系统-常用技术及案例分析                                | 1          | In progress | 102/540 |
-| 企业级大数据平台构建-架构与实现                              | 9          | OnHold      | 0/249    |
+| 企业级大数据平台构建-架构与实现                              |           | OnHold      | 0/249    |
 | 设计模式-Reusable O-O Software                               | 2          | In progress | 206/290  |
 | Kubernetes 即学即用                                          |            | Main points | 80/218   |
 | 机器学习应用系统设计                                         |            | Completed   | 241/241  |
@@ -39,6 +39,36 @@
 | 中等             | 49   |
 | 困难             | 2    |
 | 总提交数         | 269  |
+
+
+
+
+
+----------
+
+
+
+## [GO电商网站高并发秒杀项目实践](https://bensonluo.github.io/benson-notebook/go-shopping-practice/)
+
+
+
+不断更新中
+
+点击标题跳转
+
+
+
+----------
+
+
+
+## [GO电商微服务容器化项目开发运维实践-DevOps](https://bensonluo.github.io/benson-notebook/go-microservice-devops/)
+
+
+
+不断更新中
+
+点击标题跳转
 
 
 
@@ -77,7 +107,7 @@
 
 ----------
 
-## [Golang](https://bensonluo.github.io/benson-notebook/golang/)
+## [Golang 基础](https://bensonluo.github.io/benson-notebook/golang/)
 
 点击标题跳转
 
