@@ -2,6 +2,8 @@
 
 
 
+[代码根目录](https://github.com/Bensonluo/go-flash-sale)
+
 ## 需求分析
 
 - 前端页面需要承载大流量
@@ -17,5 +19,19 @@ CDN - > 流量负载 - > 流量拦截 - > 后端集群 - > RabbitMQ - > 队列�
 
 
 
-未完待续...
+## RabbitMQ
+
+简单模式/工作模式/发布订阅模式/路由模式/Topic模式
+
+Code :  [Github](https://github.com/Bensonluo/go-flash-sale/tree/main/simple-rabbitmq)
+
+
+
+## IRIS Framework
+
+后端基本代码完成
+
+
+
+...未完待续
 
