@@ -29,7 +29,11 @@ Code :  [Github](https://github.com/Bensonluo/go-flash-sale/tree/main/simple-rab
 
 ## IRIS Framework
 
-后端基本代码完成
+简单前端模板 -> Done
+
+产品模块CURD API -> Done
+
+订单模块CURD API -> Done
 
 
 
