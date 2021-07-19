@@ -31,9 +31,11 @@ Code :  [Github](https://github.com/Bensonluo/go-flash-sale/tree/main/simple-rab
 
 简单前端模板 -> Done
 
-产品模块CURD API -> Done
+产品模块 API -> Done
 
-订单模块CURD API -> Done
+订单模块 API -> Done
+
+用户注册登陆模块 API -> Done
 
 
 

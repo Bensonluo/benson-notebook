@@ -6,17 +6,17 @@
 | :----------------------------------------------------------- | ---------- | ----------- | -------- |
 | [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html) |            | Main points | 275/374  |
 | [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) |            | Completed   | 114/114  |
-| Go 语言高并发和微服务实战                                    |            | Main points | 320/390 |
+| Go 语言高并发和微服务实战                                    | review | Main points | 320/390 |
 | 超大流量分布式系统架构解决方案                               |            | Completed   | 220/220  |
 | Go语言实战                                                   | 4          | In progress | 125/246 |
-| 分布式系统-常用技术及案例分析                                | 1          | In progress | 102/540 |
-| 企业级大数据平台构建-架构与实现                              |           | OnHold      | 0/249    |
+| 分布式系统-常用技术及案例分析 - JAVA                         | 1          | In progress | 102/540 |
+| 企业级大数据平台构建-架构与实现                              | 3 | OnHold      | 0/249    |
 | 设计模式-Reusable O-O Software                               | 2          | In progress | 206/290  |
 | Kubernetes 即学即用                                          |            | Main points | 80/218   |
 | 机器学习应用系统设计                                         |            | Completed   | 241/241  |
 | Linux/UNIX 编程手册                                          |            | OnHold      | 120/1176 |
 | 深入理解计算机系统                                           |            | Main points | 435/733  |
-| 剑指offer                                                    | 3          | Main points | 266/333  |
+| 剑指offer                                                    |           | Main points | 266/333  |
 | Effective Python                                             |            | Completed   | 213/213  |
 | 计算机网络 A top-down Approcach                              | 2          | In progress | 152/510  |
 | Spring Boot in Action                                        | 999        | Blocked     | 0%       |
