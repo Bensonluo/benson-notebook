@@ -17,7 +17,7 @@
 
 CDN - > 流量负载 - > 流量拦截，分布式权限验证-> 分布式数量控制 
 
-- > 后端集群 - > RabbitMQ(异步下单) - > 队列消费(排队写入) - > MySql
+-> 后端集群 - > RabbitMQ(异步下单) - > 队列消费(排队写入) - > MySql
 
 
 
@@ -43,7 +43,7 @@ Code :  [Github](https://github.com/Bensonluo/go-flash-sale/tree/main/simple-rab
 
 
 
-### 高并发抢购优化
+## 高并发抢购优化
 
 - 前端页面静态化加CDN
 - SLB - 流量负载均衡
@@ -56,6 +56,16 @@ Code :  [Github](https://github.com/Bensonluo/go-flash-sale/tree/main/simple-rab
 **一致性hash算法:** 
 
 用于快速定位资源，均匀分布 -> 分布式存储，分布缓存, 负载均衡
+
+
+
+**Redis 存在的瓶颈:** 
+
+单机QPS - 8W左右，集群QPS - 千万级 ，分布式 - 千万级
+
+但是对于单个商品超高流量的情况，使用集群和分布式并不能解决问题
+
+
 
 
 
