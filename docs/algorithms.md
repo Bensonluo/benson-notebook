@@ -310,6 +310,84 @@ func isValid(s string) bool {
 
 
 
+## Two Pointers
+
+986 区间列表的交集
+
+```golang
+func intervalIntersection(firstList [][]int, secondList [][]int) [][]int {
+    //corner case
+    res := [][]int{}
+    if len(firstList) == 0 || len(secondList) == 0 {
+        return res
+    }
+    
+    idx1, idx2 := 0, 0
+    for idx1 < len(firstList) && idx2 < len(secondList) {
+            start := compare(firstList[idx1][0], secondList[idx2][0], true)
+            end := compare(firstList[idx1][1], secondList[idx2][1], false)
+            if start <= end {
+                res = append(res, []int{start, end})
+            }
+            //谁先结束, 谁的指针步进，考虑多重合区间的问题
+            if firstList[idx1][1] < secondList[idx2][1] {
+                idx1 += 1
+            } else {
+                idx2 += 1
+            }
+    }
+    return res
+
+}
+
+func compare(x int, y int, max bool) int {
+    if max == true {
+        if x > y {
+            return x
+        }
+        return y
+    } else if max == false {
+        if x < y {
+            return x
+        }
+        return y
+    }
+    return y
+}
+```
+
+11 盛水最多的容器
+
+```golang
+func maxArea(height []int) int {
+    idx1, idx2 := 0, len(height)-1
+    max := 0
+    for idx1 < idx2 {
+        h := min(height[idx1], height[idx2])
+        if h*(idx2-idx1) > max {
+            max = h*(idx2-idx1)
+        }
+        if height[idx1] <= height[idx2] {
+            idx1++
+        }else {
+            idx2--
+        }
+    }
+    return max
+}
+
+func min(x,y int)int {
+    if x<y {
+        return x
+    }
+    return y
+}
+```
+
+
+
+## DFS
+
 岛屿数量 200
 
 递归DFS
@@ -333,6 +411,7 @@ func dfs(grid [][]byte,i,j int)int{
     if grid[i][j]=='1'{
         // 标记已经访问的点
         grid[i][j]=0
+      	//向四个方向扩散
         return dfs(grid,i-1,j) +
         dfs(grid,i,j-1) +
         dfs(grid,i+1,j) +
@@ -399,6 +478,87 @@ func searchInsert(nums []int, target int) int {
         }
     }
     return start
+}
+```
+
+74 搜索二维矩阵
+
+```golang
+func searchMatrix(matrix [][]int, target int) bool {
+    //corner case 
+    if len(matrix) == 0 || matrix == nil {
+        return false
+    }
+
+    arr := make([]int, 0)
+    for _, v := range matrix {
+        arr = append(arr, v...)
+    }
+
+    return bSearch(arr, 0, len(arr)-1, target)
+}
+
+//二分搜索基本模板
+func bSearch(nums []int, start int, end int, target int) bool {
+    for start < end {
+        mid := start + (end-start)/2
+        if nums[mid] >= target {
+            end = mid
+        } else {
+            start = mid + 1
+        }
+    }
+
+    if nums[end] == target {
+        return true
+    } else {
+        return false
+    }
+}
+```
+
+33 搜索旋转排序数组
+
+```golang
+func search(nums []int, target int) int {
+    lens := len(nums)
+    //corner case
+    if lens == 1 {
+        if target == nums[0] {
+            return 0
+        } 
+        return -1
+    }
+    //find twist point
+    tPoint := 0
+    for i:=1;i<lens;i++ {
+        if nums[i-1] > nums[i] {
+            tPoint = i-1
+        }
+    }
+
+    if res := binarySearch(nums, 0, tPoint, target); res != -1 {
+        return res
+    } else {
+        return binarySearch(nums, tPoint+1, lens-1, target)
+    }
+}
+
+func binarySearch(nums []int, left int, right int, target int) int {
+    mid := 0
+    for left < right {
+        mid = left + (right-left)/2
+        if nums[mid] >= target {
+            right = mid
+        } else {
+            left = mid + 1
+        }
+    }
+    if nums[right] == target {
+        return right
+    } else {
+        return -1
+    }
 }
 ```
 
@@ -520,7 +680,7 @@ func maxV(a int, b int) int {
 121 买卖股票
 
 ```golang
-DP思想
+//DP思想
 func maxProfit(prices []int) int {
     profit := 0
 	buyPrice := prices[0]
@@ -540,7 +700,7 @@ func maxProfit(prices []int) int {
 122 买卖股票2 -- 贪心算法
 
 ```golang
-PS: 只要今天比昨天贵就卖
+// 只要今天比昨天贵就卖
 func maxProfit(prices []int) int {
     profit := 0
     for i:=1; i< len(prices); i++ {
@@ -642,6 +802,60 @@ func max(x, y int) int {
         return x
     }
     return y
+}
+```
+
+713 乘积小于K子数组
+
+```golang
+func numSubarrayProductLessThanK(nums []int, k int) int {
+    //corner case
+    if len(nums)==0 || k == 0 || k==1 {
+        return 0
+    }
+    //滑动窗口双指针
+    l, product, res := 0, 1, 0
+    for r:=0; r<len(nums); r++ {
+        product *= nums[r]
+        for product >= k {
+            product /= nums[l]
+            l += 1
+        }
+        res += r-l+1
+    }
+    return res
+}
+```
+
+209 长度最小子数组
+
+```golang
+func minSubArrayLen(target int, nums []int) int {
+    //corner case
+    if len(nums) == 0 || nums == nil {
+        return 0
+    }
+    //滑动窗口
+    //golang最大数表达 int(^uint(0) >> 1)
+    res, sum, l, length := int(^uint(0) >> 1), 0, 0, 0
+    
+    for r:=0; r<len(nums); r++ {
+        sum += nums[r]
+        for sum >= target {
+            //length
+            length = r-l+1
+            if res > length {
+                res = length
+            }
+            sum -= nums[l] //不断调整起始点位置
+            l += 1
+        }
+    }
+    if res == int(^uint(0) >> 1) {
+        return 0
+    } else {
+        return res
+    }
 }
 ```
 
@@ -822,12 +1036,5 @@ func longestPalindrome(s string) string {
     }
     return s[maxS+1 : maxS+maxLen+1]
 }
-```
-
-### 拓扑排序
-
-207 课程表
-
-```
 ```
 
