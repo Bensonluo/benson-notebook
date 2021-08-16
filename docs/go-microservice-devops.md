@@ -2,6 +2,8 @@
 
 
 
+[代码根目录](https://github.com/Bensonluo/go-microservice-devops-sre)
+
 ## DDD: Domain Driven Design
 
 - 不要数据驱动或界面驱动
@@ -22,9 +24,29 @@ Protocal Buffers:  轻便高效的序列化结构化数据的协议
 
 
 
-
-
 未完待续....
+
+working on it!
+
+
+
+微服务模块
+
+注册配置中心
+
+链路追踪
+
+熔断，限流，负载均衡
+
+监控能力完善
+
+服务级观测台
+
+k8s
+
+
+
+
 
 
 
