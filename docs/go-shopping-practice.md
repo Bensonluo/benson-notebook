@@ -1,10 +1,10 @@
-# GO电商网站高并发秒杀项目实践
+# GO high performance flash sale system
 
 
 
-[代码根目录](https://github.com/Bensonluo/go-flash-sale)
+[github code](https://github.com/Bensonluo/go-flash-sale)
 
-## 需求分析
+## Requirements analysis
 
 - 前端页面需要承载大流量
 - 大并发状态要解决超卖问题
@@ -13,7 +13,7 @@
 
 
 
-## 架构设计
+## System design
 
 CDN - > 流量负载 - > 流量拦截，分布式权限验证-> 分布式数量控制 
 
@@ -43,7 +43,7 @@ Code :  [Github](https://github.com/Bensonluo/go-flash-sale/tree/main/simple-rab
 
 
 
-## 高并发抢购优化
+## Performance optimization
 
 - 前端页面静态化加CDN
 - SLB - 流量负载均衡

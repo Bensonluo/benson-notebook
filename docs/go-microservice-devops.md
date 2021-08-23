@@ -1,8 +1,8 @@
-# GO电商微服务容器化项目开发运维实践-DevOps
+# GO micro service project DevOps
 
 
 
-[代码根目录](https://github.com/Bensonluo/go-microservice-devops-sre)
+[github code](https://github.com/Bensonluo/go-microservice-devops-sre)
 
 ## DDD: Domain Driven Design
 
@@ -16,7 +16,7 @@
 
 
 
-## Micro 基础
+## Micro basics
 
 gRPC server(service)   -> Proto Request (response) -> gRpc stub(client)
 
@@ -26,7 +26,7 @@ Protocal Buffers:  轻便高效的序列化结构化数据的协议
 
 
 
-### go-micro框架
+### go-micro framework
 
 1. 提供分布式系统的核心库
 2. 对分布式系统的高度抽象
