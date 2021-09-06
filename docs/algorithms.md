@@ -155,7 +155,47 @@ func reverseList(head *ListNode) *ListNode {
 }
 ```
 
+反转链表by every 2 24
+
+```golang
+func swapPairs(head *ListNode) *ListNode {
+    if head == nil {
+        return nil
+    }
+    //头节点增加dummy head
+  	dummy := &ListNode{}
+		dummy.Next = head
+    prev := dummy
+    //单双数终止检查
+		for head != nil && head.Next != nil {
+    	//prev->a->b->c
+			b := head.Next //暂存b
+			head.Next = b.Next //连接a->c
+			b.Next = head //翻转b->a
+      //将prev指向翻转后的当前头节点b
+			prev.Next = b
+
+      //因为两两交换 b->a(head)->c->d
+      //prev 变为 a
+			prev = head
+      //推进head指针到c,开始下一个翻转循环
+			head = head.Next
+		}
+		return dummy.Next
+}
+```
+
+
+
+反转链表by every K 25 - 与上题思路类似，需注意边界条件和断链重连
+
+```golang
+```
+
+
+
 合并有序链表 21
+
 ```golang
 //递归实现
 class Solution {

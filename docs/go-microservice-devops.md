@@ -41,21 +41,39 @@ Protocal Buffers:  轻便高效的序列化结构化数据的协议
 5. 编码Codec： 消息传输到两端的编码解码
 6. Server, Client
 
-![](https://github.com/Bensonluo/benson-notebook/blob/master/images/zujiantu.png)
-
-
-
-未完待续....
-
-working on it!
-
-
+![组件图](https://github.com/Bensonluo/benson-notebook/blob/master/images/zujiantu.png)
 
 ![架构图](https://github.com/Bensonluo/benson-notebook/blob/master/images/zongjiagou.png)
 
-微服务模块
 
-注册配置中心
+
+### 注册配置中心 Consul
+
+服务发现/健康检查/键值对存储
+
+##### Gossip Protocol
+
+局域网Lan Pool
+
+- Client 自动发现Server节点， 减少配置量
+- 分布式故障检测 在几个server上执行
+- 快速广播事件
+
+广域网Wan Pool
+
+- Wan pool 全局唯一
+- 不同数据中心的server都会加入WAN pool
+- 允许服务器执行跨数据中心请求
+
+
+
+
+
+##### Raft Protocol
+
+
+
+
 
 链路追踪
 
@@ -69,7 +87,9 @@ k8s
 
 
 
+未完待续....
 
+working on it!
 
 
 
