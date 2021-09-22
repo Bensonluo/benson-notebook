@@ -33,12 +33,12 @@
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
-| Problem Solved : | 155  |
+| Problem Solved : | 183  |
 | ---------------- | ---- |
-| 简单             | 92   |
-| 中等             | 60   |
+| 简单             | 115  |
+| 中等             | 65   |
 | 困难             | 3    |
-| 总提交数         | 312  |
+| 总提交数         | 377  |
 
 
 

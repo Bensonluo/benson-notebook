@@ -424,11 +424,35 @@ func min(x,y int)int {
 }
 ```
 
+415 字符串相加
+
+```python
+		def addStrings(num1: str, num2: str) -> str:
+				#双指针模拟
+        res = []
+        add = 0 #存储是否进位
+        x, y = len(num1)-1, len(num2)-1
+        while(x >= 0 or y >= 0):
+          	#0补位如果长度不同
+            av = 0 if x<0 else int(num1[x])
+            bv = 0 if y<0 else int(num2[y])
+            sums = av + bv + add
+            #其他进制把10改相应即可
+            res.append(str(sums%10))
+            add = 1 if sums>=10 else 0
+            #头部进位
+            if x <= 0 and y <= 0 and add == 1:
+                res.append(str(add))
+            x -= 1
+            y -= 1
+        return ''.join(reversed(res))		
+```
+
 
 
 ## DFS
 
-岛屿数量 200
+岛屿数量 200 延伸问题 695最大岛屿面积 463 岛屿周长
 
 递归DFS
 ```golang
@@ -482,17 +506,6 @@ boolean DFS(int root, int target) {
     remove cur from s;    
   }    return false;
 }
-```
-
-
-
-最大的正方形岛屿面积
-
-字符串解码 394
-
-```golang
-
-
 ```
 
 
