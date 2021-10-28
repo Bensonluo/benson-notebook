@@ -4,21 +4,22 @@
 
 | 书名                                                         | 目前优先级 | 状态        | 阅读进度 |
 | :----------------------------------------------------------- | ---------- | ----------- | -------- |
-| [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html) |            | Main points | 275/374  |
-| [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) |            | Completed   | 114/114  |
-| Go 语言高并发和微服务实战                                    | review | Main points | 320/390 |
-| 超大流量分布式系统架构解决方案                               |            | Completed   | 220/220  |
-| Go语言实战                                                   | 4          | In progress | 125/246 |
-| 分布式系统-常用技术及案例分析 - JAVA                         | 1          | In progress | 102/540 |
-| 企业级大数据平台构建-架构与实现                              | 3 | OnHold      | 0/249    |
-| 设计模式-Reusable O-O Software                               | 2          | In progress | 206/290  |
+| 神书 - Designing Data-Intensive Application                  | 1          | In Reading  | 163/515  |
+| 计算机网络 A top-down Approcach                              |            | OnHold      | 152/510  |
 | Kubernetes 即学即用                                          |            | Main points | 80/218   |
-| 机器学习应用系统设计                                         |            | Completed   | 241/241  |
+| 分布式系统-常用技术及案例分析 - JAVA                         |           | OnHold | 102/540 |
+| 企业级大数据平台构建-架构与实现                              | 2 | OnHold      | 0/249    |
+| 设计模式-Reusable O-O Software                               |           | OnHold | 206/290  |
+| [The Go Programing language](https://books.studygolang.com/gopl-zh/ch1/ch1-01.html) |            | Main points | 275/374  |
+| Go 语言高并发和微服务实战                                    |            | Main points | 320/390  |
 | Linux/UNIX 编程手册                                          |            | OnHold      | 120/1176 |
 | 深入理解计算机系统                                           |            | Main points | 435/733  |
 | 剑指offer                                                    |           | Main points | 266/333  |
+| Go语言实战 | | OnHold | 125/246 |
 | Effective Python                                             |            | Completed   | 213/213  |
-| 计算机网络 A top-down Approcach                              | 2          | In progress | 152/510  |
+| 超大流量分布式系统架构解决方案 | | Completed | 220/220 |
+| [Effective Go](https://bingohuang.gitbooks.io/effective-go-zh-en/content/) | | Completed | 114/114 |
+| 机器学习应用系统设计                                         |            | Completed   | 241/241  |
 | Spring Boot in Action                                        | 999        | Blocked     | 0%       |
 | Spring Microservice in Action                                | 999        | Blocked     | 0        |
 | Spring in Action                                             | 999        | Blocked     | 0/464    |
@@ -138,7 +139,27 @@ InnoDB是Mysql的默认存储引擎(5.5.5之前是MyISAM）
 
 #### 索引：
 
-1. 
+索引失效的情况？
+
+- 以%开头的like查询不能使用B-Tree索引。
+
+- 隐式转换时，当列类型是字符串时候，要是where查询时候没有引起来，就也不会走索引。
+
+- 复合索引情况下不满足最左原则Leftmost, 也不会使用复合索引。
+
+- 如果MySQL估计使用索引比全表扫描更慢，则不使用索引。
+
+- 以or分割开的条件，如果or前的条件列中有索引，而后面的列中没有索引，那么涉及的索引都不会被用到。因为or后面的条件列中没有索引，那么后面的查询肯定要走全表扫描，在存在全表扫描的情况下，就没有必要多一次索引扫描增加I/O访问，一次全表扫描过滤条件就足够了。
+
+
+
+为什么使用MySQL的最左匹配原则，不能是中间匹配，最右匹配？
+
+**最左匹配原则：**最左优先，以最左边的为起点任何连续的索引都能匹配上。同时遇到范围查询(>、<、between、like)就会停止匹配。
+
+比如a，b建立索引时候，是先以a建立的索引，此时b是无序的，在以a建立之后的a的子树上再建立b的索引，所以对于整颗b+树来说，a是一定有序的，b是不一定有序的。
+
+当b+树的数据项是复合的数据结构，比如(name,age,sex)的时候，b+数是按照从左到右的顺序来建立搜索树的，比如当(张三,20,M)这样的数据来检索的时候，b+树会优先比较name来确定下一步的所搜方向，如果name相同再依次比较age和sex，最后得到检索的数据；但当(20,M)这样的没有name的数据来的时候，b+树就不知道下一步该查哪个节点，因为建立搜索树的时候name就是第一个比较因子，必须要先根据name来搜索才能知道下一步去哪里查询。比如当(张三,M)这样的数据来检索时，b+树可以用name来指定搜索方向，但下一个字段age的缺失，所以只能把名字等于张三的数据都找到，然后再匹配性别是M的数据了， 这个是非常重要的性质，即索引的最左匹配特性。
 
 
 
@@ -214,27 +235,6 @@ CRC  的信息字段和校验字段的长度可以选定。
 Redis 采用的是基于字节查表法的CRC校验码生成算法，计算效率和速度比MD5快，且取得了速度和空间占用的平衡。
 
 
-
---------
-
-
-
-## System Design 
-
-**秒杀红包系统**：（超高并发，限流，削峰，维持可用）
-
-1. 业务上 限流（分散时间，区别用户，点击门槛）
-
-2. 技术上 抗压 
-   - 监控如达到压力测试的极限QPS, 直接返回已抢完
-   
-   - 提高服务器数量性能
-   
-   - 分层效验：读可弱一致性效验，写强一致性
-   
-   - 用消息队列缓冲请求
-   
-     
 
 ---------
 
@@ -346,7 +346,11 @@ AKA 八股文 以及其他未能及时归类
 
 - **缓存雪崩**：大量的key设置了相同的过期时间，导致在缓存在同一时刻全部失效，造成瞬时DB请求量大、压力骤增，引起雪崩效应。
 
-   解决方案：通过给缓存设置过期时间时加上一个随机值时间，使得每个key的过期时间分布开来，不会集中在同一时刻失效。
+   解决方案：
+
+   - 通过给缓存设置过期时间时加上一个*随机值*时间，使得每个key的过期时间分布开来，不会集中在同一时刻失效。
+
+   - 二级缓存，a1失效时候，访问a2，a1失效的时间设置为短期，a2为长期
 
 - **缓存击穿**： 一个存在的key，在缓存过期的一刻，同时有大量的请求，这些请求都会击穿到DB，造成瞬时DB请求量大、压力骤增。
 
@@ -363,17 +367,22 @@ AKA 八股文 以及其他未能及时归类
 
 **8. Typescript 的优势**
 
-1. TypeScript 是强类型面对对象编程语言, 增加了代码的可读性和可维护性
+- TypeScript 是强类型面对对象编程语言, 增加了代码的可读性和可维护性
 
-2. 支持静态类型，支持 Class、Interface、Generics、Enums等。
+- 支持静态类型，支持 Class、Interface、Generics、Enums等。
 
-3. TypeScript 拥抱了 ES6 规范
+- TypeScript 拥抱了 ES6 规范
 
-4. 兼容很多第三方库。
+- 兼容很多第三方库。
 
-5. TypeScript 在开发时就能给出编译错误，而 JavaScript 错误则需要在运行时才能暴露
+- TypeScript 在开发时就能给出编译错误，而 JavaScript 错误则需要在运行时才能暴露
 
-   
+**9. 热Key解决方案**
+
+- 加二级缓存， 本地缓存
+- 分布式备份热key到多个redis上， 随机获取内容分散单台服务器压力。
+
+
 
 ----------
 

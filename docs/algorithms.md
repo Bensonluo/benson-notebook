@@ -916,8 +916,54 @@ func minSubArrayLen(target int, nums []int) int {
 
 ##  Backtracking
  全排列 46/47 
-```golang
+```python
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []  
+        path = []
+        def backtrack(nums):
+            if len(path) == len(nums):
+                return res.append(path[:])  #找到了一组
+            for i in range(0,len(nums)):
+                if nums[i] in path:  #path已经收录的元素，跳过
+                    continue
+                path.append(nums[i])
+                backtrack(nums)  #递归
+                path.pop()  #回溯
+        backtrack(nums)
+        return res
+```
 
+
+
+22 括号生成
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]: 
+        ans = []
+        path = []
+        def backtrack(left,right):
+            '''
+            left = 0 # 左括号数
+            right = 0 # 右括号数
+            '''
+            if len(path) == 2*n :
+                ans.append("".join(path))
+                return
+            # 右括号是否可选为： left-right > 0 ? 可选右:不可选
+            if left - right > 0:
+                path.append(")")
+                backtrack(left, right+1)
+                path.pop()
+
+            # 左括号是否可选为： n - left > 0? 可选左：不可选
+            if n - left > 0:
+                path.append("(")
+                backtrack(left+1, right)
+                path.pop()
+        backtrack(0,0)
+        return ans
 ```
 
 
