@@ -4,7 +4,7 @@
 
 | 书名                                                         | 目前优先级 | 状态        | 阅读进度 |
 | :----------------------------------------------------------- | ---------- | ----------- | -------- |
-| 神书 - Designing Data-Intensive Application                  | 1          | In Reading  | 163/515  |
+| Designing Data-Intensive Application                  | 1          | In Reading  | 263/515  |
 | 计算机网络 A top-down Approcach                              |            | OnHold      | 152/510  |
 | Kubernetes 即学即用                                          |            | Main points | 80/218   |
 | 分布式系统-常用技术及案例分析 - JAVA                         |           | OnHold | 102/540 |
@@ -34,12 +34,12 @@
 
 [My Leetcode account](https://leetcode-cn.com/u/peng-194/)
 
-| Problem Solved : | 183  |
+| Problem Solved : | 215  |
 | ---------------- | ---- |
-| 简单             | 115  |
-| 中等             | 65   |
-| 困难             | 3    |
-| 总提交数         | 377  |
+| 简单             | 125  |
+| 中等             | 85   |
+| 困难             | 5    |
+| 总提交数         | 477  |
 
 
 

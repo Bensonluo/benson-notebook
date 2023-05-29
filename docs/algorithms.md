@@ -25,7 +25,33 @@ func dfs(root *TreeNode) {
 	}
 }
 ```
+
+
+236 二叉树的最近公共祖先 
+
+```python
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+    
+    		# 如果 p和q中有等于 root的，那么它们的最近公共祖先即为root（一个节点也可以是它自己的祖先）
+        if not root or root == p or root == q: return root
+				# 递归遍历左右子树，只要在子树中找到了p或q，则先找到谁就返回谁
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+
+  			# 当 left和 right均不为空时，说明 p、q节点分别在 root异侧, 最近公共祖先即为 root
+        if not left and not right: return 
+    		# 如果在左子树中 p和 q都找不到，则 p和 q一定都在右子树中，右子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先
+        if not left: return right
+      	# 如果 left不为空，在左子树中有找到节点（p或q），这时候要再判断一下右子树中的情况，如果在右子树中，p和q都找不到，则 p和q一定都在左子树中，左子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先）
+        if not right: return left
+        
+        return root 
+```
+
+
+
 迭代遍历：
+
 ```golang
 //前序遍历
 func preorderTraversal(root *TreeNode) []int {
@@ -98,6 +124,8 @@ func postorderTraversal(root *TreeNode) []int {
     return result
 }
 ```
+
+找到二叉树的最小公共祖先
 
 ## Linked List
 
@@ -189,7 +217,38 @@ func swapPairs(head *ListNode) *ListNode {
 
 反转链表by every K 25 - 与上题思路类似，需注意边界条件和断链重连
 
-```golang
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        pre, end = dummy, dummy
+        
+        while end.next:
+            for i in range(k):
+                if end:
+                    end = end.next
+            if not end:
+                break
+            #break the chain
+            start = pre.next
+            tmp = end.next
+            end.next = None
+            
+            #reverse it and fit back
+            pre.next = self.reverseLL(start)
+            start.next = tmp
+            
+            # enter next k loop
+            pre = start
+            end = pre
+            
+        return dummy.next
 ```
 
 
@@ -487,7 +546,7 @@ func dfs(grid [][]byte,i,j int)int{
 
 
 
-DFS model with stack java 
+DFS 模版 with java 
 
 ```java
 boolean DFS(int root, int target) {    
@@ -1135,5 +1194,34 @@ func longestPalindrome(s string) string {
     }
     return s[maxS+1 : maxS+maxLen+1]
 }
+```
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if len(s) == 1: return s
+        max_len = 0
+        leng = 1
+        max_s = 0
+        for k in range(len(s)):
+            l = k-1
+            r = k+1
+            while l>=0 and s[l]==s[k]:
+                l-=1
+                leng+=1
+
+            while r<len(s) and s[r]==s[k]:
+                r+=1
+                leng+=1
+            
+            while l>=0 and r< len(s) and s[l]==s[r]:
+                l-=1
+                r+=1
+                leng+=2
+                
+            if leng > max_len:
+                max_len = leng
+                max_s = l
+            leng = 1
+        return s[max_s+1:max_s+max_len+1]
 ```
 

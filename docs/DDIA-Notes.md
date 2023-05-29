@@ -1,7 +1,5 @@
 # Designing Data-Intensive Application Reading Notes
 
-神书！写的真好，值得反复阅读！
-
 
 
 ## 第一部分 数据系统基础
