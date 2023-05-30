@@ -29,23 +29,23 @@ func dfs(root *TreeNode) {
 
 236 二叉树的最近公共祖先 
 
-```python
-    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-    
-    		# 如果 p和q中有等于 root的，那么它们的最近公共祖先即为root（一个节点也可以是它自己的祖先）
-        if not root or root == p or root == q: return root
-				# 递归遍历左右子树，只要在子树中找到了p或q，则先找到谁就返回谁
-        left = self.lowestCommonAncestor(root.left, p, q)
-        right = self.lowestCommonAncestor(root.right, p, q)
+```python3
+def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
 
-  			# 当 left和 right均不为空时，说明 p、q节点分别在 root异侧, 最近公共祖先即为 root
-        if not left and not right: return 
-    		# 如果在左子树中 p和 q都找不到，则 p和 q一定都在右子树中，右子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先
-        if not left: return right
-      	# 如果 left不为空，在左子树中有找到节点（p或q），这时候要再判断一下右子树中的情况，如果在右子树中，p和q都找不到，则 p和q一定都在左子树中，左子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先）
-        if not right: return left
-        
-        return root 
+	# 如果 p和q中有等于 root的，那么它们的最近公共祖先即为root（一个节点也可以是它自己的祖先）
+	if not root or root == p or root == q: return root
+	# 递归遍历左右子树，只要在子树中找到了p或q，则先找到谁就返回谁
+	left = self.lowestCommonAncestor(root.left, p, q)
+	right = self.lowestCommonAncestor(root.right, p, q)
+
+	# 当 left和 right均不为空时，说明 p、q节点分别在 root异侧, 最近公共祖先即为 root
+	if not left and not right: return 
+	# 如果在左子树中 p和 q都找不到，则 p和 q一定都在右子树中，右子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先
+	if not left: return right
+	# 如果 left不为空，在左子树中有找到节点（p或q），这时候要再判断一下右子树中的情况，如果在右子树中，p和q都找不到，则 p和q一定都在左子树中，左子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先）
+	if not right: return left
+
+	return root 
 ```
 
 
@@ -678,6 +678,15 @@ func binarySearch(nums []int, left int, right int, target int) int {
 
 ##  Dynamic Programming
 
+62 不同路径
+
+```python
+def uniquePaths(self, m: int, n: int) -> int:
+	
+```
+
+
+
 264 丑数2  --  三指针 + DP
 
 ```golang
@@ -709,9 +718,10 @@ func min(x int, y int) int {
 }
 ```
 
-65 最小路径和 经典动态规划
+64 最小路径和 经典动态规划
 
 ```golang
+//golang
 func minPathSum(grid [][]int) int {
 	m, n := len(grid), len(grid[0])
 	for i := 0; i < m; i++ {
@@ -736,6 +746,26 @@ func min(a, b int) int {
 	}
 	return b
 }
+```
+
+```python
+#python
+class Solution:
+    def minPathSum(self, grid: [[int]]) -> int:
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if i == j == 0: 
+                    continue
+                #只能从左边过来
+                elif i == 0:  
+                    grid[i][j] = grid[i][j - 1] + grid[i][j]
+                #只从上边下来
+                elif j == 0:  
+                    grid[i][j] = grid[i - 1][j] + grid[i][j]
+                else: 
+                    #都可能，取小的
+                    grid[i][j] = min(grid[i - 1][j]+ grid[i][j], grid[i][j - 1]+ grid[i][j]) 
+        return grid[-1][-1]
 ```
 
 
@@ -765,7 +795,22 @@ func uniquePaths(m int, n int) int {
 
 
 
-53 最大子序和         基础题 分治法 DP
+```python
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [ s for s in range(n) ]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
+                    dp[j] = 1
+                else:
+                    dp[j] = dp[j] + dp[j-1]
+        return dp[n-1]
+```
+
+
+
+53 最大子序和 最大子数组和        基础题 分治法 DP
 
 基本DP 思想公式 `status[n+1] = max(status[n], status[n] + nums[n+1]) `
 
@@ -788,6 +833,23 @@ func maxV(a int, b int) int {
 	return b
 }
 ```
+
+```python
+python 空间优化后
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        #dp 记录, 不用记录所有数值，只用记录最大值
+        dp = nums[0]
+        maxSum = nums[0]
+        for i in range(1, len(nums)):
+            dp = max(nums[i], dp + nums[i])
+            if dp > maxSum:
+                maxSum = dp
+        
+        return maxSum
+```
+
+
 
 121 买卖股票
 
