@@ -25,7 +25,22 @@ func dfs(root *TreeNode) {
 	}
 }
 ```
-
+```python
+    #python
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        res = []
+        def inorder(root):
+            if not root:
+                return
+            res.append(root.val) #前序
+            inorder(root.left)
+            res.append(root.val) #中序
+            inorder(root.right)
+            res.append(root.val) #后序
+​
+        inorder(root)
+        return res
+```
 
 236 二叉树的最近公共祖先 
 
@@ -182,9 +197,24 @@ func reverseList(head *ListNode) *ListNode {
 	return prev
 }
 ```
+```python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # prev 是所有已经逆转的节点的head
+        prev = None
+        while head is not None:
+            tmp = head.next
+            head.next = prev
+            prev = head
+            head = tmp
+        return prev
+```
 
 反转链表by every 2 24
 
+```python
+
+```
 ```golang
 func swapPairs(head *ListNode) *ListNode {
     if head == nil {
@@ -212,7 +242,6 @@ func swapPairs(head *ListNode) *ListNode {
 		return dummy.Next
 }
 ```
-
 
 
 反转链表by every K 25 - 与上题思路类似，需注意边界条件和断链重连
@@ -409,7 +438,21 @@ func isValid(s string) bool {
 
 
 
-## Two Pointers
+## Two Pointers 双指针
+
+80 删除有序数组中的重复项 2
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        l = 1
+        for r in range(2, len(nums)):
+            #和nums[left]比, 还要和nums[left - 1]比，保证元素可以重复两次
+            if nums[r] == nums[l] and nums[r] == nums[l-1]:
+                continue
+            l += 1
+            nums[l] = nums[r] 
+        return l + 1
+```
 
 986 区间列表的交集
 
@@ -676,17 +719,7 @@ func binarySearch(nums []int, left int, right int, target int) int {
 
 
 
-##  Dynamic Programming
-
-62 不同路径
-
-```python
-def uniquePaths(self, m: int, n: int) -> int:
-	
-```
-
-
-
+##  Dynamic Programming 动态规划
 264 丑数2  --  三指针 + DP
 
 ```golang
@@ -708,13 +741,6 @@ func nthUglyNumber(n int) int {
         }
     }
     return dp[n]
-}
-
-func min(x int, y int) int {
-    if x>y {
-        return y
-    }
-    return x
 }
 ```
 
@@ -740,12 +766,6 @@ func minPathSum(grid [][]int) int {
 	return grid[m-1][n-1]
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
 ```
 
 ```python
@@ -793,8 +813,6 @@ func uniquePaths(m int, n int) int {
 }
 ```
 
-
-
 ```python
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
@@ -807,7 +825,6 @@ class Solution:
                     dp[j] = dp[j] + dp[j-1]
         return dp[n-1]
 ```
-
 
 
 53 最大子序和 最大子数组和        基础题 分治法 DP
@@ -849,7 +866,28 @@ class Solution:
         return maxSum
 ```
 
+97 交错字符串
+```python
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        #二维动态规划
+        len1 = len(s1)
+        len2 = len(s2)
+        len3 = len(s3)
+        if len1 + len2 != len3:
+            return False
+        dp = [ [False]*(len2+1) for i in range(len1+1) ]
+        dp[0][0] = True
+        for i in range(1, len1+1):
+            dp[i][0] = (dp[i-1][0] and s1[i-1] == s3[i-1])
+        for i in range(1, len2+1):
+            dp[0][i] = (dp[0][i-1] and s2[i-1] == s3[i-1])
+        for i in range(1, len1+1):
+            for j in range(1,len2+1):
+                dp[i][j]= (dp[i][j-1] and s2[j-1] == s3[i+j-1]) or (dp[i-1][j] and s1[i-1]==s3[i+j-1])
+        return dp[-1][-1]
 
+```
 
 121 买卖股票
 
@@ -884,6 +922,31 @@ func maxProfit(prices []int) int {
     }
     return profit
 }
+
+def maxProfit(self, prices: List[int]) -> int:
+        #从第二天开始，如果当天股价大于前一天股价，则在前一天买入，当天卖出，即可获得利润。如果当天股价小于前一天股价，则不买入，不卖出。也即是说，所有上涨交易日都做买卖，所有下跌交易日都不做买卖，最终获得的利润最大
+
+        profit = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i-1]:
+                profit += prices[i] - prices[i-1]
+        return profit
+```
+
+45 跳跃游戏 2 -贪心算法
+```python
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        #正向边界贪心跳越
+        maxP, end, st = 0, 0, 0
+        for i in range(len(nums) -1):
+            if maxP >= i:
+                maxP = max(maxP, i + nums[i])
+                if i == end:
+                    end = maxP
+                    st += 1
+        return st
+
 ```
 
 322 零钱兑换 - 背包问题
