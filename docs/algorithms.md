@@ -1,5 +1,117 @@
 # Data structure and Algorithms 
 
+## String，Array
+
+283 原地移动0到前面  变形（移动0到末尾）
+
+```python
+def moveZeroes(nums) -> None:
+    lp, rp = len(nums)-1, len(nums)-1
+    while lp >= 0 and rp >= 0:
+        if nums[lp] != 0:
+            nums[lp], nums[rp] = nums[rp], nums[lp]
+            rp -= 1
+        lp-=1
+    return nums
+print(moveZeroes([1, 2, 3, 0, 0]))
+```
+
+56 合并区间
+
+```python
+def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+    intervals.sort(key= lambda x:x[0])
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(interval)
+        else:
+            merged[-1][1] = max(merged[-1][1], interval[1])
+    return merged
+```
+
+10.01 合并排序的数组
+
+```python
+    def merge(self, A: List[int], m: int, B: List[int], n: int) -> None:
+  			# 三指针
+        pa = m - 1
+        pb = n - 1
+        ptail = m + n - 1
+        while pa>=0 or pb>=0:
+            if pa == -1:
+                A[ptail] = B[pb]
+                pb -= 1
+            elif pb == -1:
+                return
+            elif A[pa]<=B[pb]:
+                A[ptail] = B[pb]
+                pb -= 1
+            else: 
+                A[ptail] = A[pa]
+                pa -= 1
+            ptail -= 1
+```
+
+26 删除排序数组中的重复元素
+
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        p = 0
+        for i in range(1, len(nums)):
+            if nums[i] != nums[p]:
+                p+=1
+                nums[p] = nums[i]
+        return p+1, nums
+
+```
+
+8/ LCR192 字符转数字
+
+```python
+    def strToInt(self, str: str) -> int:
+        flag, result = 1, 0
+        str = str.strip()
+        for i in range(len(str)):
+            if i == 0 and str[i] in ['-', '+']:
+                if str[i] == '-':
+                    flag *= -1
+                continue
+            if not str[i].isdigit():
+                break 
+            result = result * 10 + ord(str[i]) - ord('0')
+        return min(2**31 - 1, result * flag) if flag == 1 else max(-2**31, result * flag)
+
+```
+
+
+
+1881 插入后的最大值
+
+```python
+  同类题目 插入5   
+  def insert_five(self, a: int) -> int:
+        res, sa, res = 0, str(a), None
+        if a < 0:
+            for i in range(1, len(sa)):
+                if int(sa[i]) > 5:
+                    res = sa[:i]+'5'+sa[i:]
+                    return int(res)
+                if i == len(sa)-1: return int(sa+'5')
+      
+        if a >= 0:
+            for i in range(0, len(sa)):
+                if int(sa[i]) < 5:
+                    res = sa[:i]+'5'+sa[i:]
+                    return int(res)
+                if i == len(sa)-1: return int(sa+'5')
+              
+  
+```
+
+
+
 ## Binary Tree
 
 - 前序遍历：先访问根节点-> 前序遍历左子树-> 前序遍历右子树 
@@ -7,24 +119,6 @@
 - 后序遍历：先后序遍历左子树-> 后序遍历右子-> 访问根节点
 
 递归遍历：
-```golang
-var res []int
-func treeTraversal(root *TreeNode) []int {
-    res = []int{}
-    dfs(root)
-    return res
-} 
-
-func dfs(root *TreeNode) {
-	if root != nil {
-		//res = append(res, root.Val) 前序遍历
-		dfs(root.Left)
-		//res = append(res, root.Val) 中序遍历
-		dfs(root.Right)
-		//res = append(res, root.Val) 后序遍历
-	}
-}
-```
 ```python
     #python
     def inorderTraversal(self, root: TreeNode) -> List[int]:
@@ -37,10 +131,17 @@ func dfs(root *TreeNode) {
             res.append(root.val) #中序
             inorder(root.right)
             res.append(root.val) #后序
-​
         inorder(root)
         return res
 ```
+
+
+102 二叉树的层序遍历
+
+
+
+
+
 
 236 二叉树的最近公共祖先 
 
@@ -67,95 +168,25 @@ def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> Tree
 
 迭代遍历：
 
-```golang
-//前序遍历
-func preorderTraversal(root *TreeNode) []int {
-    if root == nil {
-        return []int{}
-    }
-    result := make([]int, 0)
-    stack := make([]*TreeNode,0)
-    for len(stack) != 0 || root != nil {
-        for root != nil {
-            //preorder the root 先保存结果
-            result = append(result, root.Val)
-            stack = append(stack, root)
-            root = root.Left
-        }
-		//pop
-        node := stack[len(stack) - 1]
-        stack = stack[:len(stack) - 1]
-        root = node.Right
-    }
-    return result
-}
 
-//中序遍历
-func inorderTraversal(root *TreeNode) []int {
-   if root == nil {
-        return []int{}
-    }
-    result := make([]int, 0)
-    stack := make([]*TreeNode, 0)
-    for len(stack) > 0 || root != nil {
-        for root != nil {
-            stack = append(stack, root)
-            root = root.Left
-        }
-        node := stack[len(stack) - 1] 
-        stack = stack[:len(stack) - 1]
-        result = append(result, node.Val)
-        root = node.Right
-    }
-    return result
-}
-
-//后序遍历
-func postorderTraversal(root *TreeNode) []int {
-    // lastVisited标识右子节点是否已弹出
-    if root == nil {
-        return nil
-    }
-    result := make([]int, 0)
-    stack := make([]*TreeNode, 0)
-    var lastVisited *TreeNode
-    for root != nil || len(stack) != 0 {
-        for root != nil {
-            stack = append(stack, root)
-            root = root.Left
-        }
-        //先不弹出
-        node:= stack[len(stack)-1]
-        // 根节点必须在右节点弹出之后，再弹出
-        if node.Right == nil || node.Right == lastVisited {
-            stack = stack[:len(stack)-1] // pop
-            result = append(result, node.Val)
-            // 标记节点已经弹出过
-            lastVisited = node
-        } else {
-            root = node.Right
-        }
-    }
-    return result
-}
-```
 
 找到二叉树的最小公共祖先
 
+
+
 ## Linked List
 
-删除有序链表中的重复元素 83
-```golang
-func deleteDuplicates(head *ListNode) *ListNode {
-    current := head
-    for current != nil {
-        for current.Next != nil && current.Val == current.Next.Val {
-            current.Next = current.Next.Next
-        }
-        current = current.Next
-    }
-    return head
-}
+83 删除有序链表中的重复元素
+
+```python
+def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        cur = head
+        while cur:
+            while cur.next and cur.val == cur.next.val:
+                cur.next =  cur.next.next
+            cur = cur.next
+        return head
+
 ```
 
 删除有序链表中的重复元素 二 82
@@ -179,24 +210,7 @@ func deleteDuplicates(head *ListNode) *ListNode {
 ```
 
 反转链表 206
-```golang
-func reverseList(head *ListNode) *ListNode {
-	// prev 是已逆转节点的head
-	var prev *ListNode
-	// head 是下一个被逆转的节点
-	for head != nil {
-		// temp保存当前head.Next, 免得head.Next被覆盖.
-		temp := head.Next
-		// head称为已经逆转的节点的新head
-		head.Next = prev
-		// prev重新变为已逆转节点的head
-		prev = head
-		// head指向下一个被逆转的节点
-		head = temp
-	}
-	return prev
-}
-```
+
 ```python
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -616,6 +630,23 @@ boolean DFS(int root, int target) {
 
 35 搜插位置   基础二分搜索
 
+```python
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, m, r = 0, 0, len(nums)
+        while l<r:
+            m = int(l + (r-l)/2)
+            if nums[m] > target:
+                r = m
+            elif nums[m] < target:
+                l = m+1
+            elif nums[m] == target:
+                return m
+        return l
+```
+
+
+
 ```golang
 func searchInsert(nums []int, target int) int {
     start := 0
@@ -718,8 +749,24 @@ func binarySearch(nums []int, left int, right int, target int) int {
 ```
 
 
-
 ##  Dynamic Programming 动态规划
+
+面试题 08.11 分硬币
+
+```python
+class Solution:
+    def waysToChange(self, n: int) -> int:
+        # 动态规划, dp[sm]存总和为sm的方案数
+        # 对于每一种硬币c, 都有dp[sm]=dp[sm]+dp[sm-c] (c<=sm<=n)
+        MOD = 1000000007
+        coins = [1, 5, 10, 25]
+        dp = [1] + [0] * n
+        for c in coins:
+            for sm in range(c, n + 1):
+                dp[sm] = (dp[sm] + dp[sm - c]) % MOD
+        return dp[n]
+```
+
 264 丑数2  --  三指针 + DP
 
 ```golang
@@ -973,6 +1020,28 @@ func coinChange(coins []int, amount int) int {
     }
     return res[amount]
 }
+```
+
+AcWing 487 金明的预算方案
+
+```python
+v, w = [], []
+for i in range(n):
+  x=[int(j) for j in input().split()]
+  v.append(x[0])
+  w.append(x[1])
+  
+def max_buy(w, v):
+  # 购买数量，总钱数
+  n, m = w[0], v[0] 
+  f = [[0] * (m+1) for _ in range(n+1)]
+  for i in range(1, n+1):
+    val = v[i]*w[i]
+    for j in range(1, m+1):
+      f[i][j] = f[i-1][j]
+      if j >= v[i]:
+        f[i][j] = max(f[i][j], f[i-1][j-v[i]]+val)
+	return f[n][m]
 ```
 
 
@@ -1349,4 +1418,7 @@ class Solution:
             leng = 1
         return s[max_s+1:max_s+max_len+1]
 ```
+
+实现 LRU 缓存
+Python
 
