@@ -1,0 +1,1164 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../go-shopping-practice/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
+    
+    
+      
+        <title>Go programing language - Benson's Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.76a95c52.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#go-programing-language" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Benson&#39;s Notebook" class="md-header__button md-logo" aria-label="Benson's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Benson's Notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Go programing language
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Benson&#39;s Notebook" class="md-nav__button md-logo" aria-label="Benson's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Benson's Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Main notebook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DDIA-Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data-Intensive Application Reading Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data structure and Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-microservice-devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GO micro service project DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-shopping-practice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GO high performance flash sale system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Go programing language
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Go programing language
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slice
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hashmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hashmap
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#struct" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struct
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marshaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Marshaling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#garbage-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Garbage collection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-handing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exception handing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go routine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go scheduler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go 的面对对象OO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#golang" class="md-nav__link">
+    <span class="md-ellipsis">
+      Golang 规范与注意
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slice
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hashmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hashmap
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#struct" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struct
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#marshaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Marshaling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#garbage-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Garbage collection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-handing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exception handing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go-routine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go routine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go scheduler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go-oo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go 的面对对象OO
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#golang" class="md-nav__link">
+    <span class="md-ellipsis">
+      Golang 规范与注意
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="go-programing-language">Go programing language</h1>
+<h2 id="basic">Basic</h2>
+<ul>
+<li>Variable declaration</li>
+</ul>
+<pre><code class="language-golang">s := &quot;&quot;
+var s string
+var s = &quot;&quot;
+var s string = &quot;&quot;
+var identifier []type
+slic := make([]int,len)
+map_variable := make(map[key_data_type]value_data_type)
+</code></pre>
+<p>第一种形式，是一条短变量声明，最简洁，但只能用在函数内部，而不能用于包变量。
+第二种形式依赖于字符串的默认初始化零值机制，被初始化为""。
+第三种形式用得很少，除非同时声明多个变量。
+第四种形式显式地标明变量的类型，当变量类型与初值类型相同时，类型冗余，但如果两者类型不同，变量类型就必须了。实践中一般使用前两种形式中的某个，初始值重要的话就显式地指定变量的类型，否则使用隐式初始化。</p>
+<ul>
+<li>For loop</li>
+</ul>
+<pre><code class="language-golang">for key, value := range oldMap {
+    newMap[key] = value
+}
+</code></pre>
+<ul>
+<li>Binary operator</li>
+</ul>
+<pre><code class="language-golang">//Go语言中算术运算、逻辑运算和比较运算的二元运算符
+//它们按照先级递减的顺序的排列：
+* / % &lt;&lt; &gt;&gt; &amp; &amp;^
++ - | ^
+== != &lt; &lt;= &gt; &gt;=
+&amp;&amp;
+||
+</code></pre>
+<ul>
+<li>string &amp;&amp; byte &amp;&amp; rune</li>
+</ul>
+<p>互相转换</p>
+<pre><code class="language-golang">// string to []byte
+s1 := &quot;string&quot;
+by := []byte(s1)
+
+// []byte to string
+s2 := string(by)
+
+
+//string 转 rune
+r := []rune(str)
+
+//rune 转 string
+str = string(r)
+</code></pre>
+<p>黑魔法转换 - 性能更优</p>
+<pre><code class="language-golang">func String2Bytes(s string) []byte {
+    sh := (*reflect.StringHeader)(unsafe.Pointer(&amp;s))
+    bh := reflect.SliceHeader{
+        Data: sh.Data,
+        Len:  sh.Len,
+        Cap:  sh.Len,
+    }
+    return *(*[]byte)(unsafe.Pointer(&amp;bh))
+}
+
+func Bytes2String(b []byte) string {
+    return *(*string)(unsafe.Pointer(&amp;b))
+}
+</code></pre>
+<p>从go源码来看，string其实是一个指向byte数组的指针。</p>
+<p>字符串string是不可更改的，但是可以给他重新分配空间，给指针重新赋值。但是这也导致了他效率低下，因为之前的空间需要被gc回收。</p>
+<pre><code class="language-golang">s := &quot;A1&quot; // 分配存储&quot;A1&quot;的内存空间，s结构体里的str指针指向这快内存
+s = &quot;A2&quot;  // 重新给&quot;A2&quot;的分配内存空间，s结构体里的str指针指向这快内存
+</code></pre>
+<p>而 []byte和string的差别是更改变量的时候array的内容可以被更改。</p>
+<pre><code class="language-golang">s := []byte{1} // 分配存储1数组的内存空间，s结构体的array指针指向这个数组。
+s = []byte{2}  // 将byte array的内容改为2
+</code></pre>
+<pre><code class="language-golang">// rune能表示的范围更多，比如中文(占3个字符)
+    str2:=&quot;你好,中国&quot;
+    c:=[]rune(str2)
+    d:=[]byte(str2)
+    //c: [20320 22909 44 20013 22269]  中文字符也能拆
+    fmt.Println(&quot;c:&quot;,c) 
+    //d: [228 189 160 229 165 189 44 228 184 173 229 155 189]  一个中文拆成3个字符表示4*3+1=13
+    fmt.Println(&quot;d:&quot;,d) 
+}
+</code></pre>
+<pre><code class="language-golang">//编辑修改字符串string 最好用rune 因为一个 UTF8 编码的字符可能会占多个字节
+x := &quot;text&quot;
+xRunes := []rune(x)
+xRunes[0] = '人'
+x = string(xRunes)
+fmt.Println(x)    // 人ext
+</code></pre>
+<p>总结：</p>
+<ul>
+<li>byte 等同于int8，常用来处理ascii字符</li>
+<li>
+<p>rune 等同于int32，常用来处理unicode或utf-8字符</p>
+</li>
+<li>
+<p>string可以直接比较，而[]byte不可以，所以[]byte不可以当map的key值。</p>
+</li>
+<li>
+<p>因为无法修改string中的某个字符，需要粒度小到操作一个字符时，用[]byte。</p>
+</li>
+<li>string值不可为nil，所以如果你想要通过返回nil表达额外的含义，就用[]byte。</li>
+<li>[]byte切片这么灵活，想要用切片的特性就用[]byte。</li>
+<li>需要大量字符串处理的时候用[]byte，性能好很多。</li>
+<li>Pointer</li>
+</ul>
+<pre><code class="language-golang">x := 1 
+p := &amp;x // p, of type *int, points to x (指针)
+fmt.Println(*p) // &quot;1&quot;
+*p = 2 // equivalent to x = 2 (指向变量内存地址的值)
+fmt.Println(x) // &quot;2&quot;
+</code></pre>
+<ul>
+<li>Deferred</li>
+</ul>
+<p>在调用普通函数或方法前加上关键字defer，就完成了defer所需要的语法， defer后面的函数会被延迟执行，且不论包含defer语句的函数是正常结束，还是异常结束。</p>
+<p>一个函数中执行多条defer语句，它们的执行顺序与声明顺序相反。</p>
+<p>defer语句经常被用于处理成对的操作，如<strong>打开、关闭、连接、断开连接、加锁、释放锁</strong>。通过defer机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资源被释放。释放资源的defer应该直接跟在请求资源的语句后。</p>
+<p><em>还可用于打开关闭文件，操作互斥锁，调试复杂程序是用于记录进入和退出函数的时间。</em></p>
+<h2 id="slice">Slice</h2>
+<p>Slice的删除by Index</p>
+<p><code>seq = append(seq[:index], seq[index+1:]...)</code></p>
+<p>插入：</p>
+<pre><code class="language-golang">rear:=append([]string{},ss[index:]...) 创建临时切片保存后部元素
+ss=append(ss[0:index],&quot;inserted&quot;) 追加到前切片尾部
+ss=append(ss,rear...) 合并
+</code></pre>
+<ul>
+<li>
+<p>slice 不可比较</p>
+</li>
+<li>
+<p>appendInt 函数</p>
+</li>
+</ul>
+<pre><code class="language-golang">func appendInt(x []int, y int) []int {
+    var z []int
+    zlen := len(x) + 1
+    if zlen &lt;= cap(x) {
+        // There is room to grow. Extend the slice.
+        z = x[:zlen]
+    } else {
+        // There is insufficient space. 
+        // Allocate a new array.
+        // Grow by doubling.
+        zcap := zlen
+        if zcap &lt; 2*len(x) {
+            zcap = 2 * len(x)
+    }
+    z = make([]int, zlen, zcap)
+    copy(z, x) // a built-in function;
+    }
+    z[len(x)] = y
+    return z
+}
+</code></pre>
+<p>通常我们并不知道append调用是否导致了内存的重新分配，因此，通常是将append返回的结果直接赋值给输入的slice变量：runes = append(runes, r)</p>
+<p>更新slice变量不仅对调用append函数是必要的，实际上对应任何可能导致长度、容量或底层数组变化的操作都是必要的。要正确地使用slice，需要记住尽管底层数组的元素是间接访问的，但是slice对应结构体本身的指针、长度和容量部分是直接访问的。要更新这些信息需要像上面例子那样一个显式的赋值
+操作。从这个角度看，slice并不是一个纯粹的引用类型，它实际上是一个聚合类型。</p>
+<ul>
+<li>slice可以用来模拟stack</li>
+</ul>
+<pre><code class="language-golang">//使用append函数将新的值压入stack：
+stack = append(stack, v) // push v
+//stack的顶部位置对应slice的最后一个元素：
+top := stack[len(stack)-1] // top of stack
+//通过收缩stack可以弹出栈顶的元素
+stack = stack[:len(stack)-1] // pop
+//要删除slice中间的某个元素并保存原有的元素顺序
+//通过内置的copy函数将后面的子slice向前依次移动一位完成：
+func remove(slice []int, i int) []int {
+    copy(slice[i:], slice[i+1:])
+    return slice[:len(slice)-1]
+}
+func main() {
+    s := []int{5, 6, 7, 8, 9}
+    fmt.Println(remove(s, 2)) // &quot;[5 6 8 9]&quot;
+}
+//用最后一个元素覆盖被删除的元素：
+func remove(slice []int, i int) []int {
+    slice[i] = slice[len(slice)-1]
+    return slice[:len(slice)-1]
+}
+func main() {
+    s := []int{5, 6, 7, 8, 9}
+    fmt.Println(remove(s, 2)) // &quot;[5 6 9 8]
+}
+</code></pre>
+<ul>
+<li>模拟队列</li>
+</ul>
+<pre><code class="language-golang">// 创建队列
+queue := make([]int,0)
+// enqueue入队
+queue=append(queue,10)
+// dequeue出队
+v := queue[0]
+queue = queue[1:]
+// 长度0为空
+len(queue)==0
+</code></pre>
+<h2 id="hashmap">Hashmap</h2>
+<pre><code class="language-golang">// 创建
+map := make(map[string]int)
+map := map[string]int{}
+// 设置kv
+map[&quot;key&quot;] = 1
+// 删除k 失败返0
+delete(map,&quot;key&quot;)
+// 遍历
+for k,v := range map{
+    println(k,v)
+}
+</code></pre>
+<ul>
+<li></li>
+<li>map 元素不能取址操作，原因是map可能随着元素数量的增长而重新分配更大的内存空间，从而可能导致之前的地址无效</li>
+<li>map 键需要可比较，不能为 slice、map、function</li>
+<li>map 值都有默认值，可以直接操作默认值，如：m[age]++ 值由 0 变为 1</li>
+<li>比较两个 map 需要遍历，其中的 kv 是否相同，因为有默认值关系，所以需要检查 val 和 ok 两个值</li>
+</ul>
+<h2 id="struct">Struct</h2>
+<ul>
+<li>通过点操作符访问, 或者是对成员取地址，然后通过指针访问</li>
+<li>结构体成员的输入顺序也有重要的意义</li>
+<li>大写字母开头的，那么该成员就是导出</li>
+<li>一个命名为S的结构体类型将不能再包含S类型的成员（该限制同样适应于数组。）但是S类型的结构体可以包含*S指针类型的成员</li>
+<li>创建并初始化一个结构体变量，并返回结构体的地址：<code>pp := &amp;Point{1, 2}</code></li>
+<li>结构体的全部成员都是可以比较的，那么结构体也是可以比较的，== 会比较结构体的每一个成员</li>
+</ul>
+<h2 id="marshaling">Marshaling</h2>
+<pre><code class="language-golang">data, err := json.Marshal(movies)
+data, err := json.MarshalIndent(movies, &quot;&quot;, &quot; &quot;) //带缩进
+if err != nil {
+    log.Fatalf(&quot;JSON marshaling failed: %s&quot;, err)
+}
+fmt.Printf(&quot;%s\n&quot;, data)
+</code></pre>
+<h2 id="garbage-collection">Garbage collection</h2>
+<p>Go语言的自动垃圾收集器从每个包级的变量和每个当前运行函数的每一个局部变量开始，通过指针或引用的访问路径遍历，是否可以找到该变量。如果不可达 -&gt; 回收</p>
+<p>注意：如果将指向短生命周期对象的指针保存到具有长生命周期的对象中，特别是保存到全局变量时，会阻止对短生命周期对象的垃圾回收（从而可能影响程序的性能）。</p>
+<p>流程图：</p>
+<p><img alt="" src="https://pic1.zhimg.com/80/v2-3fd461ae369acf7f71a1cb055a4f5154_1440w.jpg" /></p>
+<p>重点概念：</p>
+<ul>
+<li><strong>写屏障</strong></li>
+<li>
+<p><strong>gray black white三色标记</strong></p>
+</li>
+<li>
+<p>黑色: 对象在这次GC中已标记,且这个对象包含的子对象也已标记</p>
+</li>
+<li>灰色: 对象在这次GC中已标记, 但这个对象包含的子对象未标记</li>
+<li>
+<p>白色: 对象在这次GC中未标记</p>
+</li>
+<li>
+<p><strong>gc-root 可达性分析</strong></p>
+</li>
+<li>
+<p><strong>并行的标记/扫描</strong></p>
+</li>
+<li>
+<p><strong>STW 停止</strong>世界（暂停用户协程）/启动用户协程</p>
+</li>
+</ul>
+<h2 id="exception-handing">Exception handing</h2>
+<ul>
+<li>Go使用控制流机制（如if和return）处理异常</li>
+<li>错误处理策略: 向上传播/重试/输出并结束/输出不中断/忽略</li>
+</ul>
+<h2 id="go-routine">Go routine</h2>
+<p>Go语言通过goroutine提供了对于并发编程的最清晰最直接的支持，Go routine 特性小结：</p>
+<ol>
+<li>
+<p>goroutine是Go语言运行库的功能，不是操作系统提供的功能，go routine不是用线程实现的。具体可参见Go语言源码里的pkg/runtime/proc.c</p>
+</li>
+<li>
+<p>go routine就是一段代码，一个函数入口，以及在堆上为其分配的一个堆栈。所以它非常廉价，我们可以很轻松的创建上万个goroutine，但它们并不是被操作系统所调度执行</p>
+</li>
+<li>
+<p>除了被系统调用阻塞的线程外，Go运行库最多会启动$GOMAXPROCS个线程来运行goroutine</p>
+</li>
+<li>
+<p>go routine是协作式调度的，如果go routine会执行很长时间，而且不是通过等待读取或写入channel的数据来同步的话，就需要主动调用Go sched()来让出CPU</p>
+</li>
+<li>
+<p>和所有其他并发框架里的协程一样，go routine里所谓“无锁”的优点只在单线程下有效，如果$GOMAXPROCS &gt; 1并且协程间需要通信，Go运行库会负责加锁保护数据，这也是为什么sieve.go这样的例子在多CPU多线程时反而更慢的原因</p>
+</li>
+<li>
+<p>Web等服务端程序要处理的请求从本质上来讲是并行处理的问题，每个请求基本独立，互不依赖，几乎没有数据交互，这不是一个并发编程的模型，而并发编程框架只是解决了其语义表述的复杂性，并不是从根本上提高处理的效率，也许是并发连接和并发编程的英文都是concurrent吧，很容易产生“并发编程框架和coroutine可以高效处理大量并发连接”的误解。</p>
+</li>
+<li>
+<p>Go语言运行库封装了异步IO，所以可以写出貌似并发数很多的服务端，可即使我们通过调整$GOMAXPROCS来充分利用多核CPU并行处理，其效率也不如我们利用IO事件驱动设计的、按照事务类型划分好合适比例的线程池。在响应时间上，协作式调度是硬伤。</p>
+</li>
+<li>
+<p>Go routine最大的价值是其实现了并发协程和实际并行执行的线程的映射以及动态扩展，随着其运行库的不断发展和完善，其性能一定会越来越好，尤其是在CPU核数越来越多的未来，终有一天我们会为了代码的简洁和可维护性而放弃那一点点性能的差别。</p>
+</li>
+<li>
+<p><strong>Channels</strong></p>
+</li>
+</ol>
+<pre><code class="language-golang">ch := make(chan int) // ch has type 'chan int'
+ch = make(chan int)    // unbuffered channel
+ch = make(chan int, 0) // unbuffered channel
+ch = make(chan int, 3) // buffered channel with capacity 3
+
+ch &lt;- x  // a send statement
+x = &lt;-ch // a receive expression in an assignment statement
+&lt;-ch     // a receive statement; result is discarded
+
+close(ch) // close a channel, panic if still sending
+</code></pre>
+<ol>
+<li>channels 是Goroutine 之间传递消息的通信机制， channels都有一个特殊的类型，也就是channels可发送数据的类型。</li>
+<li>创建channel <code>ch := make(chan int)</code>。</li>
+<li>和map 一样， channels也对应一个make创建的底层数据结构的引用。</li>
+<li>channels 可以用==来比较，如果引用相同对象那比较结果为真。</li>
+<li><strong>不带缓存的channels</strong> 的发送/接受操作会使自己阻塞直到另一个goroutine被接受/已发送, 所以又叫同步channels</li>
+<li><strong>带缓存的channels</strong> 内部有一个元素队列， 发送操作就是向内部缓存队列的尾部插入元素，接收操作则是从队列的头部删除元素。 如果队列已满，那么就会像无缓存channels一样阻塞。</li>
+<li>多个goroutines并发地向同一个channel发送数据，或从同一个channel接收数据时，如果我们使用了无缓存的channel，那么慢的goroutines将会因为没有人接收而被永远卡住。这种情况，称为goroutines泄漏，这将是一个BUG。<em>和垃圾变量不同，泄漏的goroutines并不会被自动回收，因此确保每个不再需要的goroutine能正常退出是重要的。</em></li>
+<li>
+<p>sync.WaitGroup可以用来计数活跃的goroutine</p>
+</li>
+<li>
+<p><strong>基于select的多路复用</strong></p>
+</li>
+<li>
+<p><strong>Goroutine的退出</strong></p>
+</li>
+</ol>
+<p>用<em>关闭一个channel</em>来进行广播</p>
+<pre><code class="language-golang">var done = make(chan struct{})
+
+func cancelled() bool {
+  select {
+  case &lt;-done:
+      return true
+  default:
+      return false
+  }
+}
+
+// Cancel traversal when input is detected.
+go func() {
+  os.Stdin.Read(make([]byte, 1)) // read a single byte
+  close(done)
+}()
+for {
+  select {
+  case &lt;-done:
+      // Drain fileSizes to allow existing goroutines to finish.
+      for range fileSizes {
+          // Do nothing.
+      }
+      return
+  case size, ok := &lt;-fileSizes:
+      // ...
+  }
+}
+//轮询取消状态
+func walkDir(dir string, n *sync.WaitGroup, fileSizes chan&lt;- int64) {
+  defer n.Done()
+  if cancelled() {
+      return
+  }
+  for _, entry := range dirents(dir) {
+      // ...
+  }
+}
+</code></pre>
+<ul>
+<li><strong>sync.Mutex互斥锁</strong></li>
+</ul>
+<p>在Lock和Unlock之间的代码段中的内容goroutine可以随便读取或者修改，这个代码段叫做临界区。</p>
+<pre><code class="language-golang">func Balance() int {
+    mu.Lock()
+    defer mu.Unlock()
+    return balance
+}
+</code></pre>
+<ul>
+<li><strong>sync.RWMutex读写锁</strong></li>
+</ul>
+<p>读操作并行执行，但写操作会完全互斥。这种锁叫作“多读单写”锁（multiple readers, single writer lock）, RLock只能在临界区共享变量没有任何写入操作时可用。</p>
+<pre><code class="language-golang">var mu sync.RWMutex
+var balance int
+func Balance() int {
+    mu.RLock() // readers lock
+    defer mu.RUnlock()
+    return balance
+}
+</code></pre>
+<p>RWMutex只有当获得锁的大部分goroutine都是读操作，而锁在竞争条件下，也就是说，goroutine们必须等待才能获取到锁的时候，RWMutex才是最能带来好处的。</p>
+<h2 id="go-scheduler">Go scheduler</h2>
+<p>协程:</p>
+<p>协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈。 因此，协程能保留上一次调用时的状态（即所有局部状态的一个特定组合），每次过程重入时，就相当于进入上一次调用的状态，换种说法：进入上一次离开时所处逻辑流的位置。 线程和进程的操作是由程序触发系统接口，最后的执行者是系统；协程的操作执行者则是用户自身程序，goroutine也是协程。</p>
+<p>groutine能拥有强大的并发实现是通过MPG调度模型**实现.</p>
+<p>Go的调度器内部有四个重要的结构：M，P，G，Sched.</p>
+<p><strong>M</strong>: M代表内核级线程，一个M就是一个线程，goroutine就是跑在M之上的；M是一个很大的结构，里面维护小对象内存cache（mcache）、当前执行的goroutine、随机数发生器等等非常多的信息</p>
+<p><strong>P</strong>: P全称是Processor，处理器，它的主要用途就是用来执行goroutine的，所以它也维护了一个goroutine队列，里面存储了所有需要它来执行的goroutine, P用于调度的上下文。你可以把它看成一个本地化版本的调度器.</p>
+<p><strong>G</strong>: 代表一个goroutine，它有自己的栈，instruction pointer和其他信息（正在等待的channel等等），用于调度。</p>
+<p><strong>Sched</strong>：代表调度器，它维护有存储M和G的队列以及调度器的一些状态信息等。</p>
+<p><strong>调度实现:</strong></p>
+<p>有2个物理线程M，每一个M都拥有一个处理器P，每一个P也都有一个正在运行的goroutine。P的数量可以通过GOMAXPROCS()来设置，它其实也就代表了真正的并发度，即有多少个goroutine可以同时运行。</p>
+<p>M会和一个系统内核线程绑定，而P和G的关系是一对多，M与P, P与G的关系都是动态可变的。</p>
+<p>在运行过程中， M与P的组合才能为G提供运行环境，多个可执行的G会挂在某个P上等待调度和执行，P由程序决定，M由Go语言创建。</p>
+<p>M和P会适时组合与断开，假如某个G阻塞了M，P就会携等待执行的G队列转投新M.</p>
+<h2 id="go-oo">Go 的面对对象OO</h2>
+<p>Golang 是否是一个面对对象语言？</p>
+<p><em>Yes and no. Although Go has types and methods and allows an object-oriented style of programming, there is no type hierarchy. The concept of “interface” in Go provides a different approach that we believe is easy to use and in some ways more general. There are also ways to embed types in other types to provide something analogous — but not identical — to subclassing. Moreover, methods in Go are more general than in C++ or Java: they can be defined for any sort of data, even built-in types such as plain, “unboxed” integers. They are not restricted to structs (classes).</em></p>
+<p><em>Also, the lack of a type hierarchy makes “objects” in Go feel much more lightweight than in languages such as C++ or Java.</em></p>
+<p><strong>用Go 实现面对对对象</strong></p>
+<p><strong>封装：</strong> 用首字母大小写来控制属性访问权限</p>
+<pre><code class="language-golang">Example:
+type Animal struct {
+  name string
+}
+
+func NewAnimal() *Animal {
+  return &amp;Animal{}
+}
+
+func (p *Animal) SetName(name string) {
+  p.name = name
+}
+
+func (p *Animal) GetName() string {
+  return p.name
+}
+</code></pre>
+<p><strong>继承：</strong>Go用结构体组合的方式实现</p>
+<pre><code class="language-golang">type Animal struct {
+    Name string
+}
+
+type Cat struct {
+  Animal
+  FeatureA string
+}
+
+type Dog struct {
+  Animal
+  FeatureB string
+}
+
+//Cat, Dog 实例都可以调用Animal结构体
+pet := NewAnimal()
+pet.SetName(&quot;秋田犬&quot;)
+
+dog := Dog{Animal: *pet}
+fmt.Println(dog.GetName) //prints 秋田犬
+
+</code></pre>
+<p><strong>多态：</strong>Go通过接口实现</p>
+<pre><code class="language-golang">type Animal interface{
+  Say() //只要是拥有这个函数的结构体就可以用这个接口来接收
+}
+
+func (c *Cat) Say() {
+  fmt.Println(&quot;meow&quot;)
+}
+
+func (d *Dog) Say() {
+      fmt.Println(&quot;woof&quot;)
+}
+
+func main() {
+  var a Animal
+    a = Dog{} //woof
+    a.Say()
+    a = Cat{}   //meow
+    a.Say()
+}
+</code></pre>
+<p>总结：</p>
+<p><strong>Golang中的接口设计解耦了接口和实现类之间的联系</strong>，增加了编码的灵活度，解决了供需关系颠倒的问题。但是由于没了接口和实现类的强绑定，其实也一定程度上增加了开发和维护的成本。</p>
+<h2 id="golang">Golang 规范与注意</h2>
+<ul>
+<li>Golang主程序必须要等待所有的Goroutine结束才能够退出，否则如果先退出主程序会导致所有的Goroutine可能未执行结束就退出了， 用WaitGroup.</li>
+<li>每个Goroutine都要有recover机制，因为当一个Goroutine抛panic的时候只有自身能够捕捉到其它Goroutine是没有办法捕捉的, 如果没有recover机制，整个进程会crash。</li>
+<li>Recover只能在defer里面生效，如果不是在defer里调用，会直接返回nil。</li>
+<li>Goroutine发生panic时，只会调用自身的defer，所以即便主Goroutine里写了recover逻辑，也无法recover。</li>
+</ul>
+<pre><code class="language-golang">package main
+
+import (
+    &quot;sync&quot;
+    &quot;fmt&quot;
+    &quot;time&quot;
+)
+
+func calc(w *sync.WaitGroup, i int)  {
+    defer func() {
+        err := recover()
+        if err != nil {
+          fmt.Println(&quot;panic error.&quot;)
+        }
+    }()
+
+    fmt.Println(&quot;calc: &quot;, i)
+    time.Sleep(time.Second)
+    w.Done()
+}
+
+func main()  {
+    # WaitGroup能够一直等到所有的goroutine执行完成，并且阻塞主线程的执行，直到所有的goroutine执行完成。
+    wg := sync.WaitGroup{}    
+    for i:=0; i&lt;10; i++ {
+        wg.Add(1)
+        go calc(&amp;wg, i)
+    }
+    # 阻塞主线程等到所有的goroutine执行完成
+    wg.Wait()
+    fmt.Println(&quot;all goroutine finish&quot;)
+}
+</code></pre>
+<ul>
+<li>使用 http.Client，如果没有 <code>resp.Body.Close()</code>，可能导致 goroutine 泄露。</li>
+<li>Slice -&gt; reslice 的地址引用问题。</li>
+<li>还有很多可以查阅 <a href="http://devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/">50 Shades of Go: Traps, Gotchas, and Common Mistakes for New Golang Devs</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

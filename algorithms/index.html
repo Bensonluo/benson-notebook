@@ -1,0 +1,1855 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../DDIA-Notes/">
+      
+      
+        <link rel="next" href="../go-microservice-devops/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
+    
+    
+      
+        <title>Data structure and Algorithms - Benson's Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.76a95c52.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-structure-and-algorithms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Benson&#39;s Notebook" class="md-header__button md-logo" aria-label="Benson's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Benson's Notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data structure and Algorithms
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Benson&#39;s Notebook" class="md-nav__button md-logo" aria-label="Benson's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Benson's Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Main notebook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DDIA-Notes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Designing Data-Intensive Application Reading Notes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Data structure and Algorithms
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Data structure and Algorithms
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stringarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      String，Array
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linked List
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stack-and-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack and Queue
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Pointers 双指针
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      DFS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Search
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Programming 动态规划
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliding-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sliding window
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backtracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backtracking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#others" class="md-nav__link">
+    <span class="md-ellipsis">
+      Others
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-microservice-devops/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GO micro service project DevOps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-shopping-practice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GO high performance flash sale system
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../golang/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go programing language
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stringarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      String，Array
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linked-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linked List
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stack-and-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stack and Queue
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two Pointers 双指针
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      DFS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Search
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Programming 动态规划
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sliding-window" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sliding window
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backtracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backtracking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#others" class="md-nav__link">
+    <span class="md-ellipsis">
+      Others
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="data-structure-and-algorithms">Data structure and Algorithms</h1>
+<p>用Python实现LRU 缓存</p>
+<pre><code class="language-python">from collections import OrderedDict
+
+class LRUCache:
+  def __init__(self, capacity: int):
+    self.cache = OrderedDict()
+    self.capacity = capacity
+
+  def get(self, key: int) -&gt; int:
+    if key not in self.cache:
+      return -1
+    # move the key to the end
+    self.cache.move_to_end(key)
+    return self.cache[key]
+
+  def put(self, key: int, value: int) -&gt; None:
+    if key in self.cache:
+      self.cache.move_to_end(key)
+    self.cache[key] = value
+    if len(self.cache) &gt; self.capacity:
+      self.cache.popitem(last=False)
+</code></pre>
+<h2 id="stringarray">String，Array</h2>
+<p>283 原地移动0到前面  变形（移动0到末尾）</p>
+<pre><code class="language-python">def moveZeroes(nums) -&gt; None:
+    lp, rp = len(nums)-1, len(nums)-1
+    while lp &gt;= 0 and rp &gt;= 0:
+        if nums[lp] != 0:
+            nums[lp], nums[rp] = nums[rp], nums[lp]
+            rp -= 1
+        lp-=1
+    return nums
+print(moveZeroes([1, 2, 3, 0, 0]))
+</code></pre>
+<p>56 合并区间</p>
+<pre><code class="language-python">def merge(self, intervals: List[List[int]]) -&gt; List[List[int]]:
+    intervals.sort(key= lambda x:x[0])
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] &lt; interval[0]:
+            merged.append(interval)
+        else:
+            merged[-1][1] = max(merged[-1][1], interval[1])
+    return merged
+</code></pre>
+<p>10.01 合并排序的数组</p>
+<pre><code class="language-python">    def merge(self, A: List[int], m: int, B: List[int], n: int) -&gt; None:
+            # 三指针
+        pa = m - 1
+        pb = n - 1
+        ptail = m + n - 1
+        while pa&gt;=0 or pb&gt;=0:
+            if pa == -1:
+                A[ptail] = B[pb]
+                pb -= 1
+            elif pb == -1:
+                return
+            elif A[pa]&lt;=B[pb]:
+                A[ptail] = B[pb]
+                pb -= 1
+            else: 
+                A[ptail] = A[pa]
+                pa -= 1
+            ptail -= 1
+</code></pre>
+<p>26 删除排序数组中的重复元素</p>
+<pre><code class="language-python">class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        p = 0
+        for i in range(1, len(nums)):
+            if nums[i] != nums[p]:
+                p+=1
+                nums[p] = nums[i]
+        return p+1, nums
+
+</code></pre>
+<p>8/ LCR192 字符转数字</p>
+<pre><code class="language-python">    def strToInt(self, str: str) -&gt; int:
+        flag, result = 1, 0
+        str = str.strip()
+        for i in range(len(str)):
+            if i == 0 and str[i] in ['-', '+']:
+                if str[i] == '-':
+                    flag *= -1
+                continue
+            if not str[i].isdigit():
+                break 
+            result = result * 10 + ord(str[i]) - ord('0')
+        return min(2**31 - 1, result * flag) if flag == 1 else max(-2**31, result * flag)
+
+</code></pre>
+<p>1881 插入后的最大值</p>
+<pre><code class="language-python">  同类题目 插入5   
+  def insert_five(self, a: int) -&gt; int:
+        res, sa, res = 0, str(a), None
+        if a &lt; 0:
+            for i in range(1, len(sa)):
+                if int(sa[i]) &gt; 5:
+                    res = sa[:i]+'5'+sa[i:]
+                    return int(res)
+                if i == len(sa)-1: return int(sa+'5')
+
+        if a &gt;= 0:
+            for i in range(0, len(sa)):
+                if int(sa[i]) &lt; 5:
+                    res = sa[:i]+'5'+sa[i:]
+                    return int(res)
+                if i == len(sa)-1: return int(sa+'5')
+
+
+</code></pre>
+<p>Can you find the triplets whose sum is zero?</p>
+<pre><code class="language-python">def findTriplets(arr, n):
+    found = False
+    for i in range(n - 1):
+        # Find all pairs with sum
+        # equals to &quot;-arr[i]&quot;
+        s = set()
+        res = []
+        for j in range(i + 1, n):
+            x = -(arr[i] + arr[j])
+            if x in s:
+                print(x, arr[i], arr[j])
+                                res.append([x, arr[i], arr[j]])
+            else:
+                s.add(arr[j])
+        return res
+
+# Driver Code
+arr = [0, -1, 2, -3, 1]
+n = len(arr)
+findTriplets(arr, n)
+</code></pre>
+<p>What is the largest subset whose elements are Fibonacci numbers?</p>
+<pre><code class="language-python">def generate_fibonacci(max_value):
+    fib_set = {0, 1}  # Starting with the first two Fibonacci numbers
+    a, b = 0, 1
+    while b &lt;= max_value:
+        a, b = b, a + b
+        fib_set.add(b)
+    return fib_set
+
+def largest_fibonacci_subset(input_set):
+    max_value = max(input_set)
+    fib_set = generate_fibonacci(max_value)
+    return input_set.intersection(fib_set)
+
+# Example usage:
+input_numbers = {0, 1, 2, 3, 4, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377}
+largest_subset = largest_fibonacci_subset(input_numbers)
+print(largest_subset)
+</code></pre>
+<p>Calculate the maximum value using the '+' or '*' sign between two numbers in the given string.</p>
+<pre><code class="language-python">def calcMaxValue(str): 
+
+    # Store first character as integer 
+    # in result 
+    res = int(str[0])
+
+    # Start traversing the string  
+    for i in range(1, len(str)): 
+
+        # Check if any of the two numbers  
+        # is 0 or 1, If yes then add current  
+        # element 
+        if(str[i] == '0' or
+           str[i] == '1' or res &lt; 2): 
+            res += int(str[i])
+        else: 
+            res *= int(str[i]) 
+    return res  
+</code></pre>
+<h2 id="binary-tree">Binary Tree</h2>
+<ul>
+<li>前序遍历：先访问根节点-&gt; 前序遍历左子树-&gt; 前序遍历右子树 </li>
+<li>中序遍历：先中序遍历左子树-&gt; 根节点-&gt; 中序遍历右子树 </li>
+<li>后序遍历：先后序遍历左子树-&gt; 后序遍历右子-&gt; 访问根节点</li>
+</ul>
+<p>递归遍历：</p>
+<pre><code class="language-python">    #python
+    def inorderTraversal(self, root: TreeNode) -&gt; List[int]:
+        res = []
+        def inorder(root):
+            if not root:
+                return
+            res.append(root.val) #前序
+            inorder(root.left)
+            res.append(root.val) #中序
+            inorder(root.right)
+            res.append(root.val) #后序
+        inorder(root)
+        return res
+</code></pre>
+<p>102 二叉树的层序遍历</p>
+<p>236 二叉树的最近公共祖先 </p>
+<pre><code class="language-python3">def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -&gt; TreeNode:
+
+    # 如果 p和q中有等于 root的，那么它们的最近公共祖先即为root（一个节点也可以是它自己的祖先）
+    if not root or root == p or root == q: return root
+    # 递归遍历左右子树，只要在子树中找到了p或q，则先找到谁就返回谁
+    left = self.lowestCommonAncestor(root.left, p, q)
+    right = self.lowestCommonAncestor(root.right, p, q)
+
+    # 当 left和 right均不为空时，说明 p、q节点分别在 root异侧, 最近公共祖先即为 root
+    if not left and not right: return 
+    # 如果在左子树中 p和 q都找不到，则 p和 q一定都在右子树中，右子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先
+    if not left: return right
+    # 如果 left不为空，在左子树中有找到节点（p或q），这时候要再判断一下右子树中的情况，如果在右子树中，p和q都找不到，则 p和q一定都在左子树中，左子树中先遍历到的那个就是最近公共祖先（一个节点也可以是它自己的祖先）
+    if not right: return left
+
+    return root 
+</code></pre>
+<p>迭代遍历：</p>
+<p>找到二叉树的最小公共祖先</p>
+<h2 id="linked-list">Linked List</h2>
+<p>83 删除有序链表中的重复元素</p>
+<pre><code class="language-python">def deleteDuplicates(self, head: Optional[ListNode]) -&gt; Optional[ListNode]:
+        cur = head
+        while cur:
+            while cur.next and cur.val == cur.next.val:
+                cur.next =  cur.next.next
+            cur = cur.next
+        return head
+
+</code></pre>
+<p>删除有序链表中的重复元素 二 82</p>
+<pre><code class="language-python">def deleteDuplicates(head):
+    pseudo = prev = ListNode(None)
+    pseudo.next = head
+    node = head
+    while node:
+        if node.next and node.val == node.next.val:
+            dupl_value = node.val
+            node = node.next
+            while node and node.val == dupl_value:
+                node = node.next
+            prev.next = None
+        else: 
+            prev.next = node
+            prev = node
+            node = node.next
+    return pseudo.next
+</code></pre>
+<p>反转链表 206</p>
+<pre><code class="language-python">class Solution:
+    def reverseList(self, head: Optional[ListNode]) -&gt; Optional[ListNode]:
+        # prev 是所有已经逆转的节点的head
+        prev = None
+        while head is not None:
+            tmp = head.next
+            head.next = prev
+            prev = head
+            head = tmp
+        return prev
+</code></pre>
+<p>反转链表by every 2 24</p>
+<pre><code class="language-golang">func swapPairs(head *ListNode) *ListNode {
+    if head == nil {
+        return nil
+    }
+    //头节点增加dummy head
+    dummy := &amp;ListNode{}
+        dummy.Next = head
+    prev := dummy
+    //单双数终止检查
+        for head != nil &amp;&amp; head.Next != nil {
+        //prev-&gt;a-&gt;b-&gt;c
+            b := head.Next //暂存b
+            head.Next = b.Next //连接a-&gt;c
+            b.Next = head //翻转b-&gt;a
+      //将prev指向翻转后的当前头节点b
+            prev.Next = b
+
+      //因为两两交换 b-&gt;a(head)-&gt;c-&gt;d
+      //prev 变为 a
+            prev = head
+      //推进head指针到c,开始下一个翻转循环
+            head = head.Next
+        }
+        return dummy.Next
+}
+</code></pre>
+<p>反转链表by every K 25 - 与上题思路类似，需注意边界条件和断链重连</p>
+<pre><code class="language-python"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -&gt; Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        pre, end = dummy, dummy
+
+        while end.next:
+            for i in range(k):
+                if end:
+                    end = end.next
+            if not end:
+                break
+            #break the chain
+            start = pre.next
+            tmp = end.next
+            end.next = None
+
+            #reverse it and fit back
+            pre.next = self.reverseLL(start)
+            start.next = tmp
+
+            # enter next k loop
+            pre = start
+            end = pre
+
+        return dummy.next
+</code></pre>
+<p>合并有序链表 21</p>
+<pre><code class="language-python">//递归实现
+class Solution(object)
+    def mergeTwoLists(self, l1, l2):
+        prev = dummy = ListNode(None)
+
+        while l1 and l2:
+            if l1.val &lt; l2.val:
+                prev.next = l1
+                l1 = l1.next
+            else:
+                prev.next = l2
+                l2 = l2.next
+            prev = prev.next
+        prev.next = l1 or l2 # link prev to the list with remaining nodes
+        return dummy.next
+
+</code></pre>
+<p>判断是否是回文链表 234</p>
+<pre><code class="language-python">//快慢指针 翻转链表
+def isPalindrome(head):
+    fast, slow = head, head
+    rev = None
+
+    while fast and fast.next:
+        fast = fast.next.next
+        next_slow = slow.next
+        slow.next = rev
+        rev = slow
+        slow = next_slow
+    if fast:
+            slow = slow.next
+    while slow:
+            if slow.val != rev.val:
+            return False
+        slow = slow.next
+        rev = rev.next
+    return True
+</code></pre>
+<p>判断链表中是否有环 141</p>
+<pre><code class="language-golang">//快慢指针
+func hasCycle(head *ListNode) bool {
+    if head == nil || head.Next == nil || head.Next.Next == nil{
+        return false
+    }
+    slow, fast := head, head.Next
+
+    for fast != nil &amp;&amp; fast.Next != nil {
+        slow = slow.Next
+        fast = fast.Next.Next
+        if fast == slow {
+            return true
+        }
+    }
+    return false
+}
+</code></pre>
+<p>160 相交链表 -- 求长度差</p>
+<pre><code class="language-golang">func getIntersectionNode(headA, headB *ListNode) *ListNode {
+    if headA==nil || headB==nil {
+        return nil
+    }
+    tmpNode := headA ;
+    lengthA := 0
+    for true {
+        if tmpNode.Next != nil {
+            tmpNode = tmpNode.Next
+            lengthA++
+        } else {
+            break
+        }
+    }
+    tmpNode = headB
+    lengthB := 0
+    for true {
+        if tmpNode.Next != nil {
+            tmpNode = tmpNode.Next
+            lengthB++
+        } else {
+            break
+        }
+    }
+
+    if lengthA &gt;= lengthB {
+            for i := 0; i &lt; lengthA - lengthB; i++ {
+                headA = headA.Next;
+            }
+        } else {
+            for i := 0; i &lt; lengthB - lengthA; i++ {
+                headB = headB.Next;
+            }
+        }
+
+    for headA != nil {
+        if headA == headB {
+            return headA
+        } 
+        headA = headA.Next
+        headB = headB.Next
+    }
+    return nil
+}
+</code></pre>
+<h2 id="stack-and-queue">Stack and Queue</h2>
+<p>字符串匹配（有效的括号） 20</p>
+<pre><code class="language-python">//左半边入栈, 右边匹配出栈否则false
+def isValid(s):
+    dic = {'(': ')', '[': ']', '{': '}'}
+    stack = []
+
+    for char in s:
+        if char in dic:
+            stack.append(char)
+        else:
+            if not stack or dic[stack.pop()] != char:
+                return False
+    return not stack
+</code></pre>
+<h2 id="two-pointers">Two Pointers 双指针</h2>
+<p>80 删除有序数组中的重复项 2</p>
+<pre><code class="language-python">class Solution:
+    def removeDuplicates(self, nums: List[int]) -&gt; int:
+        l = 1
+        for r in range(2, len(nums)):
+            #和nums[left]比, 还要和nums[left - 1]比，保证元素可以重复两次
+            if nums[r] == nums[l] and nums[r] == nums[l-1]:
+                continue
+            l += 1
+            nums[l] = nums[r] 
+        return l + 1
+</code></pre>
+<p>986 区间列表的交集</p>
+<pre><code class="language-golang">func intervalIntersection(firstList [][]int, secondList [][]int) [][]int {
+    //corner case
+    res := [][]int{}
+    if len(firstList) == 0 || len(secondList) == 0 {
+        return res
+    }
+
+    idx1, idx2 := 0, 0
+    for idx1 &lt; len(firstList) &amp;&amp; idx2 &lt; len(secondList) {
+            start := compare(firstList[idx1][0], secondList[idx2][0], true)
+            end := compare(firstList[idx1][1], secondList[idx2][1], false)
+            if start &lt;= end {
+                res = append(res, []int{start, end})
+            }
+            //谁先结束, 谁的指针步进，考虑多重合区间的问题
+            if firstList[idx1][1] &lt; secondList[idx2][1] {
+                idx1 += 1
+            } else {
+                idx2 += 1
+            }
+    }
+    return res
+
+}
+
+func compare(x int, y int, max bool) int {
+    if max == true {
+        if x &gt; y {
+            return x
+        }
+        return y
+    } else if max == false {
+        if x &lt; y {
+            return x
+        }
+        return y
+    }
+    return y
+}
+</code></pre>
+<p>11 盛水最多的容器</p>
+<pre><code class="language-python">def maxArea(height):
+    left = 0
+    right = len(height)-1
+    max_area = (right - left) * min(height[right], height[left])
+    while left &lt; right:
+            if height[left] &lt; height[right]:
+            left += 1
+        else:
+            right -= 1
+        max_area = max(max_area, (right - left) * min(height[right], height[left]))
+    return max_area
+</code></pre>
+<p>415 字符串相加</p>
+<pre><code class="language-python">        def addStrings(num1: str, num2: str) -&gt; str:
+                #双指针模拟
+        res = []
+        add = 0 #存储是否进位
+        x, y = len(num1)-1, len(num2)-1
+        while(x &gt;= 0 or y &gt;= 0):
+            #0补位如果长度不同
+            av = 0 if x&lt;0 else int(num1[x])
+            bv = 0 if y&lt;0 else int(num2[y])
+            sums = av + bv + add
+            #其他进制把10改相应即可
+            res.append(str(sums%10))
+            add = 1 if sums&gt;=10 else 0
+            #头部进位
+            if x &lt;= 0 and y &lt;= 0 and add == 1:
+                res.append(str(add))
+            x -= 1
+            y -= 1
+        return ''.join(reversed(res))       
+</code></pre>
+<h2 id="dfs">DFS</h2>
+<p>岛屿数量 200 延伸问题 695最大岛屿面积 463 岛屿周长</p>
+<p>递归DFS</p>
+<pre><code class="language-python">def numIslands(grid):
+    if not grid:
+        return 0
+    count = 0
+
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '1' and scan(grid, i, j)&gt;=1:
+                count += 1 
+        return count
+
+def scan(grid, i, j):
+    if i&lt;0 or i &gt;= len(grid) or j&lt;0 or j &gt;= len(grid[0]):
+        return 0
+
+    if grid[i][j] == '1':
+        grid[i][j] = 0
+        return scan(grid, i-1, j) + scan(grid, i, j-1) + scan(grid, i+1, j) + scan(grid, i, j+1) + 1
+    return 0
+</code></pre>
+<pre><code class="language-python">Target SUM
+DFS
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -&gt; int:
+        d = {}
+        def dfs(cur, i, d):
+            if i &lt; len(nums) and (cur, i) not in d: # 搜索周围节点
+                d[(cur, i)] = dfs(cur + nums[i], i + 1, d) + dfs(cur - nums[i],i + 1, d)
+            return d.get((cur, i), int(cur == S))   
+        return dfs(0, 0, d)
+
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -&gt; int:
+        if sum(nums) &lt; S or (sum(nums) + S) % 2 == 1: return 0
+        P = (sum(nums) + S) // 2
+        dp = [1] + [0 for _ in range(P)]
+        for num in nums:
+            for j in range(P,num-1,-1):dp[j] += dp[j - num]
+        return dp[P]
+</code></pre>
+<p>463 岛屿周长</p>
+<pre><code class="language-python">class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -&gt; int:
+        rowlen = len(grid)
+        if not grid or rowlen == 0:
+            return 0
+        collen = len(grid[0])
+        res = 0
+        for i in range(rowlen):
+            for j in range(collen):
+                if grid[i][j] == 1:
+                    res += 4
+                    if i-1&gt;=0 and grid[i-1][j] == 1:
+                        res -= 2
+                    if j-1&gt;=0 and grid[i][j-1] == 1:
+                        res -= 2
+        return res
+</code></pre>
+<h2 id="binary-search">Binary Search</h2>
+<p>35 搜插位置   基础二分搜索</p>
+<pre><code class="language-python">class Solution:
+    def searchInsert(self, nums: List[int], target: int) -&gt; int:
+        l, m, r = 0, 0, len(nums)
+        while l&lt;r:
+            m = int(l + (r-l)/2)
+            if nums[m] &gt; target:
+                r = m
+            elif nums[m] &lt; target:
+                l = m+1
+            elif nums[m] == target:
+                return m
+        return l
+</code></pre>
+<p>74 搜索二维矩阵</p>
+<pre><code class="language-golang">func searchMatrix(matrix [][]int, target int) bool {
+    //corner case 
+    if len(matrix) == 0 || matrix == nil {
+        return false
+    }
+
+    arr := make([]int, 0)
+    for _, v := range matrix {
+        arr = append(arr, v...)
+    }
+
+    return bSearch(arr, 0, len(arr)-1, target)
+}
+
+//二分搜索基本模板
+func bSearch(nums []int, start int, end int, target int) bool {
+    for start &lt; end {
+        mid := start + (end-start)/2
+        if nums[mid] &gt;= target {
+            end = mid
+        } else {
+            start = mid + 1
+        }
+    }
+
+    if nums[end] == target {
+        return true
+    } else {
+        return false
+    }
+}
+</code></pre>
+<p>33 搜索旋转排序数组</p>
+<pre><code class="language-golang">func search(nums []int, target int) int {
+    lens := len(nums)
+    //corner case
+    if lens == 1 {
+        if target == nums[0] {
+            return 0
+        } 
+        return -1
+    }
+    //find twist point
+    tPoint := 0
+    for i:=1;i&lt;lens;i++ {
+        if nums[i-1] &gt; nums[i] {
+            tPoint = i-1
+        }
+    }
+
+    if res := binarySearch(nums, 0, tPoint, target); res != -1 {
+        return res
+    } else {
+        return binarySearch(nums, tPoint+1, lens-1, target)
+    }
+}
+
+func binarySearch(nums []int, left int, right int, target int) int {
+    mid := 0
+    for left &lt; right {
+        mid = left + (right-left)/2
+        if nums[mid] &gt;= target {
+            right = mid
+        } else {
+            left = mid + 1
+        }
+    }
+    if nums[right] == target {
+        return right
+    } else {
+        return -1
+    }
+}
+</code></pre>
+<h2 id="dynamic-programming">Dynamic Programming 动态规划</h2>
+<p>面试题 08.11 分硬币</p>
+<pre><code class="language-python">class Solution:
+    def waysToChange(self, n: int) -&gt; int:
+        # 动态规划, dp[sm]存总和为sm的方案数
+        # 对于每一种硬币c, 都有dp[sm]=dp[sm]+dp[sm-c] (c&lt;=sm&lt;=n)
+        MOD = 1000000007
+        coins = [1, 5, 10, 25]
+        dp = [1] + [0] * n
+        for c in coins:
+            for sm in range(c, n + 1):
+                dp[sm] = (dp[sm] + dp[sm - c]) % MOD
+        return dp[n]
+</code></pre>
+<p>264 丑数2  --  三指针 + DP</p>
+<pre><code class="language-golang">func nthUglyNumber(n int) int {
+    dp := make([]int, n+1)
+    dp[1] = 1
+    x, y, z := 1, 1, 1
+    for i:=2; i&lt;n+1; i++ {
+        x2, x3, x5 := dp[x]*2, dp[y]*3, dp[z]*5
+        dp[i] = min(min(x2, x3), x5)
+        if dp[i] == x2 {
+            x++
+        } 
+        if dp[i] == x3 {
+            y++
+        }
+        if dp[i] == x5 {
+            z++
+        }
+    }
+    return dp[n]
+}
+</code></pre>
+<p>64 最小路径和 经典动态规划</p>
+<pre><code class="language-python">#python
+class Solution:
+    def minPathSum(self, grid: [[int]]) -&gt; int:
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if i == j == 0: 
+                    continue
+                #只能从左边过来
+                elif i == 0:  
+                    grid[i][j] = grid[i][j - 1] + grid[i][j]
+                #只从上边下来
+                elif j == 0:  
+                    grid[i][j] = grid[i - 1][j] + grid[i][j]
+                else: 
+                    #都可能，取小的
+                    grid[i][j] = min(grid[i - 1][j]+ grid[i][j], grid[i][j - 1]+ grid[i][j]) 
+        return grid[-1][-1]
+</code></pre>
+<p><a href="https://leetcode-cn.com/problems/unique-paths/">62 不同路径</a></p>
+<pre><code class="language-golang">//经典动态规划问题 dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+//要么是从上面格子下来的，要么是从左边格子过来的
+</code></pre>
+<pre><code class="language-python">class Solution:
+    def uniquePaths(self, m: int, n: int) -&gt; int:
+        dp = [ s for s in range(n) ]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 or j == 0:
+                    dp[j] = 1
+                else:
+                    dp[j] = dp[j] + dp[j-1]
+        return dp[n-1]
+</code></pre>
+<p>53 最大子序和 最大子数组和        基础题 分治法 DP</p>
+<p>基本DP 思想公式 <code>status[n+1] = max(status[n], status[n] + nums[n+1])</code></p>
+<pre><code class="language-python">python 空间优化后
+class Solution:
+    def maxSubArray(self, nums: List[int]) -&gt; int:
+        #dp 记录, 不用记录所有数值，只用记录最大值
+        dp = nums[0]
+        maxSum = nums[0]
+        for i in range(1, len(nums)):
+            dp = max(nums[i], dp + nums[i])
+            if dp &gt; maxSum:
+                maxSum = dp
+
+        return maxSum
+</code></pre>
+<p>97 交错字符串</p>
+<pre><code class="language-python">class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -&gt; bool:
+        #二维动态规划
+        len1 = len(s1)
+        len2 = len(s2)
+        len3 = len(s3)
+        if len1 + len2 != len3:
+            return False
+        dp = [ [False]*(len2+1) for i in range(len1+1) ]
+        dp[0][0] = True
+        for i in range(1, len1+1):
+            dp[i][0] = (dp[i-1][0] and s1[i-1] == s3[i-1])
+        for i in range(1, len2+1):
+            dp[0][i] = (dp[0][i-1] and s2[i-1] == s3[i-1])
+        for i in range(1, len1+1):
+            for j in range(1,len2+1):
+                dp[i][j]= (dp[i][j-1] and s2[j-1] == s3[i+j-1]) or (dp[i-1][j] and s1[i-1]==s3[i+j-1])
+        return dp[-1][-1]
+
+</code></pre>
+<p>121 买卖股票</p>
+<pre><code class="language-python">def max_profit_with_days(prices):
+    if not prices:
+        return 0, None, None
+
+    min_price = prices[0]
+    max_profit = 0
+    buy_day = 0
+    sell_day = 0
+
+    for i, price in enumerate(prices):
+        if price &lt; min_price:
+            min_price = price
+            buy_day = i
+        current_profit = price - min_price
+        if current_profit &gt; max_profit:
+            max_profit = current_profit
+            sell_day = i
+
+    return max_profit, prices[buy_day], prices[sell_day]
+</code></pre>
+<p>121 买卖股票</p>
+<pre><code class="language-golang">//DP思想
+func maxProfit(prices []int) int {
+    profit := 0
+    buyPrice := prices[0]
+    for i :=1 ; i&lt; len(prices); i++ {
+
+        if p := prices[i] - buyPrice; p &gt; profit {
+            profit = p
+        }
+        if prices[i] &lt; buyPrice {
+            buyPrice = prices[i]
+        }
+    }
+    return profit
+}
+</code></pre>
+<p>122 买卖股票2 -- 贪心算法</p>
+<pre><code class="language-golang">// 只要今天比昨天贵就卖
+func maxProfit(prices []int) int {
+    profit := 0
+    for i:=1; i&lt; len(prices); i++ {
+        if prices[i] &gt; prices[i-1] {
+            profit += prices[i] - prices[i-1]
+        }
+    }
+    return profit
+}
+
+def maxProfit(self, prices: List[int]) -&gt; int:
+        #从第二天开始，如果当天股价大于前一天股价，则在前一天买入，当天卖出，即可获得利润。如果当天股价小于前一天股价，则不买入，不卖出。也即是说，所有上涨交易日都做买卖，所有下跌交易日都不做买卖，最终获得的利润最大
+
+        profit = 0
+        for i in range(1, len(prices)):
+            if prices[i] &gt; prices[i-1]:
+                profit += prices[i] - prices[i-1]
+        return profit
+</code></pre>
+<pre><code>
+</code></pre>
+<p>45 跳跃游戏 2 -贪心算法</p>
+<pre><code class="language-python">class Solution:
+    def jump(self, nums: List[int]) -&gt; int:
+        #正向边界贪心跳越
+        maxP, end, st = 0, 0, 0
+        for i in range(len(nums) -1):
+            if maxP &gt;= i:
+                maxP = max(maxP, i + nums[i])
+                if i == end:
+                    end = maxP
+                    st += 1
+        return st
+
+</code></pre>
+<p>322 零钱兑换 - 背包问题</p>
+<pre><code class="language-golang">//类似背包问题，可使用动态规划解决
+//转移方程： f(n) = min(f(n - c1), f(n - c2), ... f(n - cn)) + 1
+func coinChange(coins []int, amount int) int {
+    if coins == nil || len(coins) == 0 {
+        return -1
+    }
+    res := make([]int, amount+1)
+    for i:=1; i &lt; amount+1; i++ {
+        res[i] = math.MaxInt32
+        for _, v := range coins {
+            if i - v &gt;= 0 {
+                res[i] = min(res[i], res[i-v]+1)   
+            }
+        }
+    }
+
+    if res[amount] == math.MaxInt32 {
+        return -1
+    }
+    return res[amount]
+}
+</code></pre>
+<p>AcWing 487 金明的预算方案</p>
+<pre><code class="language-python">v, w = [], []
+for i in range(n):
+  x=[int(j) for j in input().split()]
+  v.append(x[0])
+  w.append(x[1])
+
+def max_buy(w, v):
+  # 购买数量，总钱数
+  n, m = w[0], v[0] 
+  f = [[0] * (m+1) for _ in range(n+1)]
+  for i in range(1, n+1):
+    val = v[i]*w[i]
+    for j in range(1, m+1):
+      f[i][j] = f[i-1][j]
+      if j &gt;= v[i]:
+        f[i][j] = max(f[i][j], f[i-1][j-v[i]]+val)
+    return f[n][m]
+</code></pre>
+<h2 id="sliding-window">Sliding window</h2>
+<p>239 <a href="https://leetcode-cn.com/problems/sliding-window-maximum/">滑动窗口最大值</a></p>
+<p>维护一个队列存储最大值</p>
+<pre><code class="language-golang">func maxSlidingWindow(nums []int, k int) []int {
+    if len(nums) == 0 {
+        return []int{}
+    }
+
+    //维护一个有序切片
+    window := make([]int, 0)
+    res := make([]int, 0)
+    for i:=0; i&lt;len(nums); i++ {
+        //循环删除维护队列尾部最小元素如果其小于当前元素
+        for i&gt;0 &amp;&amp; len(window)&gt;0 &amp;&amp; nums[i] &gt; window[len(window)-1] {
+            window = window[:len(window)-1]
+        }
+
+        window = append(window, nums[i])
+        //如果窗口尾端值为最大值，推出维护队列
+        if i &gt;= k &amp;&amp; nums[i-k] == window[0] {
+            window = window[1:]
+        }
+
+        //将当前最大值写入结果
+        if i &gt;= k-1 {
+            res = append(res, window[0])
+        } 
+    }
+    return res
+}
+</code></pre>
+<p>3 无重复字符的最长子串 </p>
+<pre><code class="language-golang">func lengthOfLongestSubstring(s string) int {
+    byt := []byte(s)
+    if len(byt) == 0 {
+        return 0
+    }
+    hmap := make(map[byte]int) 
+    res := 0
+    start := 0
+    for i:=0; i&lt;len(byt); i++ {
+        if _, ok := hmap[byt[i]]; ok {
+            start = max(start, hmap[byt[i]] + 1) //有重复字符推进维护窗口
+        }
+        hmap[byt[i]] = i  //更新map 存index，key为字符
+        res = max(res, i - start + 1) 
+    }
+    return res
+}
+
+func max(x, y int) int {
+    if x &gt; y {
+        return x
+    }
+    return y
+}
+</code></pre>
+<p>713 乘积小于K子数组</p>
+<pre><code class="language-golang">func numSubarrayProductLessThanK(nums []int, k int) int {
+    //corner case
+    if len(nums)==0 || k == 0 || k==1 {
+        return 0
+    }
+    //滑动窗口双指针
+    l, product, res := 0, 1, 0
+    for r:=0; r&lt;len(nums); r++ {
+        product *= nums[r]
+        for product &gt;= k {
+            product /= nums[l]
+            l += 1
+        }
+        res += r-l+1
+    }
+    return res
+}
+</code></pre>
+<p>209 长度最小子数组</p>
+<pre><code class="language-golang">func minSubArrayLen(target int, nums []int) int {
+    //corner case
+    if len(nums) == 0 || nums == nil {
+        return 0
+    }
+    //滑动窗口
+    //golang最大数表达 int(^uint(0) &gt;&gt; 1)
+    res, sum, l, length := int(^uint(0) &gt;&gt; 1), 0, 0, 0
+
+    for r:=0; r&lt;len(nums); r++ {
+        sum += nums[r]
+        for sum &gt;= target {
+            //length
+            length = r-l+1
+            if res &gt; length {
+                res = length
+            }
+            sum -= nums[l] //不断调整起始点位置
+            l += 1
+        }
+    }
+    if res == int(^uint(0) &gt;&gt; 1) {
+        return 0
+    } else {
+        return res
+    }
+}
+</code></pre>
+<h2 id="backtracking">Backtracking</h2>
+<p>全排列 46/47 </p>
+<pre><code class="language-python">class Solution:
+    def permute(self, nums: List[int]) -&gt; List[List[int]]:
+        res = []  
+        path = []
+        def backtrack(nums):
+            if len(path) == len(nums):
+                return res.append(path[:])  #找到了一组
+            for i in range(0,len(nums)):
+                if nums[i] in path:  #path已经收录的元素，跳过
+                    continue
+                path.append(nums[i])
+                backtrack(nums)  #递归
+                path.pop()  #回溯
+        backtrack(nums)
+        return res
+</code></pre>
+<p>22 括号生成</p>
+<pre><code class="language-python">class Solution:
+    def generateParenthesis(self, n: int) -&gt; List[str]: 
+        ans = []
+        path = []
+        def backtrack(left,right):
+            '''
+            left = 0 # 左括号数
+            right = 0 # 右括号数
+            '''
+            if len(path) == 2*n :
+                ans.append(&quot;&quot;.join(path))
+                return
+            # 右括号是否可选为： left-right &gt; 0 ? 可选右:不可选
+            if left - right &gt; 0:
+                path.append(&quot;)&quot;)
+                backtrack(left, right+1)
+                path.pop()
+
+            # 左括号是否可选为： n - left &gt; 0? 可选左：不可选
+            if n - left &gt; 0:
+                path.append(&quot;(&quot;)
+                backtrack(left+1, right)
+                path.pop()
+        backtrack(0,0)
+        return ans
+</code></pre>
+<p>78 子集</p>
+<pre><code class="language-golang">//遍历，遇到一个数就把所有子集加上该数组成新的子集
+func subsets(nums []int) [][]int {
+    res := make([][]int, 1, int(math.Pow(2, float64(len(nums)))) + 1)
+    res[0] = []int{}
+    for _, ar := range nums {
+        for _, v := range res {
+            newV := make([]int, len(v), len(v)+1)
+            //不能直接append编辑res,因为会改变res所指向的内存地址
+            //深拷贝一个newV再append
+            copy(newV, v)
+            res = append(res, append(newV, ar))
+        }
+    }
+    return res
+}
+</code></pre>
+<p>90 子集2 - 回溯</p>
+<pre><code class="language-golang">func subsetsWithDup(nums []int) (res [][]int) {
+    var dfs func(temp []int, idx int)
+    n := len(nums)
+    sort.Ints(nums)
+    dfs = func(temp []int, idx int) {
+        res = append(res, append([]int(nil), temp...))
+        for i := idx; i &lt; n; i++ {
+            if i &gt; idx &amp;&amp; nums[i] == nums[i-1] {
+                continue
+            }
+            temp = append(temp, nums[i])
+            dfs(temp, i+1)
+            temp = temp[:len(temp)-1]
+        }
+    }
+    dfs([]int{}, 0)
+    return
+}
+</code></pre>
+<h2 id="others">Others</h2>
+<p>位运算 </p>
+<p>136 2N+1 找1</p>
+<pre><code class="language-java">class Solution {
+    public int singleNumber(int[] nums) {
+        int res = 0;
+        for(int i=0; i &lt; nums.length; i++) {
+            res = res^nums[i];
+        }
+        return res;
+    }
+}
+</code></pre>
+<p>2N 找 2个不重复的</p>
+<p>解1.哈希数组转存，值当下标，次数当value，最后遍历出value为1的结果。</p>
+<p>解2. 全部异或后，根据结果位分两组再异或，结果就是两个不重复的数。</p>
+<pre><code class="language-java">    public int[] singleNumber(int[] nums) {
+        int [] res = new int[2];
+        int tmp = 0;
+        for (int i = 0; i &lt; nums.length; i++) {
+            tmp ^= nums[i];
+        }
+
+        int temp = lowbit(tmp);
+        for (int i = 0; i &lt; nums.length; i++) {
+            if((temp &amp; nums[i]) == 0) res[0] ^= nums[i];
+            else res[1] ^= nums[i];
+        }
+        return res;
+
+    }
+    public int lowbit(int x){
+        return x &amp; -x;
+    }
+</code></pre>
+<p>212 找重复 List Set HashTable</p>
+<pre><code class="language-Golang">func containsDuplicate(nums []int) bool {
+    set := map[int]struct{}{}  //用map模拟set, 赋予空结构体
+    for _, v := range nums {
+        if _, has := set[v]; has {
+            return true
+        }
+        set[v] = struct{}{}
+    }
+    return false
+}
+</code></pre>
+<p>349 求两个无序数组交集 - &gt;哈希表     延伸：两个有序数组交集-&gt;双指针一次遍历</p>
+<pre><code>func intersection(nums1 []int, nums2 []int) []int {
+    mp := make(map[int]int)
+    res := make([]int, 0)
+    for _, v := range nums1 {
+        if mp[v] == 0 {
+            mp[v]++
+        } 
+    }
+    for _, v := range nums2 {
+        if mp[v] == 1 {
+            res = append(res, v)
+            mp[v]--
+        }
+    }
+    return res
+}
+</code></pre>
+<p>5 最长回文子串 中心扩散法  647题类似</p>
+<pre><code class="language-golang">func longestPalindrome(s string) string {
+    if s == &quot;&quot; || len(s) == 0 {
+            return &quot;&quot;;
+        }
+    start, end := 0, 0
+    maxS := 0
+    maxLen := 0
+    length := 1
+    for k:=0; k&lt;len(s); k++ {
+        start, end = k-1, k+1
+        //向左扩散
+        for start &gt;= 0 &amp;&amp; s[start] == s[k] {
+            start--
+            length++
+        }
+        //向右扩散
+        for end &lt; len(s) &amp;&amp; s[end] == s[k] {
+            end++
+            length++
+        }
+        //向两边同时扩散
+        for start &gt;= 0 &amp;&amp; end &lt; len(s) &amp;&amp; s[start] == s[end] {
+            start--
+            end++
+            length += 2
+        }
+        //更新最大回文len和indexs
+        if length &gt; maxLen {
+            maxLen = length
+            maxS = start
+        }
+        //重置长度
+        length = 1
+    }
+    return s[maxS+1 : maxS+maxLen+1]
+}
+</code></pre>
+<pre><code class="language-python">class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
+        if len(s) == 1: return s
+        max_len = 0
+        leng = 1
+        max_s = 0
+        for k in range(len(s)):
+            l = k-1
+            r = k+1
+            while l&gt;=0 and s[l]==s[k]:
+                l-=1
+                leng+=1
+
+            while r&lt;len(s) and s[r]==s[k]:
+                r+=1
+                leng+=1
+
+            while l&gt;=0 and r&lt; len(s) and s[l]==s[r]:
+                l-=1
+                r+=1
+                leng+=2
+
+            if leng &gt; max_len:
+                max_len = leng
+                max_s = l
+            leng = 1
+        return s[max_s+1:max_s+max_len+1]
+</code></pre>
+<p>实现 LRU 缓存
+Python</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
