@@ -137,6 +137,76 @@ class Solution:
   
 ```
 
+Can you find the triplets whose sum is zero?
+
+```python
+def findTriplets(arr, n):
+    found = False
+    for i in range(n - 1):
+        # Find all pairs with sum
+        # equals to "-arr[i]"
+        s = set()
+        res = []
+        for j in range(i + 1, n):
+            x = -(arr[i] + arr[j])
+            if x in s:
+                print(x, arr[i], arr[j])
+								res.append([x, arr[i], arr[j]])
+            else:
+                s.add(arr[j])
+        return res
+
+# Driver Code
+arr = [0, -1, 2, -3, 1]
+n = len(arr)
+findTriplets(arr, n)
+```
+
+What is the largest subset whose elements are Fibonacci numbers?
+
+```python
+def generate_fibonacci(max_value):
+    fib_set = {0, 1}  # Starting with the first two Fibonacci numbers
+    a, b = 0, 1
+    while b <= max_value:
+        a, b = b, a + b
+        fib_set.add(b)
+    return fib_set
+
+def largest_fibonacci_subset(input_set):
+    max_value = max(input_set)
+    fib_set = generate_fibonacci(max_value)
+    return input_set.intersection(fib_set)
+
+# Example usage:
+input_numbers = {0, 1, 2, 3, 4, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377}
+largest_subset = largest_fibonacci_subset(input_numbers)
+print(largest_subset)
+```
+
+Calculate the maximum value using the '+' or '*' sign between two numbers in the given string.
+
+```python
+def calcMaxValue(str): 
+  
+    # Store first character as integer 
+    # in result 
+    res = int(str[0])
+  
+    # Start traversing the string  
+    for i in range(1, len(str)): 
+          
+        # Check if any of the two numbers  
+        # is 0 or 1, If yes then add current  
+        # element 
+        if(str[i] == '0' or
+           str[i] == '1' or res < 2): 
+            res += int(str[i])
+        else: 
+            res *= int(str[i]) 
+    return res  
+```
+
 
 
 ## Binary Tree
