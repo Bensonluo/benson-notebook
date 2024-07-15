@@ -1,5 +1,32 @@
 # Data structure and Algorithms 
 
+用Python实现LRU 缓存
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+  def __init__(self, capacity: int):
+    self.cache = OrderedDict()
+    self.capacity = capacity
+    
+  def get(self, key: int) -> int:
+    if key not in self.cache:
+      return -1
+    # move the key to the end
+    self.cache.move_to_end(key)
+    return self.cache[key]
+  
+  def put(self, key: int, value: int) -> None:
+    if key in self.cache:
+      self.cache.move_to_end(key)
+    self.cache[key] = value
+    if len(self.cache) > self.capacity:
+      self.cache.popitem(last=False)
+```
+
+
+
 ## String，Array
 
 283 原地移动0到前面  变形（移动0到末尾）
@@ -190,23 +217,23 @@ def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
 ```
 
 删除有序链表中的重复元素 二 82
-```golang
-func deleteDuplicates(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
-	}
-
-	//判断是否head重复
-	if head.Val == head.Next.Val {
-		for head.Next != nil && head.Val == head.Next.Val {
-			head = head.Next
-		}
-		return deleteDuplicates(head.Next)
-	}
-
-	head.Next = deleteDuplicates(head.Next)
-	return head
-}
+```python
+def deleteDuplicates(head):
+    pseudo = prev = ListNode(None)
+    pseudo.next = head
+    node = head
+    while node:
+        if node.next and node.val == node.next.val:
+            dupl_value = node.val
+            node = node.next
+            while node and node.val == dupl_value:
+                node = node.next
+            prev.next = None
+        else: 
+            prev.next = node
+            prev = node
+            node = node.next
+    return pseudo.next
 ```
 
 反转链表 206
@@ -226,9 +253,6 @@ class Solution:
 
 反转链表by every 2 24
 
-```python
-
-```
 ```golang
 func swapPairs(head *ListNode) *ListNode {
     if head == nil {
@@ -298,60 +322,46 @@ class Solution:
 
 合并有序链表 21
 
-```golang
+```python
 //递归实现
-class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        if(l1 == null) {
-            return l2;
-        }
-        if(l2 == null) {
-            return l1;
-        }
+class Solution(object)
+    def mergeTwoLists(self, l1, l2):
+        prev = dummy = ListNode(None)
 
-        if(l1.val < l2.val) {
-            l1.next = mergeTwoLists(l1.next, l2);
-            return l1;
-        } else {
-            l2.next = mergeTwoLists(l1, l2.next);
-            return l2;
-        }
-    }
-}
+       	while l1 and l2:
+            if l1.val < l2.val:
+                prev.next = l1
+                l1 = l1.next
+            else:
+                prev.next = l2
+                l2 = l2.next
+            prev = prev.next
+        prev.next = l1 or l2 # link prev to the list with remaining nodes
+        return dummy.next
 
 ```
 
 判断是否是回文链表 234
-```golang
+```python
 //快慢指针 翻转链表
-func isPalindrome(head *ListNode) bool {
-    if head == nil || head.Next == nil {
-        return true
-    }
-    slow, fast := head, head
-    pre := head
-    var prevpre *ListNode
-
-    for fast != nil && fast.Next != nil {
-        pre = slow
-        slow = slow.Next
-        fast = fast.Next.Next
-        
-        pre.Next = prevpre
-        prevpre = pre
-    }   
-    if fast != nil {
-        slow = slow.Next
-    }
-    for pre != nil && slow != nil {
-        if pre.Val != slow.Val {
-            return false
-        }
-        pre = pre.Next
-        slow = slow.Next
-    }
-    return true
-}
+def isPalindrome(head):
+    fast, slow = head, head
+    rev = None
+    
+    while fast and fast.next:
+        fast = fast.next.next
+        next_slow = slow.next
+        slow.next = rev
+        rev = slow
+        slow = next_slow
+    if fast:
+    		slow = slow.next
+    while slow:
+    		if slow.val != rev.val:
+          	return False
+        slow = slow.next
+        rev = rev.next
+    return True
 ```
 
 判断链表中是否有环 141
@@ -428,26 +438,19 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 ## Stack and Queue
 
 字符串匹配（有效的括号） 20
-```golang
+```python
 //左半边入栈, 右边匹配出栈否则false
-func isValid(s string) bool {
-    dict := map[byte]byte{')':'(', ']':'[', '}':'{'} 
-    stack := make([]byte, 0)
-    if s == "" {
-        return true
-    }
-
-    for i := 0; i < len(s); i++ {
-        if s[i] == '(' || s[i] == '[' || s[i] == '{' {
-            stack = append(stack, s[i])
-        } else if len(stack)>0 && stack[len(stack)-1] == dict[s[i]] {
-            stack = stack[:len(stack)-1]
-        } else {
-            return false
-        }
-    }
-    return len(stack) == 0
-}
+def isValid(s):
+  	dic = {'(': ')', '[': ']', '{': '}'}
+  	stack = []
+  
+  	for char in s:
+      	if char in dic:
+          	stack.append(char)
+        else:
+          	if not stack or dic[stack.pop()] != char:
+              	return False
+    return not stack
 ```
 
 
@@ -514,30 +517,18 @@ func compare(x int, y int, max bool) int {
 
 11 盛水最多的容器
 
-```golang
-func maxArea(height []int) int {
-    idx1, idx2 := 0, len(height)-1
-    max := 0
-    for idx1 < idx2 {
-        h := min(height[idx1], height[idx2])
-        if h*(idx2-idx1) > max {
-            max = h*(idx2-idx1)
-        }
-        if height[idx1] <= height[idx2] {
-            idx1++
-        }else {
-            idx2--
-        }
-    }
-    return max
-}
-
-func min(x,y int)int {
-    if x<y {
-        return x
-    }
-    return y
-}
+```python
+def maxArea(height):
+  	left = 0
+  	right = len(height)-1
+    max_area = (right - left) * min(height[right], height[left])
+    while left < right:
+    		if height[left] < height[right]:
+            left += 1
+        else:
+          	right -= 1
+        max_area = max(max_area, (right - left) * min(height[right], height[left]))
+    return max_area
 ```
 
 415 字符串相加
@@ -571,57 +562,72 @@ func min(x,y int)int {
 岛屿数量 200 延伸问题 695最大岛屿面积 463 岛屿周长
 
 递归DFS
-```golang
-func numIslands(grid [][]byte) int {
-    var count int
-    for i:=0;i<len(grid);i++{
-        for j:=0;j<len(grid[i]);j++{
-            if grid[i][j]=='1' && dfs(grid,i,j)>=1{
-                count++
-            }
-        }
-    }
-    return count
-}
-
-func dfs(grid [][]byte,i,j int)int{
-    if i<0||i>=len(grid)||j<0||j>=len(grid[0]){
+```python
+def numIslands(grid):
+    if not grid:
         return 0
-    }
-    if grid[i][j]=='1'{
-        // 标记已经访问的点
-        grid[i][j]=0
-      	//向四个方向扩散
-        return dfs(grid,i-1,j) +
-        dfs(grid,i,j-1) +
-        dfs(grid,i+1,j) +
-        dfs(grid,i,j+1) + 1
-    }
+    count = 0
+    
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '1' and scan(grid, i, j)>=1:
+                count += 1 
+		return count
+  
+def scan(grid, i, j):
+    if i<0 or i >= len(grid) or j<0 or j >= len(grid[0]):
+        return 0
+      
+    if grid[i][j] == '1':
+        grid[i][j] = 0
+        return scan(grid, i-1, j) + scan(grid, i, j-1) + scan(grid, i+1, j) + scan(grid, i, j+1) + 1
     return 0
-}
+```
+
+```python
+Target SUM
+DFS
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        d = {}
+        def dfs(cur, i, d):
+            if i < len(nums) and (cur, i) not in d: # 搜索周围节点
+                d[(cur, i)] = dfs(cur + nums[i], i + 1, d) + dfs(cur - nums[i],i + 1, d)
+            return d.get((cur, i), int(cur == S))   
+        return dfs(0, 0, d)
+
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], S: int) -> int:
+        if sum(nums) < S or (sum(nums) + S) % 2 == 1: return 0
+        P = (sum(nums) + S) // 2
+        dp = [1] + [0 for _ in range(P)]
+        for num in nums:
+            for j in range(P,num-1,-1):dp[j] += dp[j - num]
+        return dp[P]
 ```
 
 
 
-DFS 模版 with java 
+463 岛屿周长
 
-```java
-boolean DFS(int root, int target) {    
-  Set<Node> visited;    
-  Stack<Node> s;    
-  add root to s;    
-  while (s is not empty) {        
-    Node cur = the top element in s;        
-    return true if cur is target;        
-    for (Node next : the neighbors of cur) {            
-      if (next is not in visited) {                
-        add next to s;                
-        add next to visited;            
-      }        
-    }        
-    remove cur from s;    
-  }    return false;
-}
+```python
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        rowlen = len(grid)
+        if not grid or rowlen == 0:
+            return 0
+        collen = len(grid[0])
+        res = 0
+        for i in range(rowlen):
+            for j in range(collen):
+                if grid[i][j] == 1:
+                    res += 4
+                    if i-1>=0 and grid[i-1][j] == 1:
+                        res -= 2
+                    if j-1>=0 and grid[i][j-1] == 1:
+                        res -= 2
+        return res
 ```
 
 
@@ -646,26 +652,6 @@ class Solution:
 ```
 
 
-
-```golang
-func searchInsert(nums []int, target int) int {
-    start := 0
-    end := len(nums)
-    mid := 0
-    
-    for start < end {
-        mid = start + (end-start)/2
-        if target < nums[mid] {
-            end = mid
-        } else if target > nums[mid] {
-            start = mid + 1
-        } else if target == nums[mid]{
-            return mid
-        }
-    }
-    return start
-}
-```
 
 74 搜索二维矩阵
 
@@ -793,28 +779,6 @@ func nthUglyNumber(n int) int {
 
 64 最小路径和 经典动态规划
 
-```golang
-//golang
-func minPathSum(grid [][]int) int {
-	m, n := len(grid), len(grid[0])
-	for i := 0; i < m; i++ {
-		for j := 0; j < n; j++ {
-			if i == 0 && j == 0 {
-				continue
-			} else if i == 0 {
-				grid[i][j] = grid[i][j-1] + grid[i][j]
-			} else if j == 0 {
-				grid[i][j] = grid[i-1][j] + grid[i][j]
-			} else {
-				grid[i][j] = min(grid[i-1][j], grid[i][j-1]) + grid[i][j]
-			}
-		}
-	}
-	return grid[m-1][n-1]
-}
-
-```
-
 ```python
 #python
 class Solution:
@@ -842,22 +806,6 @@ class Solution:
 ```golang
 //经典动态规划问题 dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
 //要么是从上面格子下来的，要么是从左边格子过来的
-func uniquePaths(m int, n int) int {
-    dp := make([][]int, m)
-    for i:=0; i<m; i++ {
-      	dp[i] = make([]int, n)
-        for j:=0; j<n; j++ {
-            //边缘上只有一条路可走
-            if i==0 || j==0 {
-                dp[i][j] = 1
-            }else {
-                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
-
-            }
-        }
-    }
-    return dp[m-1][n-1]
-}
 ```
 
 ```python
@@ -877,26 +825,6 @@ class Solution:
 53 最大子序和 最大子数组和        基础题 分治法 DP
 
 基本DP 思想公式 `status[n+1] = max(status[n], status[n] + nums[n+1]) `
-
-```golang
-func maxSubArray(nums []int) int {
-	len := len(nums)
-	ret := nums[0]
-	dp := nums[0]
-	for i:=1; i<len; i++ {
-		dp = maxV(nums[i], dp + nums[i])
-		ret = maxV(ret, dp)
-	}
-	return ret
-}
-
-func maxV(a int, b int) int {
-	if a>b {
-		return a
-	}
-	return b
-}
-```
 
 ```python
 python 空间优化后
@@ -934,6 +862,30 @@ class Solution:
                 dp[i][j]= (dp[i][j-1] and s2[j-1] == s3[i+j-1]) or (dp[i-1][j] and s1[i-1]==s3[i+j-1])
         return dp[-1][-1]
 
+```
+
+121 买卖股票
+
+```python
+def max_profit_with_days(prices):
+    if not prices:
+        return 0, None, None
+
+    min_price = prices[0]
+    max_profit = 0
+    buy_day = 0
+    sell_day = 0
+
+    for i, price in enumerate(prices):
+        if price < min_price:
+            min_price = price
+            buy_day = i
+        current_profit = price - min_price
+        if current_profit > max_profit:
+            max_profit = current_profit
+            sell_day = i
+
+    return max_profit, prices[buy_day], prices[sell_day]
 ```
 
 121 买卖股票
@@ -980,7 +932,14 @@ def maxProfit(self, prices: List[int]) -> int:
         return profit
 ```
 
+```
+
+```
+
+
+
 45 跳跃游戏 2 -贪心算法
+
 ```python
 class Solution:
     def jump(self, nums: List[int]) -> int:
